@@ -12,70 +12,82 @@ public class EnemySystem : MonoBehaviour
     public Transform deckPosition;
     public Transform handPosition;
     public float cardSpacing = 220f;
+    CardSystem cardSystem;
 
     [Header("Tooth Settings")]
     // La posición para los dientes en escena
     public Transform teethAreaPosition;    
        // El número de dientes por jugador 
     public int teethPerPlayer = 4;
+    // Número de cartas del mano inicial
+    public int initialCardCount = 3;
     // Espaciado para los dientes en escena
     public float toothSpacing = 250f;  
 
     [Header("State")]
-    private Stack<GameObject> deck = new Stack<GameObject>();
-    private List<GameObject> hand = new List<GameObject>();
-    private List<GameObject> teethInPlay = new List<GameObject>();
-    private List<GameObject> allCardObjects = new List<GameObject>();
+    public List<GameObject> hand = new List<GameObject>();
+    public List<GameObject> teethInPlay = new List<GameObject>();
+
+
+    void Awake()
+    {
+        cardSystem = FindFirstObjectByType<CardSystem>();
+    }
 
     private void Start()
     {
-        // Crea todas las cartas
-        CreateAllCards();
-        // Coloca los dientes en juego
-        PlaceInitialTeeth();
-        // Construye el mazo con las cartas restantes
-        BuildDeck();
-        // Roba la mano inicial (1 diente + 3 aleatorias)
-        DrawInitialHand();          
+        Invoke("DrawInitialHand", 0.5f);   
     }
 
-    private void CreateAllCards()
+    private void DrawInitialHand()
     {
-        allCardObjects.Clear();
-
-        foreach (CardData cardData in allCards)
+        bool toothFound = false;
+        for (int i = 0; i < cardSystem.deck.Count; i++)
         {
-            GameObject cardObj = Instantiate(cardPrefab, deckPosition);
-            CardVisual visual = cardObj.GetComponent<CardVisual>();
-            visual.Initialize(cardData);
-         // Todas empiezan desactivadas
-            cardObj.SetActive(false); 
-            allCardObjects.Add(cardObj);
-        }
-
-        Debug.Log($"Creadas {allCardObjects.Count} cartas para " + gameObject.name);
-    }
-
-    private void PlaceInitialTeeth()
-    {
-        // Separar las cartas de dientes del resto
-        // ya que tenemos las cartas por nombre podemos separar los dientes de los demás cartas
-        List<GameObject> toothCards = new List<GameObject>();
-
-        foreach (GameObject card in allCardObjects)
-        {
-            CardVisual visual = card.GetComponent<CardVisual>();
-            if (visual.cardData.cardType == CardType.HealthyTooth)
+            if (!toothFound)
             {
-                toothCards.Add(card);
+                if (cardSystem.deck.ElementAt(i).GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+                {
+                    GameObject card = cardSystem.deck.ElementAt(i);
+                    card.SetActive(true);
+                    hand.Add(card);
+                    List<GameObject> newDeck = new List<GameObject>();
+                    foreach(GameObject oldCard in cardSystem.deck)
+                        newDeck.Add(oldCard);
+                    newDeck.Remove(newDeck[i]);
+                    cardSystem.deck.Clear();
+                    foreach (GameObject newCard in newDeck)
+                        cardSystem.deck.Push(newCard);
+                    toothFound = true;
+                }
             }
         }
 
-        Debug.Log($"Encontradas {toothCards.Count} cartas de dientes en total en " + gameObject.name);
+        for (int i = 0; i < initialCardCount;  i++)
+        {
+            GameObject card = cardSystem.deck.Pop();
+            card.SetActive(true);
+            hand.Add(card);
+        }
 
-        // Seleccionamos los dientes de manera aleatoria
-        System.Random rng = new System.Random();
-        var selectedTeeth = toothCards.OrderBy(x => rng.Next()).Take(teethPerPlayer).ToList();
+        // 5. Actualiza la visual de la mano
+        UpdateHandVisual();
+    
+        Debug.Log($"Mano inicial: {hand.Count} cartas (1 diente + 3 aleatorias)");
+
+        PlaceInitialTeeth();
+    }
+    private void PlaceInitialTeeth()
+    {
+        List<GameObject> selectedTeeth = new List<GameObject>();
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+            {
+                selectedTeeth.Add(hand[i]);
+                hand.Remove(hand[i]);
+            }
+        }
 
         teethInPlay.Clear();
 
@@ -101,105 +113,15 @@ public class EnemySystem : MonoBehaviour
         Debug.Log($"{teethInPlay.Count} dientes colocados para " + gameObject.name);
     }
 
-    private void BuildDeck()
-    {
-        // El mazo se construye con todas las cartas con escepción los dientes que ya están en escena
-        List<GameObject> deckCards = new List<GameObject>();
-
-        foreach (GameObject card in allCardObjects)
-        {
-            // si la carta no está en teethInPlay, va al mazo
-            if (!teethInPlay.Contains(card))
-            {
-                deckCards.Add(card);
-                // aseguramos de que este desactivada
-                card.SetActive(false); 
-                card.transform.position = deckPosition.position;
-            }
-        }
-
-        // barajamos el mazo con un systema aleatoria
-        System.Random rng = new System.Random();
-        var shuffledDeck = deckCards.OrderBy(x => rng.Next()).ToList();
-
-        deck.Clear();
-        foreach (GameObject card in shuffledDeck)
-        {
-            deck.Push(card);
-        }
-
-        Debug.Log($"Mazo construido con {deck.Count} cartas para " + gameObject.name);
-    }
-
-  private void DrawInitialHand()
-{
-        // 4 condicones es que podemos hacer que el jugaador empiece con un número de cantidad 
-        // cartas de dientes esto nos puede servir para agregar el nivel de dificultad 
-
-    // 1. Busca un diente que no esté en escena para la mano
-    List<GameObject> availableTeeth = new List<GameObject>();
-    
-    foreach (GameObject card in deck)
-    {
-        CardVisual visual = card.GetComponent<CardVisual>();
-        if (visual.cardData.cardType == CardType.HealthyTooth)
-        {
-            availableTeeth.Add(card);
-        }
-    }
-    
-    if (availableTeeth.Count == 0)
-    {
-        Debug.LogError("No hay dientes disponibles en el mazo para la mano inicial de " + gameObject.name);
-        return;
-    }
-    
-    // 2. Selecciona un diente aleatorio para la mano
-    System.Random rng = new System.Random();
-    GameObject toothForHand = availableTeeth[rng.Next(availableTeeth.Count)];
-    
-    // 3. Roba ese diente lo quita del mazo y lo pone en la mano
-    List<GameObject> tempList = deck.ToList();
-    tempList.Remove(toothForHand);
-    deck = new Stack<GameObject>(tempList);
-    
-    toothForHand.SetActive(true);
-    hand.Add(toothForHand);
-    
-    Debug.Log($"Diente para mano: {toothForHand.GetComponent<CardVisual>().cardData.cardName}");
-    
-    // 4. Roba 3 cartas aleatorias más del mazo para copletar la mano
-    // esto si es que vamos a empezar con 4 cartas en el inicio de la partida aún no he tenido claro está regla de cuantas cartas empezarems el juego
-    for (int i = 0; i < 3; i++)
-    {
-        if (deck.Count == 0)
-        {
-            Debug.Log("No hay suficientes cartas en el mazo de " + gameObject.name);
-            break;
-        }
-        
-        GameObject card = deck.Pop();
-        card.SetActive(true);
-        hand.Add(card);
-        
-        Debug.Log($"Carta aleatoria: {card.GetComponent<CardVisual>().cardData.cardName}");
-    }
-    
-    // 5. Actualiza la visual de la mano
-    UpdateHandVisual();
-    
-    Debug.Log($"Mano inicial: {hand.Count} cartas (1 diente + 3 aleatorias)");
-}
-
     public GameObject DrawCard()
     {
-        if (deck.Count == 0)
+        if (cardSystem.deck.Count == 0)
         {
             Debug.Log("No quedan cartas en el mazo de " + gameObject.name);
             return null;
         }
 
-        GameObject card = deck.Pop();
+        GameObject card = cardSystem.deck.Pop();
         card.SetActive(true);
         hand.Add(card);
 
@@ -216,7 +138,7 @@ public class EnemySystem : MonoBehaviour
             card.SetActive(false);
             card.transform.position = deckPosition.position;
 
-            deck.Push(card);
+            cardSystem.deck.Push(card);
 
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");
@@ -234,19 +156,9 @@ public class EnemySystem : MonoBehaviour
         {
             GameObject card = hand[i];
             Vector3 newPos = handPosition.position + new Vector3(startX + i * cardSpacing, 0, 0);
+            card.transform.SetParent(deckPosition.transform);
             card.transform.position = newPos;
-
         }
-    }
-
-    public int GetDeckCount()
-    {
-        return deck.Count;
-    }
-
-    public int GetHandCount()
-    {
-        return hand.Count;
     }
 
     public List<CardVisual> GetAllCardsInHand()
@@ -269,28 +181,6 @@ public class EnemySystem : MonoBehaviour
         return result;
     }
 
-    public void PrintDeckInfo()
-    {
-        Debug.Log($"=== ESTADO ACTUAL ===");
-        Debug.Log($"Dientes en juego: {teethInPlay.Count}");
-        Debug.Log($"Mazo: {deck.Count} cartas");
-        Debug.Log($"Mano: {hand.Count} cartas");
-
-        Debug.Log("--- Dientes en juego ---");
-        for (int i = 0; i < teethInPlay.Count; i++)
-        {
-            CardVisual visual = teethInPlay[i].GetComponent<CardVisual>();
-            Debug.Log($"   {i + 1}. {visual.cardData.cardName}");
-        }
-
-        Debug.Log("--- Cartas en mano ---");
-        for (int i = 0; i < hand.Count; i++)
-        {
-            CardVisual visual = hand[i].GetComponent<CardVisual>();
-            Debug.Log($"   {i + 1}. {visual.cardData.cardName} ({visual.cardData.cardType})");
-        }
-    }
-
     public List<CardVisual> GetCardsInHandOfType(CardType type)
     {
         List<CardVisual> result = new List<CardVisual>();
@@ -308,7 +198,7 @@ public class EnemySystem : MonoBehaviour
         int activeCount = 0;
         Debug.Log("=== CARTAS ACTIVAS ===");
 
-        foreach (GameObject card in allCardObjects)
+        foreach (GameObject card in cardSystem.allCardObjects)
         {
             if (card.activeSelf)
             {

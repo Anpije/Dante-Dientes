@@ -24,10 +24,10 @@ public class CardSystem : MonoBehaviour
     public float toothSpacing = 250f;  
 
     [Header("State")]
-    private Stack<GameObject> deck = new Stack<GameObject>();
-    private List<GameObject> hand = new List<GameObject>();
-    private List<GameObject> teethInPlay = new List<GameObject>();
-    private List<GameObject> allCardObjects = new List<GameObject>();
+    public Stack<GameObject> deck = new Stack<GameObject>();
+    public List<GameObject> hand = new List<GameObject>();
+    public List<GameObject> teethInPlay = new List<GameObject>();
+    public List<GameObject> allCardObjects = new List<GameObject>();
 
     private void Awake()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyActions : MonoBehaviour
 {
     EnemySystem _EnSystem;
+    EnemyBehaviour _EnBehave;
 
     [Header("Display Info")]
     [SerializeField] private Text infoText;
@@ -11,6 +12,7 @@ public class EnemyActions : MonoBehaviour
     void Awake()
     {
         _EnSystem = GetComponent<EnemySystem>();
+        _EnBehave = GetComponent<EnemyBehaviour>();
     }
 
     public void PlayCard()
@@ -30,6 +32,11 @@ public class EnemyActions : MonoBehaviour
             infoText.text = "No hay más cartas en el mazo";
     }
 
+    public void RevealHand()
+    {
+        
+    }
+    
     public void StealCard()
     {
         
