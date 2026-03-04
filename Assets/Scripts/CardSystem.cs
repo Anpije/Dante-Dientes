@@ -223,10 +223,8 @@ public class CardSystem : MonoBehaviour
         if (hand.Contains(card))
         {
             hand.Remove(card);
-            card.SetActive(false);
-            card.transform.position = deckPosition.position;
-
-            deck.Push(card);
+            allCardObjects.Remove(card);
+            Destroy(card);
 
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");
