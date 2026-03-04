@@ -8,7 +8,7 @@ public class EnemySystem : MonoBehaviour
     public List<CardData> allCards;
 
     [Header("References")]
-    public GameObject cardPrefab;
+    public GameObject cardModel;
     public Transform deckPosition;
     public Transform handPosition;
     public float cardSpacing = 220f;
@@ -135,10 +135,8 @@ public class EnemySystem : MonoBehaviour
         if (hand.Contains(card))
         {
             hand.Remove(card);
-            card.SetActive(false);
-            card.transform.position = deckPosition.position;
-
-            cardSystem.deck.Push(card);
+            cardSystem.allCardObjects.Remove(card);
+            Destroy(card);
 
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");
