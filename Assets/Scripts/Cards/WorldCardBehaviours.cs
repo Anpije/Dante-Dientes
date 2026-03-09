@@ -18,6 +18,9 @@ public class WorldCardBehaviours : MonoBehaviour
     {
         defaultPosition = gameObject.transform.position;
         defaultRotation = gameObject.transform.rotation;
+
+        gameObject.transform.position = Vector3.zero;
+        gameObject.transform.rotation = new Quaternion(0, 38.779f, 0, 0);
     }
 
     public void fGoToPosition(Transform newPos, float newSpeed)
