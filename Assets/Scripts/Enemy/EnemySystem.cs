@@ -100,29 +100,21 @@ public class EnemySystem : MonoBehaviour
         card.SetActive(false);
 
         // Activate corresponding tooth
-        string toothName = "";
-        for (int i = 0; i < 3; i++)
-            toothName += card.GetComponent<CardVisual>().cardData.cardName[i];
-
-        switch (toothName)
+        switch (card.GetComponent<CardVisual>().cardData.cardColor)
         {
-            case "Can":
+            case ToothColor.Blue:
                 cardModels[0].fGoToPosition(teethModels[0].transform, 0.25f);
                 teethModels[0].SetActive(true);
                 break;
-            case "Inc":
-                if (!teethModels[1].activeSelf)
-                {
-                    cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
-                    teethModels[1].SetActive(true);
-                }
-                else
-                {
-                    cardModels[2].fGoToPosition(teethModels[2].transform, 0.25f);
-                    teethModels[2].SetActive(true);
-                }
+            case ToothColor.Red:
+                cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
+                teethModels[1].SetActive(true);
                 break;
-            case "Mol":
+            case ToothColor.Green:
+                cardModels[2].fGoToPosition(teethModels[3].transform, 0.25f);
+                teethModels[2].SetActive(true);
+                break;
+            case ToothColor.Yellow:
                 cardModels[3].fGoToPosition(teethModels[3].transform, 0.25f);
                 teethModels[3].SetActive(true);
                 break;
