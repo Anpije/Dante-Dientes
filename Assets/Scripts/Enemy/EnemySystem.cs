@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.Linq;
 
@@ -8,21 +9,20 @@ public class EnemySystem : MonoBehaviour
     public List<CardData> allCards;
 
     [Header("References")]
-    public GameObject cardModel;
+    public WorldCardBehaviours[] cardModels;
+    public Transform handPositionUI;
     public Transform deckPosition;
     public Transform handPosition;
+    public Transform discardPosition;
     public float cardSpacing = 220f;
     CardSystem cardSystem;
 
     [Header("Tooth Settings")]
-    // La posición para los dientes en escena
     public Transform teethAreaPosition;    
-       // El número de dientes por jugador 
     public int teethPerPlayer = 4;
-    // Número de cartas del mano inicial
     public int initialCardCount = 3;
-    // Espaciado para los dientes en escena
     public float toothSpacing = 250f;  
+    public GameObject[] teethModels;
 
     [Header("State")]
     public List<GameObject> hand = new List<GameObject>();
@@ -36,7 +36,17 @@ public class EnemySystem : MonoBehaviour
 
     private void Start()
     {
-        Invoke("DrawInitialHand", 0.5f);   
+        Invoke("DrawInitialHand", 0.5f);
+        StartCoroutine(DrawAllCards());
+    }
+
+    IEnumerator DrawAllCards()
+    {
+        for (int i = 0; i < cardModels.Length; i++)
+        {
+            yield return new WaitForSeconds(0.25f);
+            cardModels[i].fDrawn(deckPosition);
+        }
     }
 
     private void DrawInitialHand()
@@ -66,8 +76,13 @@ public class EnemySystem : MonoBehaviour
         for (int i = 0; i < initialCardCount;  i++)
         {
             GameObject card = cardSystem.deck.Pop();
-            card.SetActive(true);
-            hand.Add(card);
+            if (card.GetComponent<CardVisual>().cardData.cardType != CardType.HealthyTooth)
+            {
+                card.SetActive(true);
+                hand.Add(card);
+            }
+            else 
+                i--;
         }
 
         // 5. Actualiza la visual de la mano
@@ -75,42 +90,45 @@ public class EnemySystem : MonoBehaviour
     
         Debug.Log($"Mano inicial: {hand.Count} cartas (1 diente + 3 aleatorias)");
 
-        PlaceInitialTeeth();
+        // PlaceInitialTeeth();
     }
-    private void PlaceInitialTeeth()
+
+    public void PlaceTooth(GameObject card)
     {
-        List<GameObject> selectedTeeth = new List<GameObject>();
-        for (int i = 0; i < hand.Count; i++)
+        teethInPlay.Add(card);
+        hand.Remove(card);
+        card.SetActive(false);
+
+        // Activate corresponding tooth
+        string toothName = "";
+        for (int i = 0; i < 3; i++)
+            toothName += card.GetComponent<CardVisual>().cardData.cardName[i];
+
+        switch (toothName)
         {
-            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
-            {
-                selectedTeeth.Add(hand[i]);
-                hand.Remove(hand[i]);
-            }
+            case "Can":
+                cardModels[0].fGoToPosition(teethModels[0].transform, 0.25f);
+                teethModels[0].SetActive(true);
+                break;
+            case "Inc":
+                if (!teethModels[1].activeSelf)
+                {
+                    cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
+                    teethModels[1].SetActive(true);
+                }
+                else
+                {
+                    cardModels[2].fGoToPosition(teethModels[2].transform, 0.25f);
+                    teethModels[2].SetActive(true);
+                }
+                break;
+            case "Mol":
+                cardModels[3].fGoToPosition(teethModels[3].transform, 0.25f);
+                teethModels[3].SetActive(true);
+                break;
         }
 
-        teethInPlay.Clear();
-
-        // Posicionamos los dientes seleccionados
-        float totalWidth = (selectedTeeth.Count - 1) * toothSpacing;
-        float startX = -totalWidth / 2f;
-
-        for (int i = 0; i < selectedTeeth.Count; i++)
-        {
-            GameObject tooth = selectedTeeth[i];
-
-            tooth.SetActive(true);
-            teethInPlay.Add(tooth);
-
-            // Vector3 para la UI
-            Vector3 newPos = teethAreaPosition.position + new Vector3(startX + i * toothSpacing, 0, 0);
-            tooth.transform.position = newPos;
-            tooth.transform.rotation = Quaternion.identity;
-
-            Debug.Log($"Diente en juego: {tooth.GetComponent<CardVisual>().cardData.cardName} en {newPos} para " + gameObject.name);
-        }
-
-        Debug.Log($"{teethInPlay.Count} dientes colocados para " + gameObject.name);
+        Invoke("DrawCard", 0.5f);
     }
 
     public GameObject DrawCard()
@@ -125,6 +143,9 @@ public class EnemySystem : MonoBehaviour
         card.SetActive(true);
         hand.Add(card);
 
+        for (int i = 0; i < cardModels.Length; i++)
+            if (!cardModels[i].atDefaultTransform) cardModels[i].fDrawn(deckPosition);
+
         UpdateHandVisual();
         Debug.Log($"Robada: {card.GetComponent<CardVisual>().cardData.cardName}");
         return card;
@@ -137,7 +158,7 @@ public class EnemySystem : MonoBehaviour
             hand.Remove(card);
             cardSystem.allCardObjects.Remove(card);
             Destroy(card);
-
+            cardModels[Random.Range(0, cardModels.Length)].fGoToPosition(discardPosition, 1);
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");
         }
@@ -154,7 +175,7 @@ public class EnemySystem : MonoBehaviour
         {
             GameObject card = hand[i];
             Vector3 newPos = handPosition.position + new Vector3(startX + i * cardSpacing, 0, 0);
-            card.transform.SetParent(deckPosition.transform);
+            card.transform.SetParent(handPositionUI.transform);
             card.transform.position = newPos;
         }
     }

@@ -6,35 +6,37 @@ public class EnemyActions : MonoBehaviour
     EnemySystem _EnSystem;
     EnemyBehaviour _EnBehave;
 
-    [Header("Display Info")]
-    [SerializeField] private Text infoText;
-
     void Awake()
     {
         _EnSystem = GetComponent<EnemySystem>();
         _EnBehave = GetComponent<EnemyBehaviour>();
     }
 
-    public void PlayCard()
+    public void PlayCard(GameObject card)
     {
-
+        // Play card
+        _EnSystem.DiscardCard(card);
     }
 
+    [ContextMenu("Draw")]
     public void DrawCard()
     {
         GameObject newCard = _EnSystem.DrawCard();
         if (newCard != null)
         {
             CardVisual visual = newCard.GetComponent<CardVisual>();
-            infoText.text = $"Drawn: {visual.cardData.cardName} for {gameObject.name}";
         }
-        else
-            infoText.text = "No hay más cartas en el mazo";
     }
 
+    [ContextMenu("RevealHand")]
     public void RevealHand()
     {
-        
+        _EnSystem.handPositionUI.gameObject.SetActive(true);
+    }
+
+    public void HideHand()
+    {
+        _EnSystem.handPositionUI.gameObject.SetActive(false);
     }
     
     public void StealCard()
@@ -42,19 +44,16 @@ public class EnemyActions : MonoBehaviour
         
     }
 
+    [ContextMenu("Discard")]
     public void Discard()
     {
-        if (CardSystem.Instance == null) return;
-
         var cards = _EnSystem.GetAllCardsInHand();
         if (cards.Count > 0)
         {
             GameObject card = cards[0].gameObject;
             string name = card.GetComponent<CardVisual>().cardData.cardName;
-            CardSystem.Instance.DiscardCard(card);
-            infoText.text = $"Descartada: {name}";
+            _EnSystem.DiscardCard(card);
+            Invoke("DrawCard", 1);
         }
-        else
-            infoText.text = "No hay cartas en la mano";
     }
 }
