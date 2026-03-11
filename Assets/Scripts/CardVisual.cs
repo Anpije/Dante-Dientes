@@ -81,13 +81,13 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
         }
 
         // renderizado de las carta tengas
-        Canvas canvas = GetComponent<Canvas>();
+        /*Canvas canvas = GetComponent<Canvas>();
         if (canvas == null)
         {
             canvas = gameObject.AddComponent<Canvas>();
             canvas.overrideSorting = true;
             canvas.sortingOrder = 1;
-        }
+        }*/
     }
     
     //En escena tenemos la carta por su nombre y que tipo es, aquí definó que son 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerWorldSpaceManager : MonoBehaviour
 {
-    [SerializeField] private WorldCardBehaviours[] cards;
+    [SerializeField] public WorldCardBehaviours[] cards;
     [SerializeField] private GameObject[] teeth;
     [SerializeField] Transform deck;
     [SerializeField] Transform discardPile;
@@ -32,9 +32,19 @@ public class PlayerWorldSpaceManager : MonoBehaviour
         cards[cardID].fGoToPosition(discardPile, 1);
     }
 
+    public void ReturnFromPosition(int cardID, Transform startPos, float speed)
+    {
+        cards[cardID].fReturnFromPosition(startPos, speed);
+    }
+
     public void CardToTooth(int cardID, int toothID)
     {
         cards[cardID].fGoToPosition(teeth[toothID].transform, 0.25f);
+    }
+
+    public void ToggleCard(int cardID, bool visible)
+    {
+        cards[cardID].fToggleCard(visible);
     }
 
     public void ToggleTooth(int toothID, bool visible)

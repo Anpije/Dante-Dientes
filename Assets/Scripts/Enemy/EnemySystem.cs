@@ -11,6 +11,7 @@ public class EnemySystem : MonoBehaviour
     [Header("References")]
     public WorldCardBehaviours[] cardModels;
     public Transform handPositionUI;
+    public Transform teethPositionUI;
     public Transform deckPosition;
     public Transform handPosition;
     public Transform discardPosition;
@@ -61,6 +62,7 @@ public class EnemySystem : MonoBehaviour
                     GameObject card = cardSystem.deck.ElementAt(i);
                     card.SetActive(true);
                     hand.Add(card);
+                    card.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                     List<GameObject> newDeck = new List<GameObject>();
                     foreach(GameObject oldCard in cardSystem.deck)
                         newDeck.Add(oldCard);
@@ -80,6 +82,7 @@ public class EnemySystem : MonoBehaviour
             {
                 card.SetActive(true);
                 hand.Add(card);
+                card.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
             }
             else 
                 i--;
@@ -97,7 +100,8 @@ public class EnemySystem : MonoBehaviour
     {
         teethInPlay.Add(card);
         hand.Remove(card);
-        card.SetActive(false);
+
+        card.transform.SetParent(teethPositionUI);
 
         // Activate corresponding tooth
         switch (card.GetComponent<CardVisual>().cardData.cardColor)
@@ -134,6 +138,7 @@ public class EnemySystem : MonoBehaviour
         GameObject card = cardSystem.deck.Pop();
         card.SetActive(true);
         hand.Add(card);
+        card.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
 
         for (int i = 0; i < cardModels.Length; i++)
             if (!cardModels[i].atDefaultTransform) cardModels[i].fDrawn(deckPosition);

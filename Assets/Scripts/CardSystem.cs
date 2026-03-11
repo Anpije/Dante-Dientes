@@ -231,7 +231,7 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-    private void UpdateHandVisual()
+    public void UpdateHandVisual()
     {
         if (hand.Count == 0) return;
 

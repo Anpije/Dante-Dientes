@@ -25,6 +25,7 @@ public class WorldCardBehaviours : MonoBehaviour
 
     public void fGoToPosition(Transform newPos, float newSpeed)
     {
+        // Mueve una carta a la posición pasada, este posición no puede ser la posición original
         targetPosition = newPos.position;
         targetRotation = newPos.rotation;
         speed = newSpeed;
@@ -34,8 +35,24 @@ public class WorldCardBehaviours : MonoBehaviour
         atDefaultTransform = false;
     }
 
+    public void fReturnFromPosition(Transform startPos, float newSpeed)
+    {
+        // Posiciona una carta en otro lugar para después moverlo a su posición original
+        gameObject.transform.position = startPos.position;
+        gameObject.transform.rotation = startPos.rotation;
+
+        targetPosition = defaultPosition;
+        targetRotation = defaultRotation;
+        speed = newSpeed;
+        moving = true;
+        timeCount = 0.0f;
+        rotating = true;
+        atDefaultTransform = true;
+    }
+
     public void fDrawn(Transform deckPos)
     {
+        // Mueve la carta desde el mazo hasta su posición original
         gameObject.transform.position = deckPos.position;
         gameObject.transform.rotation = deckPos.rotation;
 
@@ -46,6 +63,21 @@ public class WorldCardBehaviours : MonoBehaviour
         timeCount = 0.0f;
         rotating = true;
         atDefaultTransform = true;
+    }
+
+    public void fToggleCard(bool reveal)
+    {
+        // Esconde o revela una carta dependiendo en el booleano pasado
+        if (!reveal)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); 
+            atDefaultTransform = false;
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z); 
+            atDefaultTransform = true;
+        }
     }
 
     void Update()
