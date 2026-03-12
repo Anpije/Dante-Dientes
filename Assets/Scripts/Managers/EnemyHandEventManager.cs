@@ -25,10 +25,10 @@ public class EnemyHandEventManager : MonoBehaviour
     [ContextMenu("Try")]
     public void LetsTry()
     {
-        OpenPanelAs("stealOrSwapCards");
+        OpenPanelAs("stealOrSwapCards", true);
     }
 
-    public void OpenPanelAs(string purpose)
+    public void OpenPanelAs(string purpose, bool effectCards)
     {
         idsToHold = 0;
         storedIDs.Clear();
@@ -37,6 +37,7 @@ public class EnemyHandEventManager : MonoBehaviour
         _HandPanel.SetActive(false);
         _TeethPanel.SetActive(false);
         _PlayerHandButton.gameObject.SetActive(true);
+        takeCards = effectCards;
         for (int i = 0; i < 3; i++)
         {
             _EnemyButtons[i].gameObject.SetActive(true);
@@ -184,10 +185,31 @@ public class EnemyHandEventManager : MonoBehaviour
                     selectedCards[enemysToothID].transform.SetParent(teethPanels[3].transform);
                     FindFirstObjectByType<CardSystem>().teethInPlay.Add(selectedCards[enemysToothID]);
                     _Panel.SetActive(false);
+                    // Cambiar los dientes en el espacio del mundo
                 }
                 else
                 {
-                    Debug.Log("Whoopsie doodle");
+                    _Panel.SetActive(false);
+                    if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[0]))
+                    {
+                        Debug.Log("First was true");
+                        _EnemySystems[storedIDs[0]].teethInPlay.Remove(selectedCards[0]);
+                        selectedCards[0].transform.SetParent(teethPanels[storedIDs[1]].transform);
+                        _EnemySystems[storedIDs[1]].teethInPlay.Add(selectedCards[0]);
+                        _EnemySystems[storedIDs[1]].teethInPlay.Remove(selectedCards[1]);
+                        selectedCards[1].transform.SetParent(teethPanels[storedIDs[0]].transform);
+                        _EnemySystems[storedIDs[0]].teethInPlay.Add(selectedCards[1]);
+                    }
+                    else
+                    {
+                        Debug.Log("First was false");
+                        _EnemySystems[storedIDs[0]].teethInPlay.Remove(selectedCards[1]);
+                        selectedCards[0].transform.SetParent(teethPanels[storedIDs[0]].transform);
+                        _EnemySystems[storedIDs[1]].teethInPlay.Add(selectedCards[1]);
+                        _EnemySystems[storedIDs[1]].teethInPlay.Remove(selectedCards[0]);
+                        selectedCards[1].transform.SetParent(teethPanels[storedIDs[1]].transform);
+                        _EnemySystems[storedIDs[0]].teethInPlay.Add(selectedCards[0]);
+                    }
                 }
 
             }
