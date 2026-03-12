@@ -23,7 +23,7 @@ public class EnemySystem : MonoBehaviour
     public int teethPerPlayer = 4;
     public int initialCardCount = 3;
     public float toothSpacing = 250f;  
-    public GameObject[] teethModels;
+    public ToothObject[] teethModels;
 
     [Header("State")]
     public List<GameObject> hand = new List<GameObject>();
@@ -108,19 +108,19 @@ public class EnemySystem : MonoBehaviour
         {
             case ToothColor.Blue:
                 cardModels[0].fGoToPosition(teethModels[0].transform, 0.25f);
-                teethModels[0].SetActive(true);
+                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.Incisor);
                 break;
             case ToothColor.Red:
                 cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
-                teethModels[1].SetActive(true);
+                teethModels[teethInPlay.Count -1 ].fAddTooth(ToothObject.Tooth.Canine);
                 break;
             case ToothColor.Green:
                 cardModels[2].fGoToPosition(teethModels[3].transform, 0.25f);
-                teethModels[2].SetActive(true);
+                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.PreMol);
                 break;
             case ToothColor.Yellow:
                 cardModels[3].fGoToPosition(teethModels[3].transform, 0.25f);
-                teethModels[3].SetActive(true);
+                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.Molar);
                 break;
         }
 

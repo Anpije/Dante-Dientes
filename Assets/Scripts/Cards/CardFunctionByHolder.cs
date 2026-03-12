@@ -10,8 +10,11 @@ public class CardFunctionByHolder : MonoBehaviour
     {
         if (currentHolder != Holders.Player || !FindFirstObjectByType<EnemyHandEventManager>().takeCards)
         {
-            FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
-            FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
+            if (FindFirstObjectByType<EnemyHandEventManager>().storedIDs.Count != 0)
+            {
+                FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
+            }
         }
     }
 }

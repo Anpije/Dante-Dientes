@@ -13,7 +13,7 @@ public class EnemyHandEventManager : MonoBehaviour
     [SerializeField] GameObject _TeethPanel;
     [SerializeField] GameObject[] teethPanels;
 
-    [SerializeField] private List<int> storedIDs = new List<int>();
+    [SerializeField] public List<int> storedIDs = new List<int>();
     int idsToHold = 0;
     public List<GameObject> selectedCards = new List<GameObject>();
     int cardsToHold = 0;
@@ -25,7 +25,7 @@ public class EnemyHandEventManager : MonoBehaviour
     [ContextMenu("Try")]
     public void LetsTry()
     {
-        OpenPanelAs("stealOrSwapCards", true);
+        OpenPanelAs("stealOrSwapCards", false);
     }
 
     public void OpenPanelAs(string purpose, bool effectCards)

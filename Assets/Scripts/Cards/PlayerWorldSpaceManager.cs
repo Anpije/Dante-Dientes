@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerWorldSpaceManager : MonoBehaviour
 {
     [SerializeField] public WorldCardBehaviours[] cards;
-    [SerializeField] private GameObject[] teeth;
+    [SerializeField] private ToothObject[] teeth;
     [SerializeField] Transform deck;
     [SerializeField] Transform discardPile;
 
@@ -49,6 +49,6 @@ public class PlayerWorldSpaceManager : MonoBehaviour
 
     public void ToggleTooth(int toothID, bool visible)
     {
-        teeth[toothID].SetActive(visible);
+        //teeth[toothID].SetActive(visible);
     }
 }
