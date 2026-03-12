@@ -101,6 +101,7 @@ public class CardSystem : MonoBehaviour
             teethInPlay.Add(tooth);
 
             // Vector3 para la UI
+            tooth.transform.SetParent(teethAreaPosition);
             Vector3 newPos = teethAreaPosition.position + new Vector3(startX + i * toothSpacing, 0, 0);
             tooth.transform.position = newPos;
             tooth.transform.rotation = Quaternion.identity;

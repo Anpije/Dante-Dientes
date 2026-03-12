@@ -8,7 +8,7 @@ public class CardFunctionByHolder : MonoBehaviour
 
     public void OnCardSelected()
     {
-        if (currentHolder != Holders.Player)
+        if (currentHolder != Holders.Player || !FindFirstObjectByType<EnemyHandEventManager>().takeCards)
         {
             FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
             FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);

@@ -17,6 +17,7 @@ public class EnemyHandEventManager : MonoBehaviour
     int idsToHold = 0;
     public List<GameObject> selectedCards = new List<GameObject>();
     int cardsToHold = 0;
+    public bool takeCards = true;
     private string _Purpose;
 
     [SerializeField] EnemySystem[] _EnemySystems;
@@ -41,8 +42,9 @@ public class EnemyHandEventManager : MonoBehaviour
             _EnemyButtons[i].gameObject.SetActive(true);
             _EnemyButtons[i].interactable = true;
             handPanels[i].SetActive(false);
-            teethPanels[i].SetActive(false);
         }
+        for (int i = 0; i < 4; i++)
+            teethPanels[i].SetActive(false);
         _Panel.SetActive(true);
 
         _Purpose = purpose;
@@ -82,7 +84,7 @@ public class EnemyHandEventManager : MonoBehaviour
         _PlayerHandButton.gameObject.SetActive(false);
         for (int i = 0; i < 3; i++)
             _EnemyButtons[i].gameObject.SetActive(false);
-
+        
         if (storedIDs[0] == 3 || storedIDs[1] == 3)
         {
             int other = 0;
@@ -115,11 +117,19 @@ public class EnemyHandEventManager : MonoBehaviour
         StopCoroutine(fExchangeCards());
     }
 
+    void fExchangeTeeth()
+    {
+        _TeethPanel.SetActive(true);
+        for (int i = 0; i < 2; i++)
+            teethPanels[storedIDs[i]].SetActive(true);
+        cardsToHold = 2;
+    }
+
     public void stealTheCard(GameObject card)
     {
         if (selectedCards.Count == cardsToHold)
         {
-            if (cardsToHold == 1)
+            if (cardsToHold == 1) // Estamos cambiando/robando cartas
             {
                 int enSyst = 0;
                 for (int i = 0; i < 3; i++)
@@ -147,6 +157,40 @@ public class EnemyHandEventManager : MonoBehaviour
                 _Panel.SetActive(false);
                 FindFirstObjectByType<PlayerWorldSpaceManager>().ReturnFromPosition(cardID, newTrans, 3);
             }
+            if (cardsToHold == 2) // Estamos cambiando dientes
+            {
+                GameObject playersOldTooth = null;
+                int enemysToothID = 0;
+                int enemySystID = 0;
+                for (int i = 0; i < 2; i++)
+                {
+                    if (selectedCards[i].GetComponent<CardFunctionByHolder>().currentHolder == CardFunctionByHolder.Holders.Player)
+                    {
+                        playersOldTooth = selectedCards[i];
+                        if (i == 0) enemysToothID = 1; else enemysToothID = 0;
+                    }
+
+                    if (storedIDs[i] != 3) enemySystID = storedIDs[i];
+                }
+
+                if (playersOldTooth != null)
+                {
+                    FindFirstObjectByType<CardSystem>().teethInPlay.Remove(playersOldTooth);
+                    playersOldTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
+                    playersOldTooth.transform.SetParent(teethPanels[enemySystID].transform);
+                    _EnemySystems[enemySystID].teethInPlay.Add(playersOldTooth);
+                    _EnemySystems[enemySystID].teethInPlay.Remove(selectedCards[enemysToothID]);
+                    selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
+                    selectedCards[enemysToothID].transform.SetParent(teethPanels[3].transform);
+                    FindFirstObjectByType<CardSystem>().teethInPlay.Add(selectedCards[enemysToothID]);
+                    _Panel.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("Whoopsie doodle");
+                }
+
+            }
         }
     }
 
@@ -161,7 +205,8 @@ public class EnemyHandEventManager : MonoBehaviour
                 storedIDs.Add(enemyID);
                 _EnemyButtons[enemyID].interactable = false;
                 if (storedIDs.Count == idsToHold) 
-                    StartCoroutine(fExchangeCards());
+                    if (takeCards) StartCoroutine(fExchangeCards());
+                    else fExchangeTeeth();
                 break;
             case "swapTeeth":
                 fSwapTeeth();
@@ -173,7 +218,8 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         storedIDs.Add(3);
         if (storedIDs.Count == idsToHold) 
-            StartCoroutine(fExchangeCards());
+            if (takeCards) StartCoroutine(fExchangeCards());
+            else fExchangeTeeth();
     }
 
     void fEchangeAllCards()
