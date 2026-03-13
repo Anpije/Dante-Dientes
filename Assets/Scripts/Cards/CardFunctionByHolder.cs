@@ -8,13 +8,25 @@ public class CardFunctionByHolder : MonoBehaviour
 
     public void OnCardSelected()
     {
-        if (currentHolder != Holders.Player || !FindFirstObjectByType<EnemyHandEventManager>().takeCards)
+        EnemyHandEventManager enMan = FindFirstObjectByType<EnemyHandEventManager>();
+
+        if (enMan.storedIDs.Count == 0) return;
+        switch (enMan._Purpose)
         {
-            if (FindFirstObjectByType<EnemyHandEventManager>().storedIDs.Count != 0)
-            {
+            case "selectEnemy":
+                
+                break;
+            case "stealOrSwapCards":
                 FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                 FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
-            }
+                break;
+            case "swapTeeth":
+                FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
+                break;
+            case "selectTooth":
+                
+                break;
         }
     }
 }

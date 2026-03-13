@@ -47,8 +47,20 @@ public class PlayerWorldSpaceManager : MonoBehaviour
         cards[cardID].fToggleCard(visible);
     }
 
-    public void ToggleTooth(int toothID, bool visible)
+    public void ToggleTooth(int toothID, bool visible, int type)
     {
-        //teeth[toothID].SetActive(visible);
+        Debug.Log(visible);
+        Debug.Log(toothID);
+        Debug.Log(teeth[toothID]);
+        Debug.Log(type);
+        if (visible)
+            teeth[toothID].fAddTooth(type);
+        else
+            teeth[toothID].fDeleteTooth();
+    }
+
+    public void ChangeTooth(int toothID, int type)
+    {
+        teeth[toothID].fModifyTooth(type);
     }
 }

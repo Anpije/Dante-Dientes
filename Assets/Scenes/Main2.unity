@@ -515,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &242768432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,11 +864,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 267321912}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &267321914 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+--- !u!114 &267321918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 267321912}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b91116aa235d3240b47a2ff74fa0c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToothObject
 --- !u!114 &271706062 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7013011446662617669, guid: dbdcdde1a3e9a1944b61fc5cd333efdb, type: 3}
@@ -1378,11 +1384,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 365643223}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &365643225 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+--- !u!114 &365643229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 365643223}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b91116aa235d3240b47a2ff74fa0c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToothObject
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5630,7 +5642,7 @@ MonoBehaviour:
   - {fileID: 569045508}
   storedIDs: 
   selectedCards: []
-  takeCards: 0
+  _Purpose: 
   _EnemySystems:
   - {fileID: 242768434}
   - {fileID: 347477666}
@@ -5712,11 +5724,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 1549589013}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1549589015 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+--- !u!114 &1549589019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 1549589013}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b91116aa235d3240b47a2ff74fa0c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToothObject
 --- !u!1001 &1556062066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5915,10 +5933,10 @@ MonoBehaviour:
   - {fileID: 1847517907}
   - {fileID: 1145587578}
   teeth:
-  - {fileID: 365643225}
-  - {fileID: 267321914}
-  - {fileID: 1549589015}
-  - {fileID: 2132403528}
+  - {fileID: 365643229}
+  - {fileID: 267321918}
+  - {fileID: 1549589019}
+  - {fileID: 2132403533}
   deck: {fileID: 636956823}
   discardPile: {fileID: 716924176}
 --- !u!4 &1673965395
@@ -6943,16 +6961,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
---- !u!1 &2132403528 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
-  m_PrefabInstance: {fileID: 2132403527}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2132403529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
   m_PrefabInstance: {fileID: 2132403527}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132403533 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+  m_PrefabInstance: {fileID: 2132403527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b91116aa235d3240b47a2ff74fa0c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToothObject
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

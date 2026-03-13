@@ -27,16 +27,16 @@ public class ToothObject : MonoBehaviour
         transform.position = outPlayPos;
     }
 
-    public void fAddTooth(Tooth newType)
+    public void fAddTooth(int newType)
     {
-        toothType = newType;
+        toothType = (Tooth)newType;
         int ID = (int)toothType;
         StartCoroutine(AddTooth(ID));
     }
 
-    public void fModifyTooth(Tooth newType)
+    public void fModifyTooth(int newType)
     {
-        toothType = newType;
+        toothType = (Tooth)newType;
         int ID = (int)toothType;
         StartCoroutine(SwapTooth(ID));
     }

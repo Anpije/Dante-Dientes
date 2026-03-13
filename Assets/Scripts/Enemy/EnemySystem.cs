@@ -108,19 +108,19 @@ public class EnemySystem : MonoBehaviour
         {
             case ToothColor.Blue:
                 cardModels[0].fGoToPosition(teethModels[0].transform, 0.25f);
-                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.Incisor);
+                teethModels[teethInPlay.Count - 1].fAddTooth(0);
                 break;
             case ToothColor.Red:
                 cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
-                teethModels[teethInPlay.Count -1 ].fAddTooth(ToothObject.Tooth.Canine);
+                teethModels[teethInPlay.Count -1 ].fAddTooth(1);
                 break;
             case ToothColor.Green:
                 cardModels[2].fGoToPosition(teethModels[3].transform, 0.25f);
-                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.PreMol);
+                teethModels[teethInPlay.Count - 1].fAddTooth(2);
                 break;
             case ToothColor.Yellow:
                 cardModels[3].fGoToPosition(teethModels[3].transform, 0.25f);
-                teethModels[teethInPlay.Count - 1].fAddTooth(ToothObject.Tooth.Molar);
+                teethModels[teethInPlay.Count - 1].fAddTooth(3);
                 break;
         }
 

@@ -17,15 +17,14 @@ public class EnemyHandEventManager : MonoBehaviour
     int idsToHold = 0;
     public List<GameObject> selectedCards = new List<GameObject>();
     int cardsToHold = 0;
-    public bool takeCards = true;
-    private string _Purpose;
+    public string _Purpose;
 
     [SerializeField] EnemySystem[] _EnemySystems;
 
     [ContextMenu("Try")]
     public void LetsTry()
     {
-        OpenPanelAs("stealOrSwapCards", false);
+        OpenPanelAs("swapTeeth", false);
     }
 
     public void OpenPanelAs(string purpose, bool effectCards)
@@ -37,11 +36,15 @@ public class EnemyHandEventManager : MonoBehaviour
         _HandPanel.SetActive(false);
         _TeethPanel.SetActive(false);
         _PlayerHandButton.gameObject.SetActive(true);
-        takeCards = effectCards;
         for (int i = 0; i < 3; i++)
         {
-            _EnemyButtons[i].gameObject.SetActive(true);
-            _EnemyButtons[i].interactable = true;
+            if (_EnemySystems[i].gameObject.activeSelf)
+            {
+                _EnemyButtons[i].gameObject.SetActive(true);
+                _EnemyButtons[i].interactable = true;
+            }
+            else
+                _EnemyButtons[i].gameObject.SetActive(false);
             handPanels[i].SetActive(false);
         }
         for (int i = 0; i < 4; i++)
@@ -61,6 +64,9 @@ public class EnemyHandEventManager : MonoBehaviour
             case "swapTeeth":
                 fSwapTeeth();
                 break;
+            case "selectTooth":
+                fSelectTooth();
+                break;
         }
     }
 
@@ -78,6 +84,13 @@ public class EnemyHandEventManager : MonoBehaviour
     void fSwapTeeth()
     {
         idsToHold = 2;
+        _TeethPanel.SetActive(true);
+    }
+
+    void fSelectTooth()
+    {
+        idsToHold = 1;
+        _TeethPanel.SetActive(true);
     }
 
     IEnumerator fExchangeCards()
@@ -114,13 +127,13 @@ public class EnemyHandEventManager : MonoBehaviour
             _EnemySystems[storedIDs[0]].cardModels[firstCard].fReturnFromPosition(newTrans2, 3);
             yield return new WaitForSeconds(0.2f);
             _EnemySystems[storedIDs[1]].cardModels[secondCard].fReturnFromPosition(newTrans1, 3);
+            _Purpose = "";
         }
         StopCoroutine(fExchangeCards());
     }
 
     void fExchangeTeeth()
     {
-        _TeethPanel.SetActive(true);
         for (int i = 0; i < 2; i++)
             teethPanels[storedIDs[i]].SetActive(true);
         cardsToHold = 2;
@@ -176,6 +189,8 @@ public class EnemyHandEventManager : MonoBehaviour
 
                 if (playersOldTooth != null)
                 {
+                    int playersToothIndex = playersOldTooth.transform.GetSiblingIndex();
+                    int enemysToothIndex = selectedCards[enemysToothID].transform.GetSiblingIndex();
                     FindFirstObjectByType<CardSystem>().teethInPlay.Remove(playersOldTooth);
                     playersOldTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                     playersOldTooth.transform.SetParent(teethPanels[enemySystID].transform);
@@ -186,33 +201,48 @@ public class EnemyHandEventManager : MonoBehaviour
                     FindFirstObjectByType<CardSystem>().teethInPlay.Add(selectedCards[enemysToothID]);
                     _Panel.SetActive(false);
                     // Cambiar los dientes en el espacio del mundo
+                    _EnemySystems[enemySystID].teethModels[enemysToothIndex].fModifyTooth((int)playersOldTooth.GetComponent<CardVisual>().cardData.cardColor);
+                    FindFirstObjectByType<PlayerWorldSpaceManager>().ChangeTooth(playersToothIndex, (int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
                 }
                 else
                 {
                     _Panel.SetActive(false);
                     if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[0]))
                     {
-                        Debug.Log("First was true");
+                        int en1index = selectedCards[0].transform.GetSiblingIndex();
+                        int en2index = selectedCards[1].transform.GetSiblingIndex();
                         _EnemySystems[storedIDs[0]].teethInPlay.Remove(selectedCards[0]);
                         selectedCards[0].transform.SetParent(teethPanels[storedIDs[1]].transform);
                         _EnemySystems[storedIDs[1]].teethInPlay.Add(selectedCards[0]);
                         _EnemySystems[storedIDs[1]].teethInPlay.Remove(selectedCards[1]);
                         selectedCards[1].transform.SetParent(teethPanels[storedIDs[0]].transform);
                         _EnemySystems[storedIDs[0]].teethInPlay.Add(selectedCards[1]);
+                        selectedCards[0].transform.SetSiblingIndex(en2index);
+                        selectedCards[1].transform.SetSiblingIndex(en1index);
+                        // Cambiar los dientes en el espacio del mundo
+                        _EnemySystems[storedIDs[0]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[1]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
                     }
                     else
                     {
-                        Debug.Log("First was false");
+                        int en1index = selectedCards[1].transform.GetSiblingIndex();
+                        int en2index = selectedCards[0].transform.GetSiblingIndex();
                         _EnemySystems[storedIDs[0]].teethInPlay.Remove(selectedCards[1]);
                         selectedCards[0].transform.SetParent(teethPanels[storedIDs[0]].transform);
                         _EnemySystems[storedIDs[1]].teethInPlay.Add(selectedCards[1]);
                         _EnemySystems[storedIDs[1]].teethInPlay.Remove(selectedCards[0]);
                         selectedCards[1].transform.SetParent(teethPanels[storedIDs[1]].transform);
                         _EnemySystems[storedIDs[0]].teethInPlay.Add(selectedCards[0]);
+                        selectedCards[1].transform.SetSiblingIndex(en2index);
+                        selectedCards[0].transform.SetSiblingIndex(en1index);
+                        // Cambiar los dientes en el espacio del mundo
+                        _EnemySystems[storedIDs[0]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[1]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
                     }
                 }
 
             }
+            _Purpose = "";
         }
     }
 
@@ -227,11 +257,17 @@ public class EnemyHandEventManager : MonoBehaviour
                 storedIDs.Add(enemyID);
                 _EnemyButtons[enemyID].interactable = false;
                 if (storedIDs.Count == idsToHold) 
-                    if (takeCards) StartCoroutine(fExchangeCards());
+                    StartCoroutine(fExchangeCards());
                     else fExchangeTeeth();
                 break;
             case "swapTeeth":
-                fSwapTeeth();
+                storedIDs.Add(enemyID);
+                _EnemyButtons[enemyID].interactable = false;
+                if (storedIDs.Count == idsToHold) 
+                    fExchangeTeeth();
+                break;
+            case "selectTooth":
+                fSelectTooth();
                 break;
         }
     }
@@ -240,8 +276,8 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         storedIDs.Add(3);
         if (storedIDs.Count == idsToHold) 
-            if (takeCards) StartCoroutine(fExchangeCards());
-            else fExchangeTeeth();
+            if (_Purpose == "stealOrSwapCards") StartCoroutine(fExchangeCards());
+            else if (_Purpose == "swapTeeth") fExchangeTeeth();
     }
 
     void fEchangeAllCards()

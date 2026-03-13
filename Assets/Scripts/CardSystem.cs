@@ -105,6 +105,7 @@ public class CardSystem : MonoBehaviour
             Vector3 newPos = teethAreaPosition.position + new Vector3(startX + i * toothSpacing, 0, 0);
             tooth.transform.position = newPos;
             tooth.transform.rotation = Quaternion.identity;
+            FindFirstObjectByType<PlayerWorldSpaceManager>().ToggleTooth(i, true, (int)tooth.GetComponent<CardVisual>().cardData.cardColor);
 
             Debug.Log($"Diente en juego: {tooth.GetComponent<CardVisual>().cardData.cardName} en {newPos}");
         }
