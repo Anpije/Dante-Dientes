@@ -24,8 +24,8 @@ public class CardFunctionByHolder : MonoBehaviour
                 FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                 FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
                 break;
-            case "selectTooth":
-                
+            case "affectTooth":
+                FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToTooth(gameObject.GetComponent<CardVisual>(), transform.GetSiblingIndex());
                 break;
         }
     }

@@ -17,17 +17,19 @@ public class EnemyHandEventManager : MonoBehaviour
     int idsToHold = 0;
     public List<GameObject> selectedCards = new List<GameObject>();
     int cardsToHold = 0;
+    public int effectToApply;
     public string _Purpose;
 
     [SerializeField] EnemySystem[] _EnemySystems;
 
+    [SerializeField] string debugMode = "";
     [ContextMenu("Try")]
     public void LetsTry()
     {
-        OpenPanelAs("swapTeeth", false);
+        OpenPanelAs(debugMode);
     }
 
-    public void OpenPanelAs(string purpose, bool effectCards)
+    public void OpenPanelAs(string purpose)
     {
         idsToHold = 0;
         storedIDs.Clear();
@@ -64,8 +66,8 @@ public class EnemyHandEventManager : MonoBehaviour
             case "swapTeeth":
                 fSwapTeeth();
                 break;
-            case "selectTooth":
-                fSelectTooth();
+            case "affectTooth":
+                faffectTooth();
                 break;
         }
     }
@@ -87,7 +89,7 @@ public class EnemyHandEventManager : MonoBehaviour
         _TeethPanel.SetActive(true);
     }
 
-    void fSelectTooth()
+    void faffectTooth()
     {
         idsToHold = 1;
         _TeethPanel.SetActive(true);
@@ -134,7 +136,7 @@ public class EnemyHandEventManager : MonoBehaviour
 
     void fExchangeTeeth()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < storedIDs.Count; i++)
             teethPanels[storedIDs[i]].SetActive(true);
         cardsToHold = 2;
     }
@@ -266,10 +268,19 @@ public class EnemyHandEventManager : MonoBehaviour
                 if (storedIDs.Count == idsToHold) 
                     fExchangeTeeth();
                 break;
-            case "selectTooth":
-                fSelectTooth();
+            case "affectTooth":
+                storedIDs.Add(enemyID);
+                fExchangeTeeth();
                 break;
         }
+    }
+
+    public void fApplyEffectToTooth(CardVisual tooth, int toothID)
+    {
+        // apply effect to tooth card
+        _EnemySystems[storedIDs[0]].teethModels[toothID].fAlterEffect(effectToApply);
+        _Purpose = "";
+        _Panel.SetActive(false);
     }
 
     public void fPlayerButton()

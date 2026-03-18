@@ -5642,11 +5642,13 @@ MonoBehaviour:
   - {fileID: 569045508}
   storedIDs: 
   selectedCards: []
+  effectToApply: 1
   _Purpose: 
   _EnemySystems:
   - {fileID: 242768434}
   - {fileID: 347477666}
   - {fileID: 1377580421}
+  debugMode: affectTooth
 --- !u!4 &1537595611
 Transform:
   m_ObjectHideFlags: 0
