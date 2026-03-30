@@ -45,15 +45,10 @@ public class EnemyActions : MonoBehaviour
     }
 
     [ContextMenu("Discard")]
-    public void Discard()
+    public void Discard(GameObject card)
     {
-        var cards = _EnSystem.GetAllCardsInHand();
-        if (cards.Count > 0)
-        {
-            GameObject card = cards[0].gameObject;
-            string name = card.GetComponent<CardVisual>().cardData.cardName;
-            _EnSystem.DiscardCard(card);
-            Invoke("DrawCard", 1);
-        }
+        string name = card.GetComponent<CardVisual>().cardData.cardName;
+        _EnSystem.DiscardCard(card);
+        Invoke("DrawCard", 1);
     }
 }

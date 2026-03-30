@@ -7,6 +7,8 @@ public class CardData : ScriptableObject
     public CardType cardType;
     public ToothColor cardColor;
 
+    public int toothProtection = 0;
+
     [TextArea(2, 4)]
     public string description;
 
