@@ -6,6 +6,8 @@ public class CardFunctionByHolder : MonoBehaviour
     public enum Holders { Player, Enemy }
     public Holders currentHolder;
 
+    public int toothProtection = 0;
+
     public void OnCardSelected()
     {
         EnemyHandEventManager enMan = FindFirstObjectByType<EnemyHandEventManager>();

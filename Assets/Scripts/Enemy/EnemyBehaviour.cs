@@ -32,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
         EnemySystem[] _EnSys = FindObjectsByType<EnemySystem>(FindObjectsSortMode.None);
         for (int i = 0; i < _EnSys.Length; i++)
             if (_EnSys[i] != this) _EnemySystems.Add(_EnSys[i]);
-        nPlayers = _EnemySystems.Count;
+        nPlayers = _EnemySystems.Count + 1;
     }
 
     [ContextMenu("StartTurn")]
@@ -109,9 +109,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             for (int a = 0; a < teeth.Count; a++)
             {
-                if (teeth[a].GetComponent<CardVisual>().cardData.toothProtection == 0 && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
+                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection == 0 && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
                 {
-                    teeth[a].GetComponent<CardVisual>().cardData.toothProtection += effectToApply;
+                    teeth[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                     Debug.Log(gameObject.name + "'s card has found and affected player's card");
                     return true;
                 }
@@ -121,16 +121,16 @@ public class EnemyBehaviour : MonoBehaviour
             int savedTooth = 0;
             for (int a = 0; a < teeth.Count; a++)
             {
-                if (teeth[a].GetComponent<CardVisual>().cardData.toothProtection < damagedTooth && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
+                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
                 {
-                    damagedTooth = teeth[a].GetComponent<CardVisual>().cardData.toothProtection;
+                    damagedTooth = teeth[a].GetComponent<CardFunctionByHolder>().toothProtection;
                     savedTooth = a;
                 }
             }
 
             if (damagedTooth != 100)
             {
-                teeth[savedTooth].GetComponent<CardVisual>().cardData.toothProtection += effectToApply;
+                teeth[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                 return true;
             }

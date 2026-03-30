@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
+  nPlayers: 4
 --- !u!114 &242768434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,6 +1068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
+  nPlayers: 4
 --- !u!114 &347477666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4508,8 +4510,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
   _Enemies:
-  - {fileID: 242768433}
   - {fileID: 347477665}
+  - {fileID: 242768433}
   - {fileID: 1377580420}
   _Players: []
   currentTurn: 0
@@ -4874,6 +4876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
+  nPlayers: 4
 --- !u!114 &1377580421
 MonoBehaviour:
   m_ObjectHideFlags: 0
