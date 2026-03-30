@@ -23,6 +23,8 @@ public class EnemyBehaviour : MonoBehaviour
     CardSystem _P1Sy;
     List<EnemySystem> _EnemySystems = new List<EnemySystem>();
 
+    List<GameObject> _UselessCards = new List<GameObject>();
+
     void Awake()
     {
         _EnSy = GetComponent<EnemySystem>();
@@ -38,14 +40,19 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
+        _UselessCards.Clear();
         // Si tiene una carta de diente a mano
         for (int i = 0; i < _EnSy.hand.Count; i++)
         {
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
             {
-                _EnSy.PlaceTooth(_EnSy.hand[i]);
-                EndTurn();
-                return;
+                if (_EnSy.teethInPlay.Count < 4)
+                {
+                    _EnSy.PlaceTooth(_EnSy.hand[i]);
+                    EndTurn();
+                    return;
+                }
+                _UselessCards.Add(_EnSy.hand[i]);
             }
         }
 
@@ -58,11 +65,8 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     var A = AffectTooth(_EnSy.teethInPlay, _EnSy.hand[i].GetComponent<CardVisual>(), 1);
                     if (A) { EndTurn(); return; }
-                    else {
-                        _EnAc.Discard(_EnSy.hand[i]);
-                        EndTurn();
-                        return;
-                    }
+                    else
+                        _UselessCards.Add(_EnSy.hand[i]);
                 }
             }
         }
@@ -87,9 +91,7 @@ public class EnemyBehaviour : MonoBehaviour
                     if (B) { EndTurn(); return; }
                 }
 
-                _EnAc.Discard(_EnSy.hand[i]);
-                EndTurn();
-                return;
+                _UselessCards.Add(_EnSy.hand[i]);
             }
         }
 
@@ -101,6 +103,8 @@ public class EnemyBehaviour : MonoBehaviour
                 return;
             }
         }
+
+        // Si no ha podido jugar una carta se eligirá uno para descartar
     }
 
     bool AffectTooth(List<GameObject> teeth, CardVisual effectCard, int effectToApply)
