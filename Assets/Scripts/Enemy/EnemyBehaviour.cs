@@ -25,6 +25,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     List<GameObject> _UselessCards = new List<GameObject>();
 
+    CardVisual tempCard;
+    public bool skipTurn = false;
+
     void Awake()
     {
         _EnSy = GetComponent<EnemySystem>();
@@ -40,7 +43,10 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
+        if (skipTurn) { skipTurn = false; return; }
+
         _UselessCards.Clear();
+
         // Si tiene una carta de diente a mano
         for (int i = 0; i < _EnSy.hand.Count; i++)
         {
@@ -99,12 +105,145 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
-                
-                return;
+                var checkFunction = ActionByCardDescription(_EnSy.hand[i].GetComponent<CardVisual>());
+                if (checkFunction) { EndTurn(); return; }
+
+                _UselessCards.Add(_EnSy.hand[i]);
             }
         }
 
         // Si no ha podido jugar una carta se eligirá uno para descartar
+    }
+
+    bool ActionByCardDescription(CardVisual card)
+    {
+        switch (card.cardData.description)
+        {
+            case "Immunización Total":
+                var checkTeeth = AffectTooth(_EnSy.teethInPlay, card, 1);
+                if (checkTeeth)
+                {
+                    tempCard = card;
+                    return true;
+                }
+                else { return false; }
+            case "Cambio de Turno":
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                {
+                    // Skip players turn
+                }
+                else
+                {
+                    int en = UnityEngine.Random.Range(0, nPlayers - 3);
+                    _EnemySystems[en].enBv.skipTurn = true;
+                }
+                return true;
+            case "Emergencia Dental":
+                var checkForTeeth = AffectTooth(_EnSy.teethInPlay, card, 1);
+                if (checkForTeeth) { return true; } else return false;
+            case "Revisión Sorpresa":
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                {
+                    _P1Sy.DiscardMostValuable();
+                    return true;
+                }
+                else
+                {
+                    int en = UnityEngine.Random.Range(0, nPlayers - 3);
+                    _EnemySystems[en].enAc.DiscardMostValuable();
+                    return true;
+                }
+            case "Refuerzo de Esmalte":
+                if (_EnSy.teethInPlay.Count > 0)
+                {
+                    for (int i = 0; i < _EnSy.teethInPlay.Count; i++)
+                    {
+                        if (_EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection > 0)
+                        {
+                            _EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection++;
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            case "Intercambio Carta":
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                {
+                    // Steal Player's card
+                    return true;
+                }
+                else
+                {
+                    if (nPlayers == 3)
+                    {
+                        _EnAc.SwapCard(_EnemySystems[0].enAc.FindMostValuable(), _EnemySystems[0]);
+                        return true;
+                    }
+                    else
+                    {
+                        _EnemySystems[0].enAc.SwapCard(_EnemySystems[1].enAc.FindMostValuable(), _EnemySystems[1]);
+                        return true;
+                    }
+                }
+            case "Intercambio Diente":
+                int mostTeeth = 0;
+                int playerWithTeeth = 0;
+                for (int i = 0; i < _EnemySystems.Count; i++)
+                {
+                    if (_EnemySystems[i].teethInPlay.Count > mostTeeth)
+                    {
+                        mostTeeth = _EnemySystems[i].teethInPlay.Count;
+                        playerWithTeeth = i;
+                    }
+                }
+                if (_P1Sy.teethInPlay.Count >= mostTeeth)
+                {
+                    if (UnityEngine.Random.Range(1, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                    {
+                        if (mostTeeth != 0)
+                        {
+                            // Steal Player's teeth
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                }
+                else
+                {
+                    if (mostTeeth == 0)
+                        return false;
+                    else
+                    {
+                        _EnemySystems[playerWithTeeth].enAc.SwapTeeth(_EnAc.FindToothByDamage(false, null), _EnSy);
+                        return true;
+                    }
+                }
+                return false;
+            /*case "Recuperación Rápida":
+
+                // if () return true; else return false;
+                break;
+            case "Bloqueo de Azúcar":
+
+                // if () return true; else return false;
+                break;
+            case "Tratamiento Intensivo":
+
+                // if () return true; else return false;
+                break;
+            case "Tiempo Extra":
+
+                // if () return true; else return false;
+                break;
+            case "Confusión Clínica":
+
+                // if () return true; else return false;
+                break;*/
+            default:
+                Debug.LogError(card.name + "'s Description is not a valid treatment");
+                return false;
+        }
     }
 
     bool AffectTooth(List<GameObject> teeth, CardVisual effectCard, int effectToApply)
@@ -113,7 +252,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             for (int a = 0; a < teeth.Count; a++)
             {
-                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection == 0 && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
+                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection == 0 && (teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
                 {
                     teeth[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                     Debug.Log(gameObject.name + "'s card has found and affected player's card");
@@ -125,7 +264,7 @@ public class EnemyBehaviour : MonoBehaviour
             int savedTooth = 0;
             for (int a = 0; a < teeth.Count; a++)
             {
-                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth && teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor)
+                if (teeth[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth && (teeth[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
                 {
                     damagedTooth = teeth[a].GetComponent<CardFunctionByHolder>().toothProtection;
                     savedTooth = a;

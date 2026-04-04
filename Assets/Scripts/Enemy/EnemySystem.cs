@@ -17,6 +17,8 @@ public class EnemySystem : MonoBehaviour
     public Transform discardPosition;
     public float cardSpacing = 220f;
     CardSystem cardSystem;
+    public EnemyBehaviour enBv;
+    public EnemyActions enAc;
 
     [Header("Tooth Settings")]
     public Transform teethAreaPosition;    
@@ -33,6 +35,8 @@ public class EnemySystem : MonoBehaviour
     void Awake()
     {
         cardSystem = FindFirstObjectByType<CardSystem>();
+        enBv = GetComponent<EnemyBehaviour>();
+        enAc = GetComponent<EnemyActions>();
     }
 
     private void Start()

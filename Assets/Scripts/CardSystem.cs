@@ -330,4 +330,43 @@ public class CardSystem : MonoBehaviour
 
         Debug.Log($"Total cartas activas: {activeCount} (Deberían ser: {teethInPlay.Count + hand.Count})");
     }
+
+    public void DiscardMostValuable()
+    {
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+            {
+                DiscardCard(hand[i]);
+                return;
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
+            {
+                DiscardCard(hand[i]);
+                return;
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Harmful)
+            {
+                DiscardCard(hand[i]);
+                return;
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+            {
+                DiscardCard(hand[i]);
+                return;
+            }
+        }
+    }
 }
