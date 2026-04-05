@@ -542,6 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
+  skipTurn: 0
 --- !u!114 &242768434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +641,8 @@ MonoBehaviour:
   handPosition: {fileID: 564472490}
   discardPosition: {fileID: 716924176}
   cardSpacing: 50
+  enBv: {fileID: 0}
+  enAc: {fileID: 0}
   teethAreaPosition: {fileID: 851743793}
   teethPerPlayer: 4
   initialCardCount: 3
@@ -1069,6 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
+  skipTurn: 0
 --- !u!114 &347477666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1171,8 @@ MonoBehaviour:
   handPosition: {fileID: 1437930426}
   discardPosition: {fileID: 716924176}
   cardSpacing: 220
+  enBv: {fileID: 0}
+  enAc: {fileID: 0}
   teethAreaPosition: {fileID: 693684331}
   teethPerPlayer: 4
   initialCardCount: 3
@@ -1309,6 +1315,8 @@ MonoBehaviour:
   hand: []
   teethInPlay: []
   allCardObjects: []
+  skipTurn: 0
+  blockSugarCard: {fileID: 0}
 --- !u!4 &364351589
 Transform:
   m_ObjectHideFlags: 0
@@ -4877,6 +4885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
+  skipTurn: 0
 --- !u!114 &1377580421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4975,6 +4984,8 @@ MonoBehaviour:
   handPosition: {fileID: 669418140}
   discardPosition: {fileID: 716924176}
   cardSpacing: 220
+  enBv: {fileID: 0}
+  enAc: {fileID: 0}
   teethAreaPosition: {fileID: 508508965}
   teethPerPlayer: 4
   initialCardCount: 3
@@ -5701,6 +5712,7 @@ MonoBehaviour:
   - {fileID: 242768434}
   - {fileID: 347477666}
   - {fileID: 1377580421}
+  player: {fileID: 0}
   debugMode: affectTooth
 --- !u!4 &1537595611
 Transform:

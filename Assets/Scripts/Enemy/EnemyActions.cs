@@ -183,6 +183,44 @@ public class EnemyActions : MonoBehaviour
         return null;
     }
 
+    public GameObject FindLeastValuable()
+    {
+        for (int i = 0; i < _EnSystem.hand.Count; i++)
+        {
+            if (_EnSystem.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+            {
+                return _EnSystem.hand[i];
+            }
+        }
+
+        for (int i = 0; i < _EnSystem.hand.Count; i++)
+        {
+            if (_EnSystem.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Harmful)
+            {
+                return _EnSystem.hand[i];
+            }
+        }
+
+        for (int i = 0; i < _EnSystem.hand.Count; i++)
+        {
+            if (_EnSystem.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
+            {
+                return _EnSystem.hand[i];
+            }
+        }
+
+        for (int i = 0; i < _EnSystem.hand.Count; i++)
+        {
+            if (_EnSystem.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+            {
+                return _EnSystem.hand[i];
+            }
+        }
+
+        Debug.LogError("Couldn't find a valuable card in " + gameObject.name + "'s hand");
+        return null;
+    }
+
     public void DiscardMostValuable()
     {
         Discard(FindMostValuable());

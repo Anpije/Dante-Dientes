@@ -21,6 +21,7 @@ public class EnemyHandEventManager : MonoBehaviour
     public string _Purpose;
 
     [SerializeField] EnemySystem[] _EnemySystems;
+    [SerializeField] CardSystem player;
 
     [SerializeField] string debugMode = "";
     [ContextMenu("Try")]
@@ -159,10 +160,10 @@ public class EnemyHandEventManager : MonoBehaviour
                 Transform newTrans = _EnemySystems[enSyst].cardModels[randomNum].gameObject.transform;
                 _EnemySystems[enSyst].cardModels[randomNum].fToggleCard(false);
                 _EnemySystems[enSyst].hand.Remove(card);
-                FindFirstObjectByType<CardSystem>().hand.Add(card);
-                selectedCards[0].transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
+                player.hand.Add(card);
+                selectedCards[0].transform.SetParent(player.deckPosition);
                 selectedCards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
-                FindFirstObjectByType<CardSystem>().UpdateHandVisual();
+                player.UpdateHandVisual();
                 int cardID = 0;
                 for (int i = 0; i < 4; i++)
                 {
@@ -193,14 +194,14 @@ public class EnemyHandEventManager : MonoBehaviour
                 {
                     int playersToothIndex = playersOldTooth.transform.GetSiblingIndex();
                     int enemysToothIndex = selectedCards[enemysToothID].transform.GetSiblingIndex();
-                    FindFirstObjectByType<CardSystem>().teethInPlay.Remove(playersOldTooth);
+                    player.teethInPlay.Remove(playersOldTooth);
                     playersOldTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                     playersOldTooth.transform.SetParent(teethPanels[enemySystID].transform);
                     _EnemySystems[enemySystID].teethInPlay.Add(playersOldTooth);
                     _EnemySystems[enemySystID].teethInPlay.Remove(selectedCards[enemysToothID]);
                     selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
                     selectedCards[enemysToothID].transform.SetParent(teethPanels[3].transform);
-                    FindFirstObjectByType<CardSystem>().teethInPlay.Add(selectedCards[enemysToothID]);
+                    player.teethInPlay.Add(selectedCards[enemysToothID]);
                     _Panel.SetActive(false);
                     // Cambiar los dientes en el espacio del mundo
                     _EnemySystems[enemySystID].teethModels[enemysToothIndex].fModifyTooth((int)playersOldTooth.GetComponent<CardVisual>().cardData.cardColor);
@@ -291,8 +292,52 @@ public class EnemyHandEventManager : MonoBehaviour
             else if (_Purpose == "swapTeeth") fExchangeTeeth();
     }
 
-    void fEchangeAllCards()
+    public void fEchangeAllCards()
     {
+        List<GameObject> cards = new List<GameObject>();
 
+        for (int i = 0; i < 3; i++)
+        {
+            if (_EnemySystems[i].gameObject.activeSelf)
+            {
+                cards.Add(_EnemySystems[i].hand[Random.Range(0, 4)]);
+            }
+        }
+
+        cards.Add(player.hand[Random.Range(0, 4)]);
+
+        if (_EnemySystems[0].gameObject.activeSelf)
+        {
+            _EnemySystems[0].hand.Remove(cards[0]);
+            _EnemySystems[1].hand.Remove(cards[1]);
+            _EnemySystems[2].hand.Remove(cards[2]);
+            player.hand.Remove(cards[3]);
+
+            _EnemySystems[0].hand.Add(cards[1]);
+            _EnemySystems[1].hand.Add(cards[2]);
+            _EnemySystems[2].hand.Add(cards[3]);
+            player.hand.Add(cards[0]);
+
+            cards[0].transform.SetParent(player.deckPosition);
+            player.UpdateHandVisual();
+            cards[1].transform.SetParent(_EnemySystems[0].handPosition);
+            cards[2].transform.SetParent(_EnemySystems[1].handPosition);
+            cards[3].transform.SetParent(_EnemySystems[2].handPosition);
+        }
+        else
+        {
+            _EnemySystems[1].hand.Remove(cards[0]);
+            _EnemySystems[2].hand.Remove(cards[1]);
+            player.hand.Remove(cards[2]);
+
+            _EnemySystems[1].hand.Add(cards[1]);
+            _EnemySystems[2].hand.Add(cards[2]);
+            player.hand.Add(cards[0]);
+
+            cards[0].transform.SetParent(player.deckPosition);
+            player.UpdateHandVisual();
+            cards[1].transform.SetParent(_EnemySystems[1].handPosition);
+            cards[2].transform.SetParent(_EnemySystems[2].handPosition);
+        }
     }
 }

@@ -29,6 +29,9 @@ public class CardSystem : MonoBehaviour
     public List<GameObject> teethInPlay = new List<GameObject>();
     public List<GameObject> allCardObjects = new List<GameObject>();
 
+    public bool skipTurn = false;
+    public GameObject blockSugarCard;
+
     private void Awake()
     {
         if (Instance == null)
