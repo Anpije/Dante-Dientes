@@ -5688,7 +5688,8 @@ MonoBehaviour:
   - {fileID: 242768434}
   - {fileID: 347477666}
   - {fileID: 1377580421}
-  player: {fileID: 0}
+  player: {fileID: 364351588}
+  plAc: {fileID: 1673965396}
   debugMode: affectTooth
 --- !u!4 &1537595611
 Transform:
@@ -5950,7 +5951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673965395}
-  - component: {fileID: 1673965394}
+  - component: {fileID: 1673965396}
   m_Layer: 0
   m_Name: WorldSpacePlayer
   m_TagString: Untagged
@@ -5958,30 +5959,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1673965394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673965393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a902c406f5429547b9643e13e53944d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerWorldSpaceManager
-  cards:
-  - {fileID: 271706062}
-  - {fileID: 426409879}
-  - {fileID: 1847517907}
-  - {fileID: 1145587578}
-  teeth:
-  - {fileID: 365643229}
-  - {fileID: 267321918}
-  - {fileID: 1549589019}
-  - {fileID: 2132403533}
-  deck: {fileID: 636956823}
-  discardPile: {fileID: 716924176}
 --- !u!4 &1673965395
 Transform:
   m_ObjectHideFlags: 0
@@ -5999,6 +5976,33 @@ Transform:
   - {fileID: 1322364272}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673965396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673965393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a3c09aa0e4a8c4b8bfddda05d016fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActions
+  playerHandPos: {fileID: 517021386}
+  playerTeethPos: {fileID: 569045509}
+  deckPosition: {fileID: 636956823}
+  discardPosition: {fileID: 716924176}
+  cardModels:
+  - {fileID: 271706062}
+  - {fileID: 426409879}
+  - {fileID: 1847517907}
+  - {fileID: 1145587578}
+  teethModels:
+  - {fileID: 365643229}
+  - {fileID: 267321918}
+  - {fileID: 1549589019}
+  - {fileID: 2132403533}
+  playedCard: {fileID: 0}
 --- !u!1 &1725100395
 GameObject:
   m_ObjectHideFlags: 0

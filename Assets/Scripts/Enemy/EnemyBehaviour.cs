@@ -69,7 +69,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (_EnSy.teethInPlay.Count < 4)
                 {
-                    _EnSy.PlaceTooth(_EnSy.hand[i]);
+                    _EnSy.PlaceTooth(_EnSy.hand[i]); Debug.Log(gameObject.name + "placed a tooth");
                     EndTurn();
                     return;
                 }
@@ -84,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
                 {
-                    var A = AffectTooth(_EnSy, _EnSy.hand[i].GetComponent<CardVisual>(), 1);
+                    var A = AffectTooth(_EnSy, _EnSy.hand[i].GetComponent<CardVisual>(), 1); Debug.Log(gameObject.name + "protected a tooth");
                     if (A) { EndTurn(); return; }
                     else
                         _UselessCards.Add(_EnSy.hand[i]);
@@ -98,18 +98,18 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
                 {
-                    var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1);
-                    if (B) { EndTurn(); return; }
+                    var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
+                    if (B) { EndTurn(); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
                 }
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);
                 var A = AffectTooth(_EnemySystems[en], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                if (A) { EndTurn(); return; }
+                if (A) { EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 
-                for (int j = 0; j < _EnSy.hand.Count; j++)
+                for (int j = 0; j < _EnemySystems.Count; j++)
                 {
                     var B = AffectTooth(_EnemySystems[j], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                    if (B) { EndTurn(); return; }
+                    if (B) { EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 }
 
                 _UselessCards.Add(_EnSy.hand[i]);
@@ -235,9 +235,6 @@ public class EnemyBehaviour : MonoBehaviour
                     }
                 }
                 return false;
-            case "Recuperación Rápida":
-                var toothToHeal = AffectTooth(_EnSy, card, 0); 
-                if (toothToHeal) return true; else return false;
             case "Tratamiento Intensivo":
                 var toothToTreat = AffectTooth(_EnSy, card, 0);
                 if (toothToTreat) return true; else return false;
@@ -261,8 +258,8 @@ public class EnemyBehaviour : MonoBehaviour
             if (NME.enBv.blockSugarCard != null)
             {
                 Debug.Log("Tooth was protected by a sugar barrier");
-                NME.enBv.blockSugarCard = null;
                 NME.enAc.Discard(blockSugarCard);
+                NME.enBv.blockSugarCard = null;
                 return true;
             }
 
@@ -380,8 +377,8 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             Debug.Log(gameObject.name + " played Extra Time, and can go again");
-            extraTimeCard = null;
             _EnAc.Discard(extraTimeCard);
+            extraTimeCard = null;
             StartTurn();
         }
     }

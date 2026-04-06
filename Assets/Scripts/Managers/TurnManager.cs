@@ -8,18 +8,20 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private EnemyBehaviour[] _Enemies;
     [SerializeField] private List<EnemyBehaviour> _Players = new List<EnemyBehaviour>();
 
-    [SerializeField] private int currentTurn = 0;
+    [SerializeField] public int currentTurn = 0;
 
     public static Action PlayerStartTurn;
 
     void OnEnable()
     {
         EnemyBehaviour.OnEndTurn += fInvokeNextTurn;
+        PlayerActions.OnEndTurn += fInvokeNextTurn;
     }
 
     void OnDisable()
     {
         EnemyBehaviour.OnEndTurn -= fInvokeNextTurn;
+        PlayerActions.OnEndTurn -= fInvokeNextTurn;
     }
 
     void Start()
@@ -38,6 +40,6 @@ public class TurnManager : MonoBehaviour
         if (_Players[currentTurn] != null)
             _Players[currentTurn].StartTurn();
         else
-            Debug.Log("Player's turn"); PlayerStartTurn?.Invoke();
+            Debug.Log("Player's turn. Current turn = " + currentTurn); PlayerStartTurn?.Invoke();
     }
 }
