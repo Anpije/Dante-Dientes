@@ -25,9 +25,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     List<GameObject> _UselessCards = new List<GameObject>();
 
-    GameObject tempCard;
-    GameObject blockSugarCard;
-    GameObject extraTimeCard;
+    public GameObject tempCard;
+    public GameObject blockSugarCard;
+    public GameObject extraTimeCard;
     public bool skipTurn = false;
 
     void Awake()
@@ -85,7 +85,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
                 {
                     var A = AffectTooth(_EnSy, _EnSy.hand[i].GetComponent<CardVisual>(), 1); Debug.Log(gameObject.name + "protected a tooth");
-                    if (A) { EndTurn(); return; }
+                    if (A) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); return; }
                     else
                         _UselessCards.Add(_EnSy.hand[i]);
                 }
@@ -99,17 +99,17 @@ public class EnemyBehaviour : MonoBehaviour
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
-                    if (B) { EndTurn(); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
                 }
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);
                 var A = AffectTooth(_EnemySystems[en], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                if (A) { EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
+                if (A) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 
                 for (int j = 0; j < _EnemySystems.Count; j++)
                 {
                     var B = AffectTooth(_EnemySystems[j], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                    if (B) { EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 }
 
                 _UselessCards.Add(_EnSy.hand[i]);
@@ -121,7 +121,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
                 var checkFunction = ActionByCardDescription(_EnSy.hand[i].GetComponent<CardVisual>());
-                if (checkFunction) { EndTurn(); return; }
+                if (checkFunction) { Debug.Log(gameObject.name + " played a " + _EnSy.hand[i].GetComponent<CardVisual>().cardData.description); _EnAc.Discard(_EnSy.hand[i]); EndTurn(); return; }
 
                 _UselessCards.Add(_EnSy.hand[i]);
             }
@@ -255,7 +255,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (NME.teethInPlay.Count > 0)
         {
-            if (NME.enBv.blockSugarCard != null)
+            if (NME.enBv.blockSugarCard != null && effectCard.cardData.cardType == CardType.Harmful)
             {
                 Debug.Log("Tooth was protected by a sugar barrier");
                 NME.enAc.Discard(blockSugarCard);
@@ -267,11 +267,15 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 for (int a = 0; a < NME.teethInPlay.Count; a++)
                 {
-                    if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection == 0 && (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
+                    if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection == 0)
                     {
-                        NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                        Debug.Log(gameObject.name + "'s card has found and affected player's card");
-                        return true;
+                        if (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || 
+                            NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || effectCard.cardData.cardType == CardType.Treatment ||
+                            effectCard.cardData.cardColor == ToothColor.Rainbow) {
+                                NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                                Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                                return true;
+                        }
                     }
                 }
             }
@@ -280,10 +284,14 @@ public class EnemyBehaviour : MonoBehaviour
             int savedTooth = 0;
             for (int a = 0; a < NME.teethInPlay.Count; a++)
             {
-                if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth && (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
+                if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth)
                 {
-                    damagedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
-                    savedTooth = a;
+                    if (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor ||
+                            NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || effectCard.cardData.cardType == CardType.Treatment ||
+                            effectCard.cardData.cardColor == ToothColor.Rainbow) {
+                        damagedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
+                        savedTooth = a;
+                    }
                 }
             }
 
@@ -325,11 +333,15 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 for (int a = 0; a < NME.teethInPlay.Count; a++)
                 {
-                    if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection == 0 && (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
+                    if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection == 0)
                     {
-                        NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                        Debug.Log(gameObject.name + "'s card has found and affected player's card");
-                        return true;
+                        if (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor ||
+                            NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || effectCard.cardData.cardType == CardType.Treatment ||
+                            effectCard.cardData.cardColor == ToothColor.Rainbow) {
+                                NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                                Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                                return true;
+                        }
                     }
                 }
             }
@@ -338,10 +350,14 @@ public class EnemyBehaviour : MonoBehaviour
             int savedTooth = 0;
             for (int a = 0; a < NME.teethInPlay.Count; a++)
             {
-                if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth && (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor || effectCard.cardData.cardType == CardType.Treatment))
+                if (NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection < damagedTooth)
                 {
-                    damagedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
-                    savedTooth = a;
+                    if (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor ||
+                            NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || effectCard.cardData.cardType == CardType.Treatment ||
+                            effectCard.cardData.cardColor == ToothColor.Rainbow) {
+                        damagedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
+                        savedTooth = a;
+                    }
                 }
             }
 

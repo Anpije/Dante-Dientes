@@ -5,9 +5,6 @@ using System.Linq;
 
 public class EnemySystem : MonoBehaviour
 {
-    [Header("Card Database")]
-    public List<CardData> allCards;
-
     [Header("References")]
     public WorldCardBehaviours[] cardModels;
     public Transform handPositionUI;
@@ -102,6 +99,7 @@ public class EnemySystem : MonoBehaviour
 
     public void PlaceTooth(GameObject card)
     {
+        int index = card.transform.GetSiblingIndex();
         teethInPlay.Add(card);
         hand.Remove(card);
 
@@ -111,20 +109,24 @@ public class EnemySystem : MonoBehaviour
         switch (card.GetComponent<CardVisual>().cardData.cardColor)
         {
             case ToothColor.Blue:
-                cardModels[0].fGoToPosition(teethModels[0].transform, 0.25f);
+                cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
                 teethModels[teethInPlay.Count - 1].fAddTooth(0);
                 break;
             case ToothColor.Red:
-                cardModels[1].fGoToPosition(teethModels[1].transform, 0.25f);
+                cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
                 teethModels[teethInPlay.Count -1 ].fAddTooth(1);
                 break;
             case ToothColor.Green:
-                cardModels[2].fGoToPosition(teethModels[3].transform, 0.25f);
+                cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
                 teethModels[teethInPlay.Count - 1].fAddTooth(2);
                 break;
             case ToothColor.Yellow:
-                cardModels[3].fGoToPosition(teethModels[3].transform, 0.25f);
+                cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
                 teethModels[teethInPlay.Count - 1].fAddTooth(3);
+                break;
+            case ToothColor.Rainbow:
+                cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                teethModels[teethInPlay.Count - 1].fAddTooth(4);
                 break;
         }
 

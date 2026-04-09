@@ -20,5 +20,6 @@ public enum ToothColor
     Blue,
     Red,
     Green,
-    Yellow
+    Yellow,
+    Rainbow
 }

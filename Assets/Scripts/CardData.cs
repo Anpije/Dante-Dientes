@@ -19,6 +19,7 @@ public class CardData : ScriptableObject
             case ToothColor.Red: return Color.red;
             case ToothColor.Green: return Color.green;
             case ToothColor.Yellow: return Color.yellow;
+            case ToothColor.Rainbow: return Color.magenta;
             default: return Color.white;
         }
     }

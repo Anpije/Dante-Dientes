@@ -1,27 +1,29 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class ToothObject : MonoBehaviour
 {
+    [Header("Appearance")]
     MeshFilter _MeshFilter;
-    [SerializeField] Mesh[] _Models = new Mesh[4];
+    MeshRenderer _MeshRenderer;
+    [SerializeField] Mesh[] _Models = new Mesh[5];
+    [SerializeField] Material[] _Materials = new Material[5];
 
-    public enum Tooth { Incisor, Canine, PreMol, Molar, None }
+    public enum Tooth { Incisor, Canine, PreMol, Molar, Rainbow, None }
+    [Header("Details")]
     public Tooth toothType = Tooth.None;
-
     public int effect = 0;
 
+    [Header("Stored Transforms")]
     public Vector3 inPlayPos = new Vector3();
     public Vector3 outPlayPos = new Vector3();
-    Vector3 target;
+    public Transform target;
 
     void Awake()
     {
         _MeshFilter = GetComponent<MeshFilter>();
-    }
-
-    void Start()
-    {
+        _MeshRenderer = GetComponent<MeshRenderer>();   
         inPlayPos = new Vector3(transform.position.x, 0, transform.position.z);
         outPlayPos = new Vector3(transform.position.x, -0.1f, transform.position.z);
         transform.position = outPlayPos;
@@ -31,7 +33,9 @@ public class ToothObject : MonoBehaviour
     {
         toothType = (Tooth)newType;
         int ID = (int)toothType;
-        StartCoroutine(AddTooth(ID));
+        _MeshFilter.mesh = _Models[ID];
+        _MeshRenderer.material = _Materials[ID];
+        transform.DOMove(inPlayPos, 0.15f);
     }
 
     public void fModifyTooth(int newType)
@@ -44,48 +48,18 @@ public class ToothObject : MonoBehaviour
     public void fDeleteTooth()
     {
         toothType = Tooth.None;
-        StartCoroutine("RemoveTooth");
-    }
-
-    IEnumerator AddTooth(int toothID)
-    {
-        _MeshFilter.mesh = _Models[toothID];
-        for (int i = 0; i < 60; i++)
-        {
-            transform.position += new Vector3(0, 0.1f/60, 0);
-            yield return new WaitForSeconds(1/60);
-        }
-        transform.position = inPlayPos;
-        StopCoroutine("AddTooth");
+        transform.DOMove(outPlayPos, 0.15f);
     }
 
     IEnumerator SwapTooth(int toothID)
     {
-        for (int i = 0; i < 60; i++)
-        {
-            transform.position -= new Vector3(0, 0.1f/60, 0);
-            yield return new WaitForSeconds(1/60);
-        }
+        transform.DOMove(outPlayPos, 0.15f);
         _MeshFilter.mesh = _Models[toothID];
-        yield return new WaitForSeconds(0.01f);
-        for (int i = 0; i < 60; i++)
-        {
-            transform.position += new Vector3(0, 0.1f/60, 0);
-            yield return new WaitForSeconds(1/60);
-        }
-        transform.position = inPlayPos;
+        _MeshRenderer.material = _Materials[toothID];
+        yield return new WaitForSeconds(0.2f);
+        transform.DOMove(inPlayPos, 0.15f);
+        yield return new WaitForSeconds(0.15f);
         StopCoroutine("SwapTooth");
-    }
-
-    IEnumerator RemoveTooth()
-    {
-        for (int i = 0; i < 60; i++)
-        {
-            transform.position -= new Vector3(0, 0.1f/60, 0);
-            yield return new WaitForSeconds(1/60);
-        }
-        transform.position = outPlayPos;
-        StopCoroutine("RemoveTooth");
     }
 
     public void fAlterEffect(int alter)

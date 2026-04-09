@@ -8,6 +8,7 @@ public class CardSystem : MonoBehaviour
 
     [Header("Card Database")]
     public List<CardData> allCards;
+    public int duplicateCards = 5;
 
     [Header("References")]
     public GameObject cardPrefab;
@@ -56,14 +57,17 @@ public class CardSystem : MonoBehaviour
     {
         allCardObjects.Clear();
 
-        foreach (CardData cardData in allCards)
+        for (int i = 0; i < duplicateCards; i++)
         {
-            GameObject cardObj = Instantiate(cardPrefab, deckPosition);
-            CardVisual visual = cardObj.GetComponent<CardVisual>();
-            visual.Initialize(cardData);
-         // Todas empiezan desactivadas
-            cardObj.SetActive(false); 
-            allCardObjects.Add(cardObj);
+            foreach (CardData cardData in allCards)
+            {
+                GameObject cardObj = Instantiate(cardPrefab, deckPosition);
+                CardVisual visual = cardObj.GetComponent<CardVisual>();
+                visual.Initialize(cardData);
+             // Todas empiezan desactivadas
+                cardObj.SetActive(false); 
+                allCardObjects.Add(cardObj);
+            }
         }
 
         Debug.Log($"Creadas {allCardObjects.Count} cartas");
@@ -245,9 +249,10 @@ public class CardSystem : MonoBehaviour
 
         for (int i = 0; i < hand.Count; i++)
         {
-            GameObject card = hand[i];
+            hand[i].transform.SetParent(handPosition);
+            /*GameObject card = hand[i];
             Vector3 newPos = handPosition.position + new Vector3(startX + i * cardSpacing, 0, 0);
-            card.transform.position = newPos;
+            card.transform.position = newPos;*/
 
         }
     }

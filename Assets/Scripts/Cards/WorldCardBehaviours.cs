@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class WorldCardBehaviours : MonoBehaviour
@@ -6,11 +7,6 @@ public class WorldCardBehaviours : MonoBehaviour
     public Quaternion defaultRotation;
     public Vector3 targetPosition;
     public Quaternion targetRotation;
-    public float speed;
-    private bool moving = false;
-
-    private bool rotating = false;
-    private float timeCount = 0.0f;
 
     public bool atDefaultTransform;
 
@@ -28,11 +24,9 @@ public class WorldCardBehaviours : MonoBehaviour
         // Mueve una carta a la posición pasada, este posición no puede ser la posición original
         targetPosition = newPos.position;
         targetRotation = newPos.rotation;
-        speed = newSpeed;
-        moving = true;
-        timeCount = 0.0f;
-        rotating = true;
         atDefaultTransform = false;
+        transform.DOMove(targetPosition, 0.15f, false);
+        transform.DORotateQuaternion(targetRotation, 0.15f);
     }
 
     public void fReturnFromPosition(Transform startPos, float newSpeed)
@@ -43,10 +37,9 @@ public class WorldCardBehaviours : MonoBehaviour
 
         targetPosition = defaultPosition;
         targetRotation = defaultRotation;
-        speed = newSpeed;
-        moving = true;
-        timeCount = 0.0f;
-        rotating = true;
+
+        transform.DOMove(targetPosition, 0.15f, false);
+        transform.DORotateQuaternion(targetRotation, 0.15f);
         atDefaultTransform = true;
     }
 
@@ -58,10 +51,9 @@ public class WorldCardBehaviours : MonoBehaviour
 
         targetPosition = defaultPosition;
         targetRotation = defaultRotation;
-        speed = 3;
-        moving = true;
-        timeCount = 0.0f;
-        rotating = true;
+
+        transform.DOMove(targetPosition, 0.15f, false);
+        transform.DORotateQuaternion(targetRotation, 0.15f);
         atDefaultTransform = true;
     }
 
@@ -70,30 +62,13 @@ public class WorldCardBehaviours : MonoBehaviour
         // Esconde o revela una carta dependiendo en el booleano pasado
         if (!reveal)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); 
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.15f, false); 
             atDefaultTransform = false;
         }
         else
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z); 
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), 0.15f, false); 
             atDefaultTransform = true;
-        }
-    }
-
-    void Update()
-    {
-        if (moving)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-            if (transform.position == targetPosition) moving = false;
-        }
-
-        if (rotating)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, timeCount);
-            timeCount = timeCount + Time.deltaTime;
-            if (transform.rotation == targetRotation) rotating = false;
         }
     }
 }
