@@ -13,7 +13,17 @@ public class ToothObject : MonoBehaviour
     public enum Tooth { Incisor, Canine, PreMol, Molar, Rainbow, None }
     [Header("Details")]
     public Tooth toothType = Tooth.None;
-    public int effect = 0;
+    [SerializeField] private int Effect;
+    public int effect
+    {
+        get
+        { return Effect; }
+        set
+        {
+            Effect = value;
+            fAlterEffect();
+        }
+    }
 
     [Header("Stored Transforms")]
     public Vector3 inPlayPos = new Vector3();
@@ -62,9 +72,8 @@ public class ToothObject : MonoBehaviour
         StopCoroutine("SwapTooth");
     }
 
-    public void fAlterEffect(int alter)
+    public void fAlterEffect()
     {
-        effect += alter;
         // Des/Activar partículas o shader
         /*
         if (effect > 0)

@@ -542,9 +542,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
-  tempCard: {fileID: 0}
+  totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
+  lastAlteredTooth: {fileID: 0}
   skipTurn: 0
 --- !u!114 &242768434
 MonoBehaviour:
@@ -1035,9 +1036,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
-  tempCard: {fileID: 0}
+  totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
+  lastAlteredTooth: {fileID: 0}
   skipTurn: 0
 --- !u!114 &347477666
 MonoBehaviour:
@@ -1149,6 +1151,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0d35d5f4ee57414a9d81594dd610b11, type: 2}
   - {fileID: 11400000, guid: 33fd01f679045254f9d44e4cea667e09, type: 2}
   duplicateCards: 5
+  PlAc: {fileID: 1673965396}
   cardPrefab: {fileID: 7681981875878378486, guid: 6875888d566989e4fba296b5e1164f0f, type: 3}
   deckPosition: {fileID: 2041169669}
   handPosition: {fileID: 517021386}
@@ -1159,8 +1162,6 @@ MonoBehaviour:
   hand: []
   teethInPlay: []
   allCardObjects: []
-  skipTurn: 0
-  blockSugarCard: {fileID: 0}
 --- !u!4 &364351589
 Transform:
   m_ObjectHideFlags: 0
@@ -1905,10 +1906,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildAlignment: 4
+  m_Spacing: -71.05
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -4710,6 +4711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c187ad7068ff9bd41aa510adf912ea8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
+  PlAc: {fileID: 1673965396}
   _Enemies:
   - {fileID: 347477665}
   - {fileID: 242768433}
@@ -5090,9 +5092,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   Difficulty: 1
   nPlayers: 4
-  tempCard: {fileID: 0}
+  totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
+  lastAlteredTooth: {fileID: 0}
   skipTurn: 0
 --- !u!114 &1377580421
 MonoBehaviour:
@@ -6234,6 +6237,10 @@ MonoBehaviour:
   - {fileID: 1549589019}
   - {fileID: 402514467}
   playedCard: {fileID: 0}
+  totalImunityCard: {fileID: 0}
+  blockSugarCard: {fileID: 0}
+  extraTimeCard: {fileID: 0}
+  skipTurn: 0
 --- !u!1 &1674256053
 GameObject:
   m_ObjectHideFlags: 0

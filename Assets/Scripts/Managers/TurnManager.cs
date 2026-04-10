@@ -5,6 +5,7 @@ using System;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField] private PlayerActions PlAc;
     [SerializeField] private EnemyBehaviour[] _Enemies;
     [SerializeField] private List<EnemyBehaviour> _Players = new List<EnemyBehaviour>();
 
@@ -29,6 +30,7 @@ public class TurnManager : MonoBehaviour
         _Players.Add(null);
         for (int i = 0; i < _Enemies.Length; i++)
             if (_Enemies[i].gameObject.activeSelf) _Players.Add(_Enemies[i]);
+        PlayerStartTurn?.Invoke();
     }
 
     void fInvokeNextTurn() { Invoke("fNextTurn", 1); }
@@ -40,6 +42,15 @@ public class TurnManager : MonoBehaviour
         if (_Players[currentTurn] != null)
             _Players[currentTurn].StartTurn();
         else
-            Debug.Log("Player's turn. Current turn = " + currentTurn); PlayerStartTurn?.Invoke();
+        {
+            Debug.Log("Player's turn");
+            if (!PlAc.skipTurn)
+                PlayerStartTurn?.Invoke();
+            else
+            {
+                currentTurn++; 
+                _Players[currentTurn].StartTurn(); 
+            }
+        }
     }
 }

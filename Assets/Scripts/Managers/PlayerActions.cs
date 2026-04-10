@@ -6,6 +6,7 @@ public class PlayerActions : MonoBehaviour
 {
     CardSystem CdSy;
 
+    [Header("World Space References")]
     [SerializeField] Transform playerHandPos;
     [SerializeField] Transform playerTeethPos;
     [SerializeField] Transform deckPosition;
@@ -16,7 +17,12 @@ public class PlayerActions : MonoBehaviour
 
     public static Action OnEndTurn;
 
+    [Header("Effects")]
     public GameObject playedCard;
+    public GameObject totalImunityCard;
+    public GameObject blockSugarCard;
+    public GameObject extraTimeCard;
+    public bool skipTurn = false;
 
     void Awake()
     { 
@@ -26,6 +32,32 @@ public class PlayerActions : MonoBehaviour
     void Start()
     {
         StartCoroutine("DrawAllCards");
+    }
+
+    private void OnEnable()
+    {
+        TurnManager.PlayerStartTurn += StartPlayersTurn;
+    }
+
+    private void OnDisable()
+    {
+        TurnManager.PlayerStartTurn -= StartPlayersTurn;
+    }
+
+    void StartPlayersTurn()
+    {
+        if (totalImunityCard != null) totalImunityCard = null; 
+
+        for (int i = 0; i < CdSy.hand.Count; i++)
+        {
+            if (CdSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+            {
+                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.description == "Bloqueo de Azúcar")
+                    blockSugarCard = CdSy.hand[i];
+                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.description == "Tiempo Extra")
+                    extraTimeCard = CdSy.hand[i];
+            }
+        }
     }
 
     IEnumerator DrawAllCards()
@@ -85,7 +117,16 @@ public class PlayerActions : MonoBehaviour
 
     public void EndTurn()
     {
-        Debug.Log("Player's turn has ended");
-        OnEndTurn?.Invoke();
+        if (extraTimeCard == null)
+        {
+            Debug.Log("Player's turn has ended");
+            OnEndTurn?.Invoke();
+        }
+        else
+        {
+            Debug.Log("You played Extra Time, and can go again");
+            CdSy.DiscardCard(extraTimeCard);
+            extraTimeCard = null;
+        }
     }
 }

@@ -6,7 +6,25 @@ public class CardFunctionByHolder : MonoBehaviour
     public enum Holders { Player, Enemy }
     public Holders currentHolder;
 
-    public int toothProtection = 0;
+    [SerializeField] Text protectionDisplay;
+    [SerializeField] private int ToothProtection;
+    public int toothProtection
+    {
+        get { return ToothProtection; }
+        set
+        {
+            ToothProtection = value;
+            OnProtectionChanged();
+        }
+    }
+
+    void OnProtectionChanged()
+    {
+        if (ToothProtection == 0)
+            protectionDisplay.text = "";
+        else
+            protectionDisplay.text = ToothProtection.ToString();
+    }
 
     void OnEnable()
     {
@@ -44,9 +62,6 @@ public class CardFunctionByHolder : MonoBehaviour
         {
             switch (enMan._Purpose)
             {
-                case "selectEnemy":
-                
-                    return;
                 case "stealOrSwapCards":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                     FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
@@ -61,6 +76,14 @@ public class CardFunctionByHolder : MonoBehaviour
                 case "affectPlayerTooth":
                     FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToPlayer(gameObject.GetComponent<CardVisual>(), transform.GetSiblingIndex());
                     return;
+                case "forceDiscard":
+                    FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                    FindFirstObjectByType<EnemyHandEventManager>().ForceDiscard();
+                    break;
+                case "immunizePlayerTooth":
+                    FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                    FindFirstObjectByType<EnemyHandEventManager>().fImmunizeThisCard();
+                    break;
             }
         }
 
@@ -81,8 +104,8 @@ public class CardFunctionByHolder : MonoBehaviour
                 FindFirstObjectByType<PlayerActions>().playedCard = gameObject;
                 return;
             case CardType.Treatment:
-                FuntionByDescription(card.cardData.description);
                 FindFirstObjectByType<PlayerActions>().playedCard = gameObject;
+                FuntionByDescription(card.cardData.description);
                 return;
         }
     }
@@ -92,29 +115,34 @@ public class CardFunctionByHolder : MonoBehaviour
         switch (description)
         {
             case "Immunización Total":
-
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("immunizePlayerTooth");
                 break;
             case "Cambio de Turno":
-
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("selectEnemy");
                 break;
             case "Emergencia Dental":
-
+                FindFirstObjectByType<EnemyHandEventManager>().effectToApply = 1;
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("affectPlayerTooth");
                 break;
             case "Revisión Sorpresa":
-                
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("forceDiscard");
                 break;
             case "Refuerzo de Esmalte":
+                FindFirstObjectByType<EnemyHandEventManager>().effectToApply = 1;
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("affectPlayerTooth");
                 break;
             case "Intercambio Carta":
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("stealOrSwapCards");
                 break;
             case "Intercambio Diente":
-                
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("swapTeeth");
                 break;
             case "Tratamiento Intensivo":
-
+                FindFirstObjectByType<EnemyHandEventManager>().effectToApply = 0;
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("affectPlayerTooth");
                 break;
             case "Confusión Clínica":
-                FindFirstObjectByType<EnemyHandEventManager>().fEchangeAllCards();
+                FindFirstObjectByType<EnemyHandEventManager>().fEchangeAllCards(null, null);
                 break;
             default:
                 Debug.LogError(gameObject.name + "'s Description is not a valid treatment");

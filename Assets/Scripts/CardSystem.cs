@@ -11,6 +11,7 @@ public class CardSystem : MonoBehaviour
     public int duplicateCards = 5;
 
     [Header("References")]
+    public PlayerActions PlAc;
     public GameObject cardPrefab;
     public Transform deckPosition;
     public Transform handPosition;
@@ -29,9 +30,6 @@ public class CardSystem : MonoBehaviour
     public List<GameObject> hand = new List<GameObject>();
     public List<GameObject> teethInPlay = new List<GameObject>();
     public List<GameObject> allCardObjects = new List<GameObject>();
-
-    public bool skipTurn = false;
-    public GameObject blockSugarCard;
 
     private void Awake()
     {

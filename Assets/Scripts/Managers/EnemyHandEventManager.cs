@@ -74,12 +74,19 @@ public class EnemyHandEventManager : MonoBehaviour
             case "affectPlayerTooth":
                 faffectPlayerTooth();
                 break;
+            case "forceDiscard":
+                fForceDiscard();
+                break;
+            case "immunizePlayerTooth":
+                fImmunizePlayerTooth();
+                break;
         }
     }
 
     void fSelectEnemy()
     {
         idsToHold = 1;
+        _PlayerHandButton.gameObject.SetActive(false);
     }
 
     void fStealSwap()
@@ -98,9 +105,24 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         idsToHold = 1;
         _TeethPanel.SetActive(true);
+        _PlayerHandButton.gameObject.SetActive(false);
     }
 
     void faffectPlayerTooth()
+    {
+        storedIDs.Add(0);
+        teethPanels[3].SetActive(true);
+        cardsToHold = 1;
+    }
+
+    void fForceDiscard()
+    {
+        idsToHold = 1;
+        _HandPanel.SetActive(true);
+        _PlayerHandButton.gameObject.SetActive(false);
+    }
+
+    void fImmunizePlayerTooth()
     {
         storedIDs.Add(0);
         teethPanels[3].SetActive(true);
@@ -143,7 +165,6 @@ public class EnemyHandEventManager : MonoBehaviour
             _EnemySystems[storedIDs[1]].cardModels[secondCard].fReturnFromPosition(newTrans1, 3);
             _Purpose = "";
         }
-        plAc.EndTurn();
         StopCoroutine(fExchangeCards());
     }
 
@@ -179,12 +200,12 @@ public class EnemyHandEventManager : MonoBehaviour
                 int cardID = 0;
                 for (int i = 0; i < 4; i++)
                 {
-                    if (!FindFirstObjectByType<PlayerWorldSpaceManager>().cards[i].atDefaultTransform)
+                    if (!plAc.cardModels[i].atDefaultTransform)
                         cardID = i;
                 }
                 _EnemySystems[enSyst].GetComponent<EnemyActions>().DrawCard();
                 _Panel.SetActive(false);
-                FindFirstObjectByType<PlayerWorldSpaceManager>().ReturnFromPosition(cardID, newTrans, 3);
+                plAc.cardModels[cardID].fReturnFromPosition(newTrans, 3);
             }
             if (cardsToHold == 2) // Estamos cambiando dientes
             {
@@ -217,7 +238,8 @@ public class EnemyHandEventManager : MonoBehaviour
                     _Panel.SetActive(false);
                     // Cambiar los dientes en el espacio del mundo
                     _EnemySystems[enemySystID].teethModels[enemysToothIndex].fModifyTooth((int)playersOldTooth.GetComponent<CardVisual>().cardData.cardColor);
-                    FindFirstObjectByType<PlayerWorldSpaceManager>().ChangeTooth(playersToothIndex, (int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
+                    plAc.teethModels[playersToothIndex].fModifyTooth((int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
+                    plAc.teethModels[playersToothIndex].fModifyTooth((int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
                 }
                 else
                 {
@@ -258,8 +280,26 @@ public class EnemyHandEventManager : MonoBehaviour
 
             }
             _Purpose = "";
+            player.DiscardCard(plAc.playedCard); 
+            plAc.playedCard = null;
             plAc.EndTurn();
         }
+    }
+
+    void SelectDiscard()
+    {
+        handPanels[storedIDs[0]].SetActive(true);
+        cardsToHold = 1;
+    }
+
+    public void ForceDiscard()
+    {
+        _Panel.SetActive(false);
+        _EnemySystems[storedIDs[0]].enAc.Discard(selectedCards[0]);
+        _Purpose = "";
+        player.DiscardCard(plAc.playedCard);
+        plAc.playedCard = null;
+        plAc.EndTurn();
     }
 
     public void fEnemyButtonFunction(int enemyID)
@@ -268,6 +308,8 @@ public class EnemyHandEventManager : MonoBehaviour
         {
             case "selectEnemy":
                 storedIDs.Add(enemyID);
+                if (storedIDs.Count == idsToHold)
+                    SkipEnemy();
                 break;
             case "stealOrSwapCards":
                 storedIDs.Add(enemyID);
@@ -286,23 +328,62 @@ public class EnemyHandEventManager : MonoBehaviour
                 storedIDs.Add(enemyID);
                 fExchangeTeeth();
                 break;
+            case "forceDiscard":
+                storedIDs.Add(enemyID);
+                if (storedIDs.Count == idsToHold)
+                    SelectDiscard();
+                break;
+
         }
     }
 
     public void fApplyEffectToTooth(CardVisual tooth, int toothID)
     {
         // apply effect to tooth card
-        _EnemySystems[storedIDs[0]].teethModels[toothID].fAlterEffect(effectToApply);
+        if (effectToApply == 0)
+        {
+            _EnemySystems[storedIDs[0]].teethModels[toothID].effect = 0;
+            _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection = 0;
+        }
+        else
+        {
+            _EnemySystems[storedIDs[0]].teethModels[toothID].effect += effectToApply;
+            _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+        }
         _Purpose = "";
         _Panel.SetActive(false);
+        player.DiscardCard(plAc.playedCard); 
+        plAc.playedCard = null;
         plAc.EndTurn();
     }
 
     public void fApplyEffectToPlayer(CardVisual tooth, int toothID)
     {
-        plAc.teethModels[toothID].fAlterEffect(effectToApply);
+        if (effectToApply == 0)
+        {
+            plAc.teethModels[toothID].effect = 0;
+            player.teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection = 0;
+        }
+        else
+        {
+            plAc.teethModels[toothID].effect += effectToApply;
+            player.teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+
+        }
         _Purpose = "";
         _Panel.SetActive(false);
+        player.DiscardCard(plAc.playedCard); 
+        plAc.playedCard = null;
+        plAc.EndTurn();
+    }
+
+    public void fImmunizeThisCard()
+    {
+        player.PlAc.totalImunityCard = selectedCards[0];
+        _Purpose = "";
+        _Panel.SetActive(false);
+        player.DiscardCard(plAc.playedCard);
+        plAc.playedCard = null;
         plAc.EndTurn();
     }
 
@@ -314,9 +395,28 @@ public class EnemyHandEventManager : MonoBehaviour
             else if (_Purpose == "swapTeeth") fExchangeTeeth();
     }
 
-    public void fEchangeAllCards()
+    void SkipEnemy()
+    {
+        _EnemySystems[storedIDs[0]].enBv.skipTurn = true;
+        _Purpose = "";
+        _Panel.SetActive(false);
+        player.DiscardCard(plAc.playedCard);
+        plAc.playedCard = null;
+        plAc.EndTurn();
+    }
+
+    public void fEchangeAllCards(EnemyActions NME, GameObject card)
     {
         List<GameObject> cards = new List<GameObject>();
+
+        if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
+        {
+            player.DiscardCard(plAc.playedCard); 
+            plAc.playedCard = null;
+            player.DrawCard();
+        }
+        else
+            NME.Discard(card);
 
         for (int i = 0; i < 3; i++)
         {
@@ -346,6 +446,20 @@ public class EnemyHandEventManager : MonoBehaviour
             cards[2].transform.SetParent(_EnemySystems[1].handPosition);
             cards[3].transform.SetParent(_EnemySystems[2].handPosition);
 
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i != 2)
+                        _EnemySystems[i].cardModels[j].fReturnFromPosition(_EnemySystems[i + 1].cardModels[j].transform, 0.15f);
+                    else
+                        _EnemySystems[i].cardModels[j].fReturnFromPosition(plAc.cardModels[j].transform, 0.15f);
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+                plAc.cardModels[i].fReturnFromPosition(_EnemySystems[0].cardModels[i].transform, 0.15f);
+
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[3].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
         }
@@ -364,11 +478,23 @@ public class EnemyHandEventManager : MonoBehaviour
             cards[1].transform.SetParent(_EnemySystems[1].handPosition);
             cards[2].transform.SetParent(_EnemySystems[2].handPosition);
 
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    _EnemySystems[1].cardModels[j].fReturnFromPosition(_EnemySystems[2].cardModels[j].transform, 0.15f);
+                    _EnemySystems[2].cardModels[j].fReturnFromPosition(plAc.cardModels[j].transform, 0.15f);
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+                plAc.cardModels[i].fReturnFromPosition(_EnemySystems[1].cardModels[i].transform, 0.15f);
+
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[2].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
         }
 
         if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
-            plAc.EndTurn(); player.DiscardCard(plAc.playedCard); plAc.playedCard = null;
+            plAc.EndTurn(); 
     }
 }
