@@ -45,6 +45,21 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
+        if (_EnSy.hand.Count < 4) _EnSy.DrawCard();
+
+        if (_EnSy.hand.Count > 4)
+        {
+            Debug.Log("Removing excess cards from " + gameObject.name + "'s deck");
+            int excess = _EnSy.hand.Count - 4;
+            for (int i = 0; i < excess; i++)
+            {
+                GameObject toRemove = _EnSy.hand[i];
+                _EnSy.hand.Remove(toRemove);
+                toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
+                toRemove.SetActive(false);
+            }
+        }
+
         if (totalImnunityCard != null) totalImnunityCard = null;
         
         if (skipTurn) { skipTurn = false; EndTurn(); return; }
@@ -73,7 +88,12 @@ public class EnemyBehaviour : MonoBehaviour
                     EndTurn();
                     return;
                 }
-                _UselessCards.Add(_EnSy.hand[i]);
+                else
+                {
+                    _EnAc.ReplaceTooth(_EnSy.hand[i]);
+                    EndTurn();
+                    return;
+                }
             }
         }
 
@@ -463,7 +483,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log(gameObject.name + " played Extra Time, and can go again");
             _EnAc.Discard(extraTimeCard);
             extraTimeCard = null;
-            StartTurn();
+            Invoke("StartTurn", 1);
         }
     }
 }

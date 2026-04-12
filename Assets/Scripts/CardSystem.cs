@@ -15,6 +15,7 @@ public class CardSystem : MonoBehaviour
     public GameObject cardPrefab;
     public Transform deckPosition;
     public Transform handPosition;
+    public Transform discardPosition;
     public float cardSpacing = 220f;
 
     [Header("Tooth Settings")]
@@ -220,7 +221,17 @@ public class CardSystem : MonoBehaviour
         card.SetActive(true);
         hand.Add(card);
 
-        UpdateHandVisual();
+        int cardIndex = 0;
+
+        for (int i = 0; i < PlAc.cardModels.Length; i++)
+            if (!PlAc.cardModels[i].atDefaultTransform) cardIndex = i;
+
+        PlAc.cardModels[cardIndex].fDrawn(deckPosition);
+        card.transform.SetParent(handPosition);
+        card.transform.SetSiblingIndex(cardIndex);
+
+
+        //UpdateHandVisual();
         Debug.Log($"Robada: {card.GetComponent<CardVisual>().cardData.cardName}");
         return card;
     }
@@ -229,9 +240,13 @@ public class CardSystem : MonoBehaviour
     {
         if (hand.Contains(card))
         {
+            int index = card.transform.GetSiblingIndex();
+
             hand.Remove(card);
             allCardObjects.Remove(card);
             Destroy(card);
+
+            PlAc.cardModels[index].fGoToPosition(discardPosition, 0.25f);
 
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");

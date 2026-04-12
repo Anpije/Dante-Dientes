@@ -79,11 +79,15 @@ public class CardFunctionByHolder : MonoBehaviour
                 case "forceDiscard":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                     FindFirstObjectByType<EnemyHandEventManager>().ForceDiscard();
-                    break;
+                    return;
                 case "immunizePlayerTooth":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                     FindFirstObjectByType<EnemyHandEventManager>().fImmunizeThisCard();
-                    break;
+                    return;
+                case "replaceTooth":
+                    FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                    FindFirstObjectByType<EnemyHandEventManager>().fReplacePlayerTooth(FindFirstObjectByType<PlayerActions>().playedCard);
+                    return;
             }
         }
 
@@ -91,7 +95,13 @@ public class CardFunctionByHolder : MonoBehaviour
         switch (card.cardData.cardType)
         {
             case CardType.HealthyTooth:
-                FindFirstObjectByType<PlayerActions>().PlaceTooth(gameObject);
+                if (FindFirstObjectByType<CardSystem>().teethInPlay.Count != 4)
+                    FindFirstObjectByType<PlayerActions>().PlaceTooth(gameObject);
+                else
+                {
+                    FindFirstObjectByType<PlayerActions>().playedCard = gameObject;
+                    FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("replaceTooth");
+                }
                 return;
             case CardType.Protective:
                 FindFirstObjectByType<EnemyHandEventManager>().effectToApply = 1;

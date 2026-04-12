@@ -62,6 +62,54 @@ public class EnemyActions : MonoBehaviour
         cardToSwap.transform.SetParent(_EnSystem.handPositionUI);
     }
 
+    public void ReplaceTooth(GameObject newTooth)
+    {
+        GameObject toothToSwap = null;
+
+        for (int i = 0; i < _EnSystem.teethInPlay.Count; i++)
+        {
+            for (int j = 0; j < _EnSystem.teethInPlay.Count; j++)
+            {
+                if (i != j && _EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == _EnSystem.teethInPlay[j].GetComponent<CardVisual>().cardData.cardColor)
+                {
+                    if (_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor != newTooth.GetComponent<CardVisual>().cardData.cardColor)
+                        toothToSwap = _EnSystem.teethInPlay[i];
+                }
+            }
+        }
+
+        if (toothToSwap != null)
+        {
+            int toothIndex = toothToSwap.transform.GetSiblingIndex();
+
+            _EnSystem.teethInPlay.Remove(toothToSwap);
+            FindFirstObjectByType<CardSystem>().allCardObjects.Remove(toothToSwap);
+            Destroy(toothToSwap);
+
+            _EnSystem.teethInPlay.Add(newTooth);
+            newTooth.transform.SetParent(_EnSystem.teethAreaPosition);
+            newTooth.transform.SetSiblingIndex(toothIndex);
+
+            _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        }
+        else
+        {
+            toothToSwap = FindToothByDamage(true, newTooth.GetComponent<CardVisual>());
+
+            int toothIndex = toothToSwap.transform.GetSiblingIndex();
+
+            _EnSystem.teethInPlay.Remove(toothToSwap);
+            FindFirstObjectByType<CardSystem>().allCardObjects.Remove(toothToSwap);
+            Destroy(toothToSwap);
+
+            _EnSystem.teethInPlay.Add(newTooth);
+            newTooth.transform.SetParent(_EnSystem.teethAreaPosition);
+            newTooth.transform.SetSiblingIndex(toothIndex);
+
+            _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        }
+    }
+
     public GameObject FindToothByDamage(bool inverse, CardVisual otherTooth)
     {
         GameObject potentialTooth = null;

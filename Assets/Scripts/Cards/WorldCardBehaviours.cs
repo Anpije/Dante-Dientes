@@ -25,8 +25,8 @@ public class WorldCardBehaviours : MonoBehaviour
         targetPosition = newPos.position;
         targetRotation = newPos.rotation;
         atDefaultTransform = false;
-        transform.DOMove(targetPosition, 0.15f, false);
-        transform.DORotateQuaternion(targetRotation, 0.15f);
+        transform.DOMove(targetPosition, 0.25f, false);
+        transform.DORotateQuaternion(targetRotation, 0.25f);
     }
 
     public void fReturnFromPosition(Transform startPos, float newSpeed)
@@ -38,8 +38,8 @@ public class WorldCardBehaviours : MonoBehaviour
         targetPosition = defaultPosition;
         targetRotation = defaultRotation;
 
-        transform.DOMove(targetPosition, 0.15f, false);
-        transform.DORotateQuaternion(targetRotation, 0.15f);
+        transform.DOMove(targetPosition, 0.25f, false);
+        transform.DORotateQuaternion(targetRotation, 0.25f);
         atDefaultTransform = true;
     }
 
@@ -52,8 +52,8 @@ public class WorldCardBehaviours : MonoBehaviour
         targetPosition = defaultPosition;
         targetRotation = defaultRotation;
 
-        transform.DOMove(targetPosition, 0.15f, false);
-        transform.DORotateQuaternion(targetRotation, 0.15f);
+        transform.DOMove(targetPosition, 0.25f, false);
+        transform.DORotateQuaternion(targetRotation, 0.25f);
         atDefaultTransform = true;
     }
 
@@ -62,12 +62,12 @@ public class WorldCardBehaviours : MonoBehaviour
         // Esconde o revela una carta dependiendo en el booleano pasado
         if (!reveal)
         {
-            transform.DOMove(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.15f, false); 
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.25f, false); 
             atDefaultTransform = false;
         }
         else
         {
-            transform.DOMove(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), 0.15f, false); 
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), 0.25f, false); 
             atDefaultTransform = true;
         }
     }
