@@ -48,6 +48,7 @@ public class TurnManager : MonoBehaviour
                 PlayerStartTurn?.Invoke();
             else
             {
+                PlAc.skipTurn = false;
                 currentTurn++; 
                 _Players[currentTurn].StartTurn(); 
             }
