@@ -55,14 +55,15 @@ MonoBehaviour:
   - {fileID: -2509996309244383278, guid: 0000000000000000d000000000000000, type: 0}
   _Materials:
   - {fileID: 2100000, guid: a3f28b9c11a631041a6b80c04e076cfe, type: 2}
-  - {fileID: 2100000, guid: da1ba13d3424a204aa7001b9bab4ce8c, type: 2}
-  - {fileID: 2100000, guid: d4c4642851299f949a5fc00d8a911377, type: 2}
-  - {fileID: 2100000, guid: 7b015d14b299be640b90904955f05bf1, type: 2}
+  - {fileID: 2100000, guid: da371b6b6384e124f8ff43d35d265ff6, type: 2}
+  - {fileID: 2100000, guid: 3415099389d2c834c87e0d6992ffce85, type: 2}
+  - {fileID: 2100000, guid: d80d9bee3d2a0574d92081e52eda950d, type: 2}
   - {fileID: 2100000, guid: e1c36cefc686a8444a24b1171c813e1e, type: 2}
   toothType: 0
-  effect: 0
+  Effect: 0
   inPlayPos: {x: 0, y: 0, z: 0}
   outPlayPos: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
 --- !u!33 &2666445838868173901
 MeshFilter:
   m_ObjectHideFlags: 0
