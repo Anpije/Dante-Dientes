@@ -16,6 +16,7 @@ public class PlayerActions : MonoBehaviour
     public ToothObject[] teethModels;
 
     public static Action OnEndTurn;
+    public static Action<bool> OnPlayerWin;
 
     [Header("Effects")]
     public GameObject playedCard;
@@ -117,16 +118,60 @@ public class PlayerActions : MonoBehaviour
 
     public void EndTurn()
     {
+        if (CdSy.teethInPlay.Count == 4)
+        {
+            var won = CheckWinCondition();
+
+            if (won)
+            {
+                Debug.Log("YOU WON!");
+                OnPlayerWin?.Invoke(true);
+                return;
+            }
+        }
+
         if (extraTimeCard == null)
         {
             Debug.Log("Player's turn has ended");
+            if (CdSy.hand.Count < 4) CdSy.DrawCard();
             OnEndTurn?.Invoke();
         }
         else
         {
             Debug.Log("You played Extra Time, and can go again");
             CdSy.DiscardCard(extraTimeCard);
+            CdSy.Invoke("DrawCard", 0.15f);
             extraTimeCard = null;
         }
+    }
+
+    bool CheckWinCondition()
+    {
+        CardVisual[] teethColors = new CardVisual[4];
+        int rainbowTeeth = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if ((int)CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == j)
+                {
+                    if (CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection >= 0)
+                        teethColors[j] = CdSy.teethInPlay[i].GetComponent<CardVisual>();
+                }
+            }
+            if ((int)CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4)
+                rainbowTeeth++;
+        }
+
+        int toWin = 0;
+
+        for (int i = 0; i < 4; i++)
+            if (teethColors[i] != null) toWin++;
+
+        if (toWin + rainbowTeeth == 4)
+            return true;
+        else
+            return false;
     }
 }

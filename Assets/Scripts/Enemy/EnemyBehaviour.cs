@@ -17,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
           new Vector3 (16.5f, 33, 66) }; // Probabilidades según la dificultad si hay 4 jugadores en total
 
     public static Action OnEndTurn;
+    public static Action<bool> OnEnemyWin;
 
     EnemySystem _EnSy;
     EnemyActions _EnAc;
@@ -49,11 +50,12 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (_EnSy.hand.Count > 4)
         {
-            Debug.Log("Removing excess cards from " + gameObject.name + "'s deck");
             int excess = _EnSy.hand.Count - 4;
+            Debug.Log("Removing " + excess + " cards from " + gameObject.name + "'s deck");
             for (int i = 0; i < excess; i++)
             {
                 GameObject toRemove = _EnSy.hand[i];
+                Debug.Log("Removed " + i + " cards");
                 _EnSy.hand.Remove(toRemove);
                 toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
                 toRemove.SetActive(false);
@@ -62,7 +64,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (totalImnunityCard != null) totalImnunityCard = null;
         
-        if (skipTurn) { skipTurn = false; EndTurn(); return; }
+        if (skipTurn) { skipTurn = false; Invoke("EndTurn", 0.25f); return; }
 
         for (int i = 0; i < _EnSy.hand.Count; i++)
         {
@@ -85,13 +87,13 @@ public class EnemyBehaviour : MonoBehaviour
                 if (_EnSy.teethInPlay.Count < 4)
                 {
                     _EnSy.PlaceTooth(_EnSy.hand[i]); Debug.Log(gameObject.name + "placed a tooth");
-                    EndTurn();
+                    Invoke("EndTurn", 0.25f);
                     return;
                 }
                 else
                 {
                     _EnAc.ReplaceTooth(_EnSy.hand[i]);
-                    EndTurn();
+                    Invoke("EndTurn", 0.25f);
                     return;
                 }
             }
@@ -105,7 +107,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
                 {
                     var A = AffectTooth(_EnSy, _EnSy.hand[i].GetComponent<CardVisual>(), 1); Debug.Log(gameObject.name + "protected a tooth");
-                    if (A) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); return; }
+                    if (A) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); return; }
                     else
                         _UselessCards.Add(_EnSy.hand[i]);
                 }
@@ -119,17 +121,17 @@ public class EnemyBehaviour : MonoBehaviour
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
-                    if (B) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
                 }
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);
                 var A = AffectTooth(_EnemySystems[en], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                if (A) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
+                if (A) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 
                 for (int j = 0; j < _EnemySystems.Count; j++)
                 {
                     var B = AffectTooth(_EnemySystems[j], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
-                    if (B) { _EnAc.Discard(_EnSy.hand[i]); EndTurn(); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 }
 
                 _UselessCards.Add(_EnSy.hand[i]);
@@ -141,7 +143,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
                 var checkFunction = ActionByCardDescription(_EnSy.hand[i].GetComponent<CardVisual>());
-                if (checkFunction) { Debug.Log(gameObject.name + " played a " + _EnSy.hand[i].GetComponent<CardVisual>().cardData.description); _EnAc.Discard(_EnSy.hand[i]); EndTurn(); return; }
+                if (checkFunction) { Debug.Log(gameObject.name + " played a " + _EnSy.hand[i].GetComponent<CardVisual>().cardData.description); _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); return; }
 
                 _UselessCards.Add(_EnSy.hand[i]);
             }
@@ -149,7 +151,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         // Si no ha podido jugar una carta se eligirá uno para descartar
         _EnAc.Discard(_EnAc.FindLeastValuable());
-        EndTurn();
+        Invoke("EndTurn", 0.25f);
     }
 
     bool ActionByCardDescription(CardVisual card)
@@ -473,6 +475,18 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void EndTurn()
     {
+        if (_EnSy.teethInPlay.Count == 4)
+        {
+            var won = _EnAc.CheckWinCondition();
+
+            if (won)
+            {
+                Debug.Log("YOU LOSE! \n" + gameObject.name.ToUpper() + " HAS WON!");
+                OnEnemyWin?.Invoke(false);
+                return;
+            }
+        }
+
         if (extraTimeCard == null)
         {
             OnEndTurn?.Invoke();

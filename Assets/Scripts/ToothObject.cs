@@ -6,7 +6,7 @@ public class ToothObject : MonoBehaviour
 {
     [Header("Appearance")]
     MeshFilter _MeshFilter;
-    MeshRenderer _MeshRenderer;
+    Renderer _Renderer;
     [SerializeField] Mesh[] _Models = new Mesh[5];
     [SerializeField] Material[] _Materials = new Material[5];
 
@@ -33,7 +33,7 @@ public class ToothObject : MonoBehaviour
     void Awake()
     {
         _MeshFilter = GetComponent<MeshFilter>();
-        _MeshRenderer = GetComponent<MeshRenderer>();   
+        _Renderer = GetComponent<Renderer>();   
         inPlayPos = new Vector3(transform.position.x, 0, transform.position.z);
         outPlayPos = new Vector3(transform.position.x, -0.1f, transform.position.z);
         transform.position = outPlayPos;
@@ -44,7 +44,7 @@ public class ToothObject : MonoBehaviour
         toothType = (Tooth)newType;
         int ID = (int)toothType;
         _MeshFilter.mesh = _Models[ID];
-        _MeshRenderer.material = _Materials[ID];
+        _Renderer.material = _Materials[ID];
         transform.DOMove(inPlayPos, 0.15f);
     }
 
@@ -65,7 +65,7 @@ public class ToothObject : MonoBehaviour
     {
         transform.DOMove(outPlayPos, 0.15f);
         _MeshFilter.mesh = _Models[toothID];
-        _MeshRenderer.material = _Materials[toothID];
+        _Renderer.material = _Materials[toothID];
         yield return new WaitForSeconds(0.2f);
         transform.DOMove(inPlayPos, 0.15f);
         yield return new WaitForSeconds(0.15f);

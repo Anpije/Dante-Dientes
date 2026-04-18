@@ -87,7 +87,7 @@ public class EnemyActions : MonoBehaviour
             Destroy(toothToSwap);
 
             _EnSystem.teethInPlay.Add(newTooth);
-            newTooth.transform.SetParent(_EnSystem.teethAreaPosition);
+            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
             newTooth.transform.SetSiblingIndex(toothIndex);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
@@ -103,7 +103,7 @@ public class EnemyActions : MonoBehaviour
             Destroy(toothToSwap);
 
             _EnSystem.teethInPlay.Add(newTooth);
-            newTooth.transform.SetParent(_EnSystem.teethAreaPosition);
+            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
             newTooth.transform.SetSiblingIndex(toothIndex);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
@@ -267,6 +267,37 @@ public class EnemyActions : MonoBehaviour
 
         Debug.LogError("Couldn't find a valuable card in " + gameObject.name + "'s hand");
         return null;
+    }
+
+    public bool CheckWinCondition()
+    {
+        CardVisual[] teethColors = new CardVisual[4];
+        int rainbowTeeth = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if ((int)_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == j)
+                {
+                    if (_EnSystem.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection >= 0)
+                        teethColors[j] = _EnSystem.teethInPlay[i].GetComponent<CardVisual>();
+                }
+            }
+
+            if ((int)_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4)
+                rainbowTeeth++;
+        }
+
+        int toWin = 0;
+
+        for (int i = 0; i < 4; i++)
+            if (teethColors[i] != null) toWin++;
+
+        if (toWin + rainbowTeeth == 4)
+            return true;
+        else
+            return false;
     }
 
     public void DiscardMostValuable()

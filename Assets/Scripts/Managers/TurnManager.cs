@@ -17,12 +17,16 @@ public class TurnManager : MonoBehaviour
     {
         EnemyBehaviour.OnEndTurn += fInvokeNextTurn;
         PlayerActions.OnEndTurn += fInvokeNextTurn;
+        EnemyBehaviour.OnEnemyWin += EndGame;
+        PlayerActions.OnPlayerWin += EndGame;
     }
 
     void OnDisable()
     {
         EnemyBehaviour.OnEndTurn -= fInvokeNextTurn;
         PlayerActions.OnEndTurn -= fInvokeNextTurn;
+        EnemyBehaviour.OnEnemyWin -= EndGame;
+        PlayerActions.OnPlayerWin -= EndGame;
     }
 
     void Start()
@@ -53,5 +57,15 @@ public class TurnManager : MonoBehaviour
                 _Players[currentTurn].StartTurn(); 
             }
         }
+    }
+
+    void EndGame(bool victor)
+    {
+        if (victor)
+            Debug.LogWarning("End of Game. Player Wins");
+        else
+            Debug.LogWarning("End of Game. Player Lost");
+
+        // Go to whatever screen
     }
 }
