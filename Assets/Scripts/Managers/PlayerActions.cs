@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 
@@ -124,6 +125,8 @@ public class PlayerActions : MonoBehaviour
 
             if (won)
             {
+                for (int i = 0; i < CdSy.hand.Count; i++)
+                    CdSy.hand[i].GetComponentInChildren<Button>().interactable = false;
                 Debug.Log("YOU WON!");
                 OnPlayerWin?.Invoke(true);
                 return;
