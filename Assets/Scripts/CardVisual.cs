@@ -16,8 +16,9 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI typeText;
     public Image colorIndicator;
-    public Image descriptionArea;
-    public TextMeshProUGUI descriptionText;
+
+    public static System.Action OnCursorOverCard;
+    public static System.Action OnCursorExitCard;
 
     // Colores para las cartas (Más adelante se puede quitar para el arte)
 
@@ -113,16 +114,11 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
         Transform parentCanvas = GetComponentInParent<Canvas>().gameObject.transform;
         if (visible)
         {
-            descriptionText.transform.SetParent(parentCanvas, false);
-            descriptionText.transform.SetAsLastSibling();
-            descriptionArea.DOFade(0.5f, 0.15f);
-            descriptionText.text = cardData.description;
+            OnCursorOverCard?.Invoke();
         }
         else
         {
-            descriptionText.transform.SetParent(transform, false);
-            descriptionArea.DOFade(0, 0.15f);
-            descriptionText.text = "";
+            OnCursorExitCard?.Invoke();
         }
     }
 
