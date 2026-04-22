@@ -461,6 +461,15 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         List<GameObject> cards = new List<GameObject>();
 
+        for (int i = 0; i < 3; i++)
+        {
+            if (_EnemySystems[i].gameObject.activeSelf)
+            {
+                while (_EnemySystems[i].hand.Count < 4)
+                    _EnemySystems[i].DrawCard();
+            }
+        }
+
         if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
         {
             player.DiscardCard(plAc.playedCard); 
@@ -470,12 +479,13 @@ public class EnemyHandEventManager : MonoBehaviour
         else
             NME.Discard(card);
 
+        while (player.hand.Count < 4)
+            player.DrawCard();
+
         for (int i = 0; i < 3; i++)
         {
             if (_EnemySystems[i].gameObject.activeSelf)
             {
-                if (_EnemySystems[i].hand.Count != 4)
-                    _EnemySystems[i].DrawCard();
                 cards.Add(_EnemySystems[i].hand[Random.Range(0, 4)]);
             }
         }

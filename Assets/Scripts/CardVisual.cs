@@ -2,17 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using DG.Tweening;
+using Unity.Android.Gradle.Manifest;
 
 public class CardVisual : MonoBehaviour, IPointerClickHandler
 {
     [Header("Card Data")]
     public CardData cardData;
-    
+
     [Header("UI References")]
+    private Image _Image;
     public Image backgroundImage;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI typeText;
     public Image colorIndicator;
+    public Image descriptionArea;
     public TextMeshProUGUI descriptionText;
 
     // Colores para las cartas (Más adelante se puede quitar para el arte)
@@ -31,6 +35,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     
     public void Initialize(CardData data)
     {
+        _Image = GetComponent<Image>();
         cardData = data;
         
         // Para el nobre las cartas (Reemplable también por el arte)
@@ -39,9 +44,6 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
         
         if (typeText != null)
             typeText.text = GetTypeName(data.cardType);
-        
-        if (descriptionText != null)
-            descriptionText.text = data.description;
 
         // esto solo será para el color del fondo esto lo quitaremos cuando ya los de arte tenga los diseños de las cartas
         if (backgroundImage != null)
@@ -80,6 +82,9 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        if (data.cardSprite != null)
+            _Image.sprite = data.cardSprite;
+
         // renderizado de las carta tengas
         /*Canvas canvas = GetComponent<Canvas>();
         if (canvas == null)
@@ -103,6 +108,24 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
         }
     }
     
+    public void ToggleText(bool visible)
+    {
+        Transform parentCanvas = GetComponentInParent<Canvas>().gameObject.transform;
+        if (visible)
+        {
+            descriptionText.transform.SetParent(parentCanvas, false);
+            descriptionText.transform.SetAsLastSibling();
+            descriptionArea.DOFade(0.5f, 0.15f);
+            descriptionText.text = cardData.description;
+        }
+        else
+        {
+            descriptionText.transform.SetParent(transform, false);
+            descriptionArea.DOFade(0, 0.15f);
+            descriptionText.text = "";
+        }
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log($"Carta: {cardData.cardName} | Tipo: {cardData.cardType} | Color: {cardData.cardColor}");

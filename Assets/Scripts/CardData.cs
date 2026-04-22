@@ -1,3 +1,4 @@
+using UnityEngine.UI;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "DientesSanos/Card Data")]
@@ -6,6 +7,7 @@ public class CardData : ScriptableObject
     public string cardName;
     public CardType cardType;
     public ToothColor cardColor;
+    public Sprite cardSprite; 
 
     [TextArea(2, 4)]
     public string description;

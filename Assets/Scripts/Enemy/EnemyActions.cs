@@ -285,7 +285,7 @@ public class EnemyActions : MonoBehaviour
                 }
             }
 
-            if ((int)_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4)
+            if ((int)_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4 && _EnSystem.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection >= 0)
                 rainbowTeeth++;
         }
 

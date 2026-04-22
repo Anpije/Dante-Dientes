@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: Tratamiento 04
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Tratamiento
+  cardName: "Revisi\xF3n Sorpresa"
   cardType: 3
   cardColor: 0
-  description: "Revisi\xF3n Sorpresa"
+  cardSprite: {fileID: 0}
+  description: 

@@ -163,7 +163,7 @@ public class PlayerActions : MonoBehaviour
                         teethColors[j] = CdSy.teethInPlay[i].GetComponent<CardVisual>();
                 }
             }
-            if ((int)CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4)
+            if ((int)CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == 4 && CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection >= 0)
                 rainbowTeeth++;
         }
 
