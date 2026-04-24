@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.InputSystem;
 
 public class CardDescriptions : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class CardDescriptions : MonoBehaviour
         CardVisual.OnCursorExitCard -= RemoveDescription;
     }
 
+    void Update()
+    {
+        rectTransform.localPosition = Mouse.current.position.ReadValue();
+    }
+
     private void DisplayDescription(CardVisual data)
     {
         string desc = "";
@@ -37,7 +43,7 @@ public class CardDescriptions : MonoBehaviour
         textBoxes[1].DOFade(1, 0.15f);
         background.DOFade(0.75f, 0.15f);
 
-        rectTransform.localPosition = (data.gameObject.GetComponent<RectTransform>().anchoredPosition);
+        // rectTransform.localPosition = (data.gameObject.GetComponent<RectTransform>().anchoredPosition);
     }
 
     private void RemoveDescription()
