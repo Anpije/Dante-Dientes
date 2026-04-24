@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using DG.Tweening;
-using Unity.Android.Gradle.Manifest;
+//using Unity.Android.Gradle.Manifest;
 
 public class CardVisual : MonoBehaviour, IPointerClickHandler
 {
@@ -17,7 +16,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI typeText;
     public Image colorIndicator;
 
-    public static System.Action OnCursorOverCard;
+    public static System.Action<CardVisual> OnCursorOverCard;
     public static System.Action OnCursorExitCard;
 
     // Colores para las cartas (Más adelante se puede quitar para el arte)
@@ -113,13 +112,9 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     {
         Transform parentCanvas = GetComponentInParent<Canvas>().gameObject.transform;
         if (visible)
-        {
-            OnCursorOverCard?.Invoke();
-        }
+            OnCursorOverCard?.Invoke(this);
         else
-        {
             OnCursorExitCard?.Invoke();
-        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

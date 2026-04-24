@@ -70,9 +70,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
-                if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.description == "Bloqueo de Azúcar")
+                if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardName == "Bloqueo de Azúcar")
                     blockSugarCard = _EnSy.hand[i];
-                if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.description == "Tiempo Extra")
+                if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardName == "Tiempo Extra")
                     extraTimeCard = _EnSy.hand[i];
             }
         }
@@ -143,7 +143,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
                 var checkFunction = ActionByCardDescription(_EnSy.hand[i].GetComponent<CardVisual>());
-                if (checkFunction) { Debug.Log(gameObject.name + " played a " + _EnSy.hand[i].GetComponent<CardVisual>().cardData.description); _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); return; }
+                if (checkFunction) { Debug.Log(gameObject.name + " played a " + _EnSy.hand[i].GetComponent<CardVisual>().cardData.cardName); _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); return; }
 
                 _UselessCards.Add(_EnSy.hand[i]);
             }
@@ -156,7 +156,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool ActionByCardDescription(CardVisual card)
     {
-        switch (card.cardData.description)
+        switch (card.cardData.cardName)
         {
             case "Immunización Total":
                 //var checkTeeth = AffectTooth(_EnSy, card, 1);

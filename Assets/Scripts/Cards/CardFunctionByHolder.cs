@@ -115,7 +115,7 @@ public class CardFunctionByHolder : MonoBehaviour
                 return;
             case CardType.Treatment:
                 FindFirstObjectByType<PlayerActions>().playedCard = gameObject;
-                FuntionByDescription(card.cardData.description);
+                FuntionByDescription(card.cardData.cardName);
                 return;
         }
     }

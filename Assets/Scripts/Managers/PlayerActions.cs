@@ -54,9 +54,9 @@ public class PlayerActions : MonoBehaviour
         {
             if (CdSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
-                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.description == "Bloqueo de Azúcar")
+                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.cardName == "Bloqueo de Azúcar")
                     blockSugarCard = CdSy.hand[i];
-                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.description == "Tiempo Extra")
+                if (CdSy.hand[i].GetComponent<CardVisual>().cardData.cardName == "Tiempo Extra")
                     extraTimeCard = CdSy.hand[i];
             }
         }
