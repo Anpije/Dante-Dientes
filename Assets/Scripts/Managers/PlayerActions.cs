@@ -26,6 +26,9 @@ public class PlayerActions : MonoBehaviour
     public GameObject extraTimeCard;
     public bool skipTurn = false;
 
+    [Header("Component References")]
+    [SerializeField] private GameObject discardButton;
+
     void Awake()
     { 
         CdSy = FindFirstObjectByType<CardSystem>();
@@ -48,6 +51,12 @@ public class PlayerActions : MonoBehaviour
 
     void StartPlayersTurn()
     {
+        discardButton.SetActive(true);
+        discardButton.GetComponent<Button>().interactable = true;
+
+        while (CdSy.hand.Count < 4)
+            CdSy.DrawCard();
+
         if (totalImunityCard != null) totalImunityCard = null; 
 
         for (int i = 0; i < CdSy.hand.Count; i++)
@@ -117,6 +126,101 @@ public class PlayerActions : MonoBehaviour
         Invoke("EndTurn", 0.25f);
     }
 
+    public void SwapCards(EnemySystem otherEn)
+    {
+        GameObject cardToSwap = CdSy.hand[UnityEngine.Random.Range(0, 4)];
+        GameObject newCard = otherEn.hand[UnityEngine.Random.Range(0, 4)];
+        CdSy.hand.Remove(cardToSwap);
+        otherEn.hand.Remove(newCard);
+        CdSy.hand.Add(newCard);
+        otherEn.hand.Add(cardToSwap);
+        newCard.transform.SetParent(otherEn.handPositionUI);
+        cardToSwap.transform.SetParent(CdSy.handPosition);
+    }
+
+    public GameObject FindToothByDamage(bool inverse, CardVisual otherTooth)
+    {
+        GameObject potentialTooth = null;
+        int damage = 0;
+        if (inverse)
+        {
+            damage = -100;
+            for (int i = 0; i < CdSy.teethInPlay.Count; i++)
+            {
+                if (CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection > damage)
+                {
+                    damage = CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection;
+                    potentialTooth = CdSy.teethInPlay[i];
+                }
+            }
+        }
+        else
+        {
+            damage = 100;
+            for (int i = 0; i < CdSy.teethInPlay.Count; i++)
+            {
+                if (CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection < damage)
+                {
+                    damage = CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection;
+                    potentialTooth = CdSy.teethInPlay[i];
+                }
+            }
+        }
+
+        if (damage == 0)
+        {
+            if (!inverse)
+                return FindToothByColor(true, null);
+            else
+                return FindToothByColor(false, otherTooth);
+        }
+        else
+            return potentialTooth;
+    }
+
+    public GameObject FindToothByColor(bool match, CardVisual otherTooth)
+    {
+        GameObject potentialTooth = null;
+        if (match)
+        {
+            for (int i = 0; i < CdSy.teethInPlay.Count; i++)
+            {
+                if (potentialTooth == null)
+                    potentialTooth = CdSy.teethInPlay[i];
+                else
+                {
+                    if (CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == potentialTooth.GetComponent<CardVisual>().cardData.cardColor)
+                        potentialTooth = CdSy.teethInPlay[i];
+                }
+            }
+        }
+        else
+        {
+            if (otherTooth == null)
+            {
+                for (int i = 0; i < CdSy.teethInPlay.Count; i++)
+                {
+                    if (potentialTooth == null)
+                        potentialTooth = CdSy.teethInPlay[i];
+                    else
+                    {
+                        if (CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor != potentialTooth.GetComponent<CardVisual>().cardData.cardColor)
+                            potentialTooth = CdSy.teethInPlay[i];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < CdSy.teethInPlay.Count; i++)
+                {
+                    if (CdSy.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor != otherTooth.cardData.cardColor)
+                        potentialTooth = CdSy.teethInPlay[i];
+                }
+            }
+        }
+        return potentialTooth;
+    }
+
     public void EndTurn()
     {
         if (CdSy.teethInPlay.Count == 4)
@@ -127,6 +231,7 @@ public class PlayerActions : MonoBehaviour
             {
                 for (int i = 0; i < CdSy.hand.Count; i++)
                     CdSy.hand[i].GetComponentInChildren<Button>().interactable = false;
+                discardButton.SetActive(false);
                 Debug.Log("YOU WON!");
                 OnPlayerWin?.Invoke(true);
                 return;
@@ -137,6 +242,7 @@ public class PlayerActions : MonoBehaviour
         {
             Debug.Log("Player's turn has ended");
             if (CdSy.hand.Count < 4) CdSy.DrawCard();
+            discardButton.SetActive(false);
             OnEndTurn?.Invoke();
         }
         else

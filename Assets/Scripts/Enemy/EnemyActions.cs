@@ -43,23 +43,35 @@ public class EnemyActions : MonoBehaviour
     public void SwapTeeth(GameObject newTooth, EnemySystem otherEn)
     {
         GameObject toothToSwap = FindToothByDamage(true, newTooth.GetComponent<CardVisual>());
+        int oldIndex = toothToSwap.transform.GetSiblingIndex();
+        int newIndex = newTooth.transform.GetSiblingIndex();
         _EnSystem.teethInPlay.Remove(toothToSwap);
         otherEn.teethInPlay.Remove(newTooth);
         _EnSystem.teethInPlay.Add(newTooth);
         otherEn.teethInPlay.Add(toothToSwap);
         newTooth.transform.SetParent(_EnSystem.teethPositionUI);
+        newTooth.transform.SetSiblingIndex(oldIndex);
         toothToSwap.transform.SetParent(otherEn.teethPositionUI);
+        toothToSwap.transform.SetSiblingIndex(newIndex);
+        _EnSystem.teethModels[oldIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        otherEn.teethModels[newIndex].fModifyTooth((int)toothToSwap.GetComponent<CardVisual>().cardData.cardColor);
     }
 
     public void SwapCard(GameObject newCard, EnemySystem otherEn)
     {
-        GameObject cardToSwap = FindMostValuable();
+        GameObject cardToSwap = _EnSystem.hand[Random.Range(0, 4)];
+        int oldIndex = cardToSwap.transform.GetSiblingIndex();
+        int newIndex = newCard.transform.GetSiblingIndex();
         _EnSystem.hand.Remove(cardToSwap);
         otherEn.hand.Remove(newCard);
         _EnSystem.hand.Add(newCard);
         otherEn.hand.Add(cardToSwap);
-        newCard.transform.SetParent(otherEn.handPositionUI);
-        cardToSwap.transform.SetParent(_EnSystem.handPositionUI);
+        cardToSwap.transform.SetParent(otherEn.handPositionUI);
+        cardToSwap.transform.SetSiblingIndex(newIndex);
+        newCard.transform.SetParent(_EnSystem.handPositionUI);
+        newCard.transform.SetSiblingIndex(oldIndex);
+        otherEn.cardModels[newIndex].fReturnFromPosition(_EnSystem.cardModels[oldIndex].transform, 0.15f);
+        _EnSystem.cardModels[oldIndex].fReturnFromPosition(otherEn.cardModels[newIndex].transform, 0.15f);
     }
 
     public void ReplaceTooth(GameObject newTooth)

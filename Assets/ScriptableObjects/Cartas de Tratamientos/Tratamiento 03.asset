@@ -16,4 +16,4 @@ MonoBehaviour:
   cardType: 3
   cardColor: 0
   cardSprite: {fileID: 0}
-  description: 
+  description: "Quita el efecto de una carta da\xF1ina sobre uno de tus dientes."

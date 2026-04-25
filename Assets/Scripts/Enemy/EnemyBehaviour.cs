@@ -46,7 +46,8 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
-        if (_EnSy.hand.Count < 4) _EnSy.DrawCard();
+        while (_EnSy.hand.Count < 4) 
+            _EnSy.DrawCard();
 
         if (_EnSy.hand.Count > 4)
         {
@@ -126,6 +127,7 @@ public class EnemyBehaviour : MonoBehaviour
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);
                 var A = AffectTooth(_EnemySystems[en], _EnSy.hand[i].GetComponent<CardVisual>(), -1);
+                Debug.Log("Index of card was " + i);
                 if (A) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged an oponent's tooth"); return; }
                 
                 for (int j = 0; j < _EnemySystems.Count; j++)
@@ -203,26 +205,60 @@ public class EnemyBehaviour : MonoBehaviour
                     }
                 }
                 return false;
-            case "Intercambio Carta":
+            case "Intercambiar Cartas":
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
                 {
-                    // Steal Player's card
+                    int enToSwapWith = UnityEngine.Random.Range(0, 2);
+                    _P1Sy.PlAc.SwapCards(_EnemySystems[enToSwapWith]);
                     return true;
                 }
                 else
                 {
                     if (nPlayers == 3)
                     {
-                        _EnAc.SwapCard(_EnemySystems[0].enAc.FindMostValuable(), _EnemySystems[0]);
+                        int cardToSwap = UnityEngine.Random.Range(0, 4);
+                        _EnAc.SwapCard(_EnemySystems[0].hand[cardToSwap], _EnemySystems[0]);
                         return true;
                     }
                     else
                     {
-                        _EnemySystems[0].enAc.SwapCard(_EnemySystems[1].enAc.FindMostValuable(), _EnemySystems[1]);
+                        int cardToSwap = UnityEngine.Random.Range(0, 4);
+                        _EnemySystems[0].enAc.SwapCard(_EnemySystems[1].hand[cardToSwap], _EnemySystems[1]);
                         return true;
                     }
                 }
-            case "Intercambio Diente":
+            case "Robar Carta":
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                {
+                    GameObject newCard = _P1Sy.FindMostValuable();
+                    _P1Sy.hand.Remove(newCard);
+                    _EnSy.hand.Add(newCard);
+                    newCard.transform.SetParent(_EnSy.handPositionUI);
+                    return true;
+                }
+                else
+                {
+                    if (nPlayers == 3)
+                    {
+                        EnemySystem otherEn = _EnemySystems[0];
+                        GameObject newCard = otherEn.enAc.FindMostValuable();
+                        otherEn.hand.Remove(newCard);
+                        _EnSy.hand.Add(newCard);
+                        newCard.transform.SetParent(_EnSy.handPositionUI);
+                        return true;
+                    }
+                    else
+                    {
+                        int enToStealFrom = UnityEngine.Random.Range(0, 2);
+                        EnemySystem otherEn = _EnemySystems[enToStealFrom];
+                        GameObject newCard = otherEn.enAc.FindMostValuable();
+                        otherEn.hand.Remove(newCard);
+                        _EnSy.hand.Add(newCard);
+                        newCard.transform.SetParent(_EnSy.handPositionUI);
+                        return true;
+                    }
+                }
+            case "Intercambiar Dientes":
                 int mostTeeth = 0;
                 int playerWithTeeth = 0;
                 for (int i = 0; i < _EnemySystems.Count; i++)
@@ -239,7 +275,20 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         if (mostTeeth != 0)
                         {
-                            // Steal Player's teeth
+                            GameObject newTooth = _P1Sy.PlAc.FindToothByDamage(false, null);
+                            GameObject oldTooth = _EnAc.FindToothByDamage(true, newTooth.GetComponent<CardVisual>());
+                            int newIndex = newTooth.transform.GetSiblingIndex();
+                            int oldIndex = oldTooth.transform.GetSiblingIndex();
+                            _EnSy.teethInPlay.Remove(oldTooth);
+                            _P1Sy.teethInPlay.Remove(newTooth);
+                            _EnSy.teethInPlay.Add(newTooth);
+                            _P1Sy.teethInPlay.Add(oldTooth);
+                            newTooth.transform.SetParent(_EnSy.teethPositionUI);
+                            newTooth.transform.SetSiblingIndex(oldIndex);
+                            oldTooth.transform.SetParent(_P1Sy.teethAreaPosition);
+                            oldTooth.transform.SetSiblingIndex(newIndex);
+                            _P1Sy.PlAc.teethModels[newIndex].fModifyTooth((int)oldTooth.GetComponent<CardVisual>().cardData.cardColor);
+                            _EnSy.teethModels[oldIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
                             return true;
                         }
                         else

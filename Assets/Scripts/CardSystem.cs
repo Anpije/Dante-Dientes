@@ -390,4 +390,41 @@ public class CardSystem : MonoBehaviour
             }
         }
     }
+
+    public GameObject FindMostValuable()
+    {
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+            {
+                return hand[i];
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Protective)
+            {
+                return hand[i];
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Harmful)
+            {
+                return hand[i];
+            }
+        }
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+            {
+                return hand[i];
+            }
+        }
+
+        return null;
+    }
 }

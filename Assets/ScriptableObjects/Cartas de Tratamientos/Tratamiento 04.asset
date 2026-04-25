@@ -16,4 +16,4 @@ MonoBehaviour:
   cardType: 3
   cardColor: 0
   cardSprite: {fileID: 0}
-  description: 
+  description: Elige un jugador y forzarles a descartar la carta que eliges.

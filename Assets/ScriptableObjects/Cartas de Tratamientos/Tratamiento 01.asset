@@ -16,4 +16,5 @@ MonoBehaviour:
   cardType: 3
   cardColor: 0
   cardSprite: {fileID: 0}
-  description: 
+  description: "Seleccionas uno de tus dientes para ser imune a ataques hasta tu
+    pr\xF3ximo turno."

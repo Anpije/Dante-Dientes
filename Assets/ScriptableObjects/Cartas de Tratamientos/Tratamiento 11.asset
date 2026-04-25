@@ -16,4 +16,4 @@ MonoBehaviour:
   cardType: 3
   cardColor: 0
   cardSprite: {fileID: 0}
-  description: 
+  description: "Si tienes esta carta, jugar\xE1s dos cartas est\xE9 turno."

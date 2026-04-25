@@ -24,7 +24,7 @@ public class CardDescriptions : MonoBehaviour
 
     void Update()
     {
-        rectTransform.localPosition = Mouse.current.position.ReadValue();
+        rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
     }
 
     private void DisplayDescription(CardVisual data)
@@ -42,8 +42,6 @@ public class CardDescriptions : MonoBehaviour
         textBoxes[1].text = desc;
         textBoxes[1].DOFade(1, 0.15f);
         background.DOFade(0.75f, 0.15f);
-
-        // rectTransform.localPosition = (data.gameObject.GetComponent<RectTransform>().anchoredPosition);
     }
 
     private void RemoveDescription()

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: Tratamiento 06
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Intercambio Carta
+  cardName: Intercambiar Cartas
   cardType: 3
   cardColor: 0
   cardSprite: {fileID: 0}
-  description: 
+  description: Obligas a dos oponentes a intercambiar una carta aleatoria.

@@ -62,7 +62,11 @@ public class CardFunctionByHolder : MonoBehaviour
         {
             switch (enMan._Purpose)
             {
-                case "stealOrSwapCards":
+                case "stealCard":
+                    FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
+                    FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
+                    return;
+                case "swapCards":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                     FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
                     return;
@@ -87,6 +91,9 @@ public class CardFunctionByHolder : MonoBehaviour
                 case "replaceTooth":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
                     FindFirstObjectByType<EnemyHandEventManager>().fReplacePlayerTooth(FindFirstObjectByType<PlayerActions>().playedCard);
+                    return;
+                case "discardPlayer":
+                    FindFirstObjectByType<EnemyHandEventManager>().DiscardSelected(gameObject);
                     return;
             }
         }
@@ -141,10 +148,13 @@ public class CardFunctionByHolder : MonoBehaviour
                 FindFirstObjectByType<EnemyHandEventManager>().effectToApply = 1;
                 FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("affectPlayerTooth");
                 break;
-            case "Intercambio Carta":
-                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("stealOrSwapCards");
+            case "Intercambiar Cartas":
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("swapCards");
                 break;
-            case "Intercambio Diente":
+            case "Robar Carta":
+                FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("stealCard");
+                break;
+            case "Intercambiar Dientes":
                 FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("swapTeeth");
                 break;
             case "Tratamiento Intensivo":

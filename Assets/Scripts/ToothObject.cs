@@ -10,7 +10,7 @@ public class ToothObject : MonoBehaviour
     [SerializeField] Mesh[] _Models = new Mesh[5];
     [SerializeField] Material[] _Materials = new Material[5];
 
-    public enum Tooth { Incisor, Canine, PreMol, Molar, Rainbow, None }
+    public enum Tooth { Molar, CentralIncisor, Canine, LateralIncisor, Rainbow, None }
     [Header("Details")]
     public Tooth toothType = Tooth.None;
     [SerializeField] private int Effect;

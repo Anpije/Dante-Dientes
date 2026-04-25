@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2192, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToothObject
   _Models:
-  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: -1684674835814063138, guid: e44bb709fd6933e4987fd2427613e5c1, type: 3}
+  - {fileID: -7297580055875647288, guid: bd55efbbcc1f31048a9b3ba4da621fff, type: 3}
+  - {fileID: -5097921712658892825, guid: 5f2b9d40787c4c441a4830548445dd78, type: 3}
+  - {fileID: -569937414765679752, guid: 0fd038149fc8fd840aae120c7e17f47c, type: 3}
+  - {fileID: -1684674835814063138, guid: e44bb709fd6933e4987fd2427613e5c1, type: 3}
   _Materials:
   - {fileID: 2100000, guid: a3f28b9c11a631041a6b80c04e076cfe, type: 2}
   - {fileID: 2100000, guid: da371b6b6384e124f8ff43d35d265ff6, type: 2}
@@ -71,7 +71,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5033310060300203433}
-  m_Mesh: {fileID: 5113381914208945771, guid: 0000000000000000d000000000000000, type: 0}
+  m_Mesh: {fileID: -1684674835814063138, guid: e44bb709fd6933e4987fd2427613e5c1, type: 3}
 --- !u!23 &83774784809168319
 MeshRenderer:
   m_ObjectHideFlags: 0
