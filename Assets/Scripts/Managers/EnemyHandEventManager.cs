@@ -440,7 +440,8 @@ public class EnemyHandEventManager : MonoBehaviour
         }
         else
         {
-            if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow)
+            if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || 
+                plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
                 _EnemySystems[storedIDs[0]].teethModels[toothID].effect += effectToApply;
                 _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
@@ -469,7 +470,8 @@ public class EnemyHandEventManager : MonoBehaviour
         }
         else
         {
-            if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow)
+            if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || 
+                plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
                 plAc.teethModels[toothID].effect += effectToApply;
                 player.teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;

@@ -217,12 +217,14 @@ public class EnemyBehaviour : MonoBehaviour
                     if (nPlayers == 3)
                     {
                         int cardToSwap = UnityEngine.Random.Range(0, 4);
+                        Debug.Log("Idex was " + cardToSwap);
                         _EnAc.SwapCard(_EnemySystems[0].hand[cardToSwap], _EnemySystems[0]);
                         return true;
                     }
                     else
                     {
                         int cardToSwap = UnityEngine.Random.Range(0, 4);
+                        Debug.Log("Idex was " + cardToSwap);
                         _EnemySystems[0].enAc.SwapCard(_EnemySystems[1].hand[cardToSwap], _EnemySystems[1]);
                         return true;
                     }

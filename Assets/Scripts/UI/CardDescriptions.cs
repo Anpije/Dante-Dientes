@@ -31,12 +31,12 @@ public class CardDescriptions : MonoBehaviour
     {
         string desc = "";
         if (data.cardData.cardType != CardType.Treatment)
-            desc = "<color=" + data.cardData.cardColor.ToString() + ">" + data.cardData.cardName + "</color>\n" + data.cardData.description;
+            desc = "<b><color=" + data.cardData.cardColor.ToString() + ">" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
         else
-            desc = "<color=cyan>" + data.cardData.cardName + "</color>\n" + data.cardData.description;
+            desc = "<b><color=cyan>" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
 
         if (data.cardData.cardColor == ToothColor.Rainbow)
-            desc = "<color=magenta>" + data.cardData.cardName + "</color>\n" + data.cardData.description;
+            desc = "<b><color=magenta>" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
 
         textBoxes[0].text = desc;
         textBoxes[1].text = desc;
