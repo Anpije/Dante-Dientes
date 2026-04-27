@@ -5,7 +5,7 @@ using System;
 
 public class PlayerActions : MonoBehaviour
 {
-    CardSystem CdSy;
+    public CardSystem CdSy;
 
     [Header("World Space References")]
     [SerializeField] Transform playerHandPos;
@@ -54,8 +54,8 @@ public class PlayerActions : MonoBehaviour
         discardButton.SetActive(true);
         discardButton.GetComponent<Button>().interactable = true;
 
-        while (CdSy.hand.Count < 4)
-            CdSy.DrawCard();
+        /*while (CdSy.hand.Count < 4)
+            CdSy.DrawCard();*/
 
         if (totalImunityCard != null) totalImunityCard = null; 
 

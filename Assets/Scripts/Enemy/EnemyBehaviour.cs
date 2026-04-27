@@ -19,8 +19,8 @@ public class EnemyBehaviour : MonoBehaviour
     public static Action OnEndTurn;
     public static Action<bool> OnEnemyWin;
 
-    EnemySystem _EnSy;
-    EnemyActions _EnAc;
+    public EnemySystem _EnSy;
+    public EnemyActions _EnAc;
     CardSystem _P1Sy;
     List<EnemySystem> _EnemySystems = new List<EnemySystem>();
 
@@ -46,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
-        while (_EnSy.hand.Count < 4) 
+        /*while (_EnSy.hand.Count < 4) 
             _EnSy.DrawCard();
 
         if (_EnSy.hand.Count > 4)
@@ -61,7 +61,7 @@ public class EnemyBehaviour : MonoBehaviour
                 toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
                 toRemove.SetActive(false);
             }
-        }
+        }*/
 
         if (totalImnunityCard != null) totalImnunityCard = null;
         
@@ -526,6 +526,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void EndTurn()
     {
+        /*while (_EnSy.hand.Count < 4)
+            { _EnAc.DrawCard(); Debug.Log("Adding card to " + gameObject.name); }
+
+        while (_EnSy.hand.Count > 4)
+            { _EnAc.Discard(_EnSy.hand[_EnSy.hand.Count - 1]); Debug.Log("Removing card from " + gameObject.name); }*/
+
         if (_EnSy.teethInPlay.Count == 4)
         {
             var won = _EnAc.CheckWinCondition();

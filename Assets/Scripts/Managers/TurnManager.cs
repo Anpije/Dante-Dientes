@@ -41,6 +41,7 @@ public class TurnManager : MonoBehaviour
 
     public void fNextTurn()
     {
+        CheckAllCardCounts();
         currentTurn++;
         if (currentTurn >= _Players.Count) currentTurn = 0;
         if (_Players[currentTurn] != null)
@@ -67,5 +68,38 @@ public class TurnManager : MonoBehaviour
             Debug.LogWarning("End of Game. Player Lost");
 
         // Go to whatever screen
+    }
+    void CheckAllCardCounts()
+    {
+        Debug.Log("Checking Cards");
+        for (int i = 1; i < _Players.Count; i++)
+        {
+
+            while (_Players[i]._EnSy.hand.Count > 4)
+            {
+                GameObject toRemove = _Players[i]._EnSy.hand[_Players[i]._EnSy.hand.Count - 1];
+                _Players[i]._EnSy.hand.Remove(toRemove);
+                toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
+                toRemove.SetActive(false);
+                Debug.Log("Removing card from " + _Players[i].gameObject.name); 
+            }
+
+            while (_Players[i]._EnSy.hand.Count < 4)
+            { 
+                _Players[i]._EnAc.DrawCard(); 
+                Debug.Log("Adding card to " + _Players[i].gameObject.name); 
+            }
+        }
+
+        while (PlAc.CdSy.hand.Count < 4)
+            PlAc.CdSy.DrawCard();
+
+        while (PlAc.CdSy.hand.Count > 4)
+        {
+            GameObject toRemove = PlAc.CdSy.hand[PlAc.CdSy.hand.Count - 1];
+            PlAc.CdSy.hand.Remove(toRemove);
+            toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
+            toRemove.SetActive(false);
+        }
     }
 }
