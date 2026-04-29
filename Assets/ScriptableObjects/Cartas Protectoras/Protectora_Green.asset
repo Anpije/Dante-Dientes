@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: Carta Protectora Verde
   cardType: 1
   cardColor: 2
+  cardSprite: {fileID: -1358667895, guid: d6372f17f0a62624b933f2ee77a07acc, type: 3}
   description: Protege Dientes de Color Verde

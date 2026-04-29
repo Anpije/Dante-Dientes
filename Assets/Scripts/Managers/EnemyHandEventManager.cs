@@ -524,6 +524,7 @@ public class EnemyHandEventManager : MonoBehaviour
     public void fEchangeAllCards(EnemyActions NME, GameObject card)
     {
         List<GameObject> cards = new List<GameObject>();
+        List<int> cardIndexes = new List<int>();
 
         if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
         {
@@ -557,10 +558,12 @@ public class EnemyHandEventManager : MonoBehaviour
                 Debug.Log(_EnemySystems[i]);
                 Debug.Log(_EnemySystems[i].hand[cardToAdd]);
                 cards.Add(_EnemySystems[i].hand[cardToAdd]);
+                cardIndexes.Add(cards[i].transform.GetSiblingIndex());
             }
         }
 
         cards.Add(player.hand[Random.Range(0, 4)]);
+        cardIndexes.Add(cards[cards.Count-1].transform.GetSiblingIndex());
 
         if (_EnemySystems[0].gameObject.activeSelf)
         {
@@ -580,19 +583,10 @@ public class EnemyHandEventManager : MonoBehaviour
             cards[2].transform.SetParent(_EnemySystems[1].handPosition);
             cards[3].transform.SetParent(_EnemySystems[2].handPosition);
 
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (i != 2)
-                        _EnemySystems[i].cardModels[j].fReturnFromPosition(_EnemySystems[i + 1].cardModels[j].transform, 0.15f);
-                    else
-                        _EnemySystems[i].cardModels[j].fReturnFromPosition(plAc.cardModels[j].transform, 0.15f);
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-                plAc.cardModels[i].fReturnFromPosition(_EnemySystems[0].cardModels[i].transform, 0.15f);
+            _EnemySystems[0].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[1].cardModels[cardIndexes[1]].transform, 0.25f);
+            _EnemySystems[1].cardModels[cardIndexes[1]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[2]].transform, 0.25f);
+            _EnemySystems[2].cardModels[cardIndexes[2]].fReturnFromPosition(plAc.cardModels[cardIndexes[3]].transform, 0.25f);
+            plAc.cardModels[cardIndexes[3]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.15f);
 
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[3].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
@@ -612,17 +606,9 @@ public class EnemyHandEventManager : MonoBehaviour
             cards[1].transform.SetParent(_EnemySystems[1].handPosition);
             cards[2].transform.SetParent(_EnemySystems[2].handPosition);
 
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    _EnemySystems[1].cardModels[j].fReturnFromPosition(_EnemySystems[2].cardModels[j].transform, 0.15f);
-                    _EnemySystems[2].cardModels[j].fReturnFromPosition(plAc.cardModels[j].transform, 0.15f);
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-                plAc.cardModels[i].fReturnFromPosition(_EnemySystems[1].cardModels[i].transform, 0.15f);
+            _EnemySystems[0].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[1]].transform, 0.25f);
+            _EnemySystems[1].cardModels[cardIndexes[1]].fReturnFromPosition(plAc.cardModels[cardIndexes[2]].transform, 0.25f);
+            plAc.cardModels[cardIndexes[2]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.15f);
 
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[2].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;

@@ -6,9 +6,6 @@ using System;
 public class EnemyBehaviour : MonoBehaviour
 {
     // Script para crear las probabilidades de que la IA realiza cierto acción
-    public enum Difficulties { EASY, NORMAL, HARD }
-    public Difficulties Difficulty = Difficulties.NORMAL;
-
     [Range(3, 4)]
     public int nPlayers = 3;
 
@@ -46,23 +43,6 @@ public class EnemyBehaviour : MonoBehaviour
     [ContextMenu("StartTurn")]
     public void StartTurn()
     {
-        /*while (_EnSy.hand.Count < 4) 
-            _EnSy.DrawCard();
-
-        if (_EnSy.hand.Count > 4)
-        {
-            int excess = _EnSy.hand.Count - 4;
-            Debug.Log("Removing " + excess + " cards from " + gameObject.name + "'s deck");
-            for (int i = 0; i < excess; i++)
-            {
-                GameObject toRemove = _EnSy.hand[i];
-                Debug.Log("Removed " + i + " cards");
-                _EnSy.hand.Remove(toRemove);
-                toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
-                toRemove.SetActive(false);
-            }
-        }*/
-
         if (totalImnunityCard != null) totalImnunityCard = null;
         
         if (skipTurn) { skipTurn = false; Invoke("EndTurn", 0.25f); return; }
@@ -119,7 +99,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Harmful)
             {
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
                     if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
@@ -169,7 +149,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else { return false; }
             case "Cambio de Turno":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                     _P1Sy.PlAc.skipTurn = true;
                 else
                 {
@@ -181,7 +161,7 @@ public class EnemyBehaviour : MonoBehaviour
                 var checkForTeeth = AffectTooth(_EnSy, card, 1);
                 if (checkForTeeth) { return true; } else return false;
             case "Revisión Sorpresa":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     _P1Sy.DiscardMostValuable();
                     return true;
@@ -206,7 +186,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 return false;
             case "Intercambiar Cartas":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     int enToSwapWith = UnityEngine.Random.Range(0, 2);
                     _P1Sy.PlAc.SwapCards(_EnemySystems[enToSwapWith]);
@@ -230,7 +210,7 @@ public class EnemyBehaviour : MonoBehaviour
                     }
                 }
             case "Robar Carta":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     GameObject newCard = _P1Sy.FindMostValuable();
                     _P1Sy.hand.Remove(newCard);
@@ -273,7 +253,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 if (_P1Sy.teethInPlay.Count >= mostTeeth)
                 {
-                    if (UnityEngine.Random.Range(1, 100f) < targetPlayerChance[nPlayers - 3][(int)Difficulty])
+                    if (UnityEngine.Random.Range(1, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                     {
                         if (mostTeeth != 0)
                         {
@@ -526,12 +506,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void EndTurn()
     {
-        /*while (_EnSy.hand.Count < 4)
-            { _EnAc.DrawCard(); Debug.Log("Adding card to " + gameObject.name); }
-
-        while (_EnSy.hand.Count > 4)
-            { _EnAc.Discard(_EnSy.hand[_EnSy.hand.Count - 1]); Debug.Log("Removing card from " + gameObject.name); }*/
-
         if (_EnSy.teethInPlay.Count == 4)
         {
             var won = _EnAc.CheckWinCondition();

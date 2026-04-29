@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.Events;
 using UnityEngine;
 using System;
@@ -41,7 +42,13 @@ public class TurnManager : MonoBehaviour
 
     public void fNextTurn()
     {
+        StartCoroutine(LoadNextTurn());
+    }
+
+    IEnumerator LoadNextTurn()
+    {
         CheckAllCardCounts();
+        yield return new WaitForEndOfFrame();
         currentTurn++;
         if (currentTurn >= _Players.Count) currentTurn = 0;
         if (_Players[currentTurn] != null)
@@ -54,10 +61,11 @@ public class TurnManager : MonoBehaviour
             else
             {
                 PlAc.skipTurn = false;
-                currentTurn++; 
-                _Players[currentTurn].StartTurn(); 
+                currentTurn++;
+                _Players[currentTurn].StartTurn();
             }
         }
+        StopCoroutine(LoadNextTurn());
     }
 
     void EndGame(bool victor)

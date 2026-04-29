@@ -46,7 +46,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
             typeText.text = GetTypeName(data.cardType);
 
         // esto solo será para el color del fondo esto lo quitaremos cuando ya los de arte tenga los diseños de las cartas
-        if (backgroundImage != null)
+        /*if (backgroundImage != null)
         {
             switch (data.cardType)
             {
@@ -80,7 +80,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
                 colorIndicator.gameObject.SetActive(true);
                 colorIndicator.color = data.GetColorRGB();
             }
-        }
+        }*/
 
         if (data.cardSprite != null)
             _Image.sprite = data.cardSprite;

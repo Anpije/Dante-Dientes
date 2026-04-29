@@ -45,7 +45,7 @@ public class CardSystem : MonoBehaviour
         // Crea todas las cartas
         CreateAllCards();
         // Coloca los dientes en juego
-        PlaceInitialTeeth();
+        // PlaceInitialTeeth();
         // Construye el mazo con las cartas restantes
         BuildDeck();
         // Roba la mano inicial (1 diente + 3 aleatorias)

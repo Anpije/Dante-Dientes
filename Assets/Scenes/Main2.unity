@@ -540,8 +540,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7098960f9d58434bbc8911320b577e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
-  Difficulty: 1
   nPlayers: 4
+  _EnSy: {fileID: 0}
+  _EnAc: {fileID: 0}
   totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
@@ -1033,8 +1034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7098960f9d58434bbc8911320b577e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
-  Difficulty: 1
   nPlayers: 4
+  _EnSy: {fileID: 0}
+  _EnAc: {fileID: 0}
   totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
@@ -5607,8 +5609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7098960f9d58434bbc8911320b577e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
-  Difficulty: 1
   nPlayers: 4
+  _EnSy: {fileID: 0}
+  _EnAc: {fileID: 0}
   totalImnunityCard: {fileID: 0}
   blockSugarCard: {fileID: 0}
   extraTimeCard: {fileID: 0}
@@ -6739,6 +6742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a3c09aa0e4a8c4b8bfddda05d016fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerActions
+  CdSy: {fileID: 0}
   playerHandPos: {fileID: 0}
   playerTeethPos: {fileID: 569045509}
   deckPosition: {fileID: 636956823}
@@ -7093,6 +7097,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770247277}
   m_CullTransparentMesh: 1
+--- !u!1 &1798134450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1798134452}
+  - component: {fileID: 1798134451}
+  m_Layer: 0
+  m_Name: EnemyDifficulty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1798134451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798134450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa6c8fb3bec4be4cb38b2e18ffdb7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDifficulty
+  Difficulty: 1
+--- !u!4 &1798134452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798134450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1847517905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8265,3 +8314,4 @@ SceneRoots:
   - {fileID: 347477667}
   - {fileID: 1377580422}
   - {fileID: 1673965395}
+  - {fileID: 1798134452}
