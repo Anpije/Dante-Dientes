@@ -102,7 +102,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
-                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); FindFirstObjectByType<OnScreenAnnouncement>().SplashText("Han dañado uno de tus dientes!", Color.red); return; }
                 }
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);

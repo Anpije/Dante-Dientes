@@ -565,6 +565,7 @@ public class EnemyHandEventManager : MonoBehaviour
         cards.Add(player.hand[Random.Range(0, 4)]);
         cardIndexes.Add(cards[cards.Count-1].transform.GetSiblingIndex());
 
+        FindFirstObjectByType<OnScreenAnnouncement>().SlideText("Confusión Clínica", Color.blue);
         if (_EnemySystems[0].gameObject.activeSelf)
         {
             _EnemySystems[0].hand.Remove(cards[0]);

@@ -14,6 +14,8 @@ public class TurnManager : MonoBehaviour
 
     public static Action PlayerStartTurn;
 
+    OnScreenAnnouncement news;
+
     void OnEnable()
     {
         EnemyBehaviour.OnEndTurn += fInvokeNextTurn;
@@ -30,12 +32,18 @@ public class TurnManager : MonoBehaviour
         PlayerActions.OnPlayerWin -= EndGame;
     }
 
+    void Awake()
+    {
+        news = FindFirstObjectByType<OnScreenAnnouncement>();
+    }
+
     void Start()
     {
         _Players.Add(null);
         for (int i = 0; i < _Enemies.Length; i++)
             if (_Enemies[i].gameObject.activeSelf) _Players.Add(_Enemies[i]);
         PlayerStartTurn?.Invoke();
+        news.SlideText("Tu Turno", new Color(0.7294118f, 0.3333333f, 0.8679245f));
     }
 
     void fInvokeNextTurn() { Invoke("fNextTurn", 1); }
@@ -52,14 +60,21 @@ public class TurnManager : MonoBehaviour
         currentTurn++;
         if (currentTurn >= _Players.Count) currentTurn = 0;
         if (_Players[currentTurn] != null)
+        {
             _Players[currentTurn].StartTurn();
+            news.SlideText(_Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+        }
         else
         {
             Debug.Log("Player's turn");
             if (!PlAc.skipTurn)
+            {
                 PlayerStartTurn?.Invoke();
+                news.SlideText("Tu Turno", new Color(0.7294118f, 0.3333333f, 0.8679245f));
+            }
             else
             {
+                news.SplashText("Te han bloqueado el turno!", new Color(0.1202933f, 1, 0));
                 PlAc.skipTurn = false;
                 currentTurn++;
                 _Players[currentTurn].StartTurn();
@@ -70,10 +85,17 @@ public class TurnManager : MonoBehaviour
 
     void EndGame(bool victor)
     {
+        Debug.Log("GameEnded");
         if (victor)
-            Debug.LogWarning("End of Game. Player Wins");
+        {
+            news.SplashText("¡HAS GANADO!", Color.gold);
+            Debug.LogWarning(" Victory");
+        }
         else
-            Debug.LogWarning("End of Game. Player Lost");
+        {
+            news.SplashText("¡HAS PERDIDO!", Color.red);
+            Debug.LogWarning("FAilure");
+        }
 
         // Go to whatever screen
     }
