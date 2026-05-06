@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: Diente Rojo
   cardType: 0
   cardColor: 1
+  cardSprite: {fileID: 979142089, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
   description: Coloca 4 Dientes de color distinto para ganar

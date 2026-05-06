@@ -251,6 +251,7 @@ public class PlayerActions : MonoBehaviour
             FindFirstObjectByType<OnScreenAnnouncement>().SlideText("Tiempo Extra \n ¡Juega otra carta!", new Color(0.7294118f, 0.3333333f, 0.8679245f));
             CdSy.DiscardCard(extraTimeCard);
             CdSy.Invoke("DrawCard", 0.15f);
+            discardButton.SetActive(true);
             extraTimeCard = null;
         }
     }

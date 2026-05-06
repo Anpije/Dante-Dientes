@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: "Carta Da\xF1ina Verde"
   cardType: 2
   cardColor: 2
+  cardSprite: {fileID: -1198916162, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
   description: "Da\xF1a un Diente de Color Verde"

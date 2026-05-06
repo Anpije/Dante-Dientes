@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Robar Carta
   cardType: 3
   cardColor: 0
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 475939527, guid: 31a5ada9b48197a48a6f11801248de00, type: 3}
   description: Eliges la carta del mano de cualquier oponente para quedartelo.

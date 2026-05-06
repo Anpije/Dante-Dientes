@@ -523,29 +523,25 @@ public class EnemyHandEventManager : MonoBehaviour
 
     public void fEchangeAllCards(EnemyActions NME, GameObject card)
     {
+        StartCoroutine(SwapTheCards(NME, card));
+    }
+
+    IEnumerator SwapTheCards(EnemyActions NME, GameObject card)
+    {
         List<GameObject> cards = new List<GameObject>();
         List<int> cardIndexes = new List<int>();
 
         if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
         {
-            player.DiscardCard(plAc.playedCard); 
+            player.DiscardCard(plAc.playedCard);
             plAc.playedCard = null;
             player.DrawCard();
         }
         else
             NME.Discard(card);
 
-        for (int i = 0; i < 3; i++)
-        {
-            if (_EnemySystems[i].gameObject.activeSelf)
-            {
-                while (_EnemySystems[i].hand.Count < 4)
-                    _EnemySystems[i].DrawCard();
-            }
-        }
-
-        while (player.hand.Count < 4)
-            player.DrawCard();
+        FindFirstObjectByType<TurnManager>().CheckAllCardCounts();
+        yield return new WaitForEndOfFrame();
 
         for (int i = 0; i < 3; i++)
         {
@@ -563,7 +559,7 @@ public class EnemyHandEventManager : MonoBehaviour
         }
 
         cards.Add(player.hand[Random.Range(0, 4)]);
-        cardIndexes.Add(cards[cards.Count-1].transform.GetSiblingIndex());
+        cardIndexes.Add(cards[cards.Count - 1].transform.GetSiblingIndex());
 
         FindFirstObjectByType<OnScreenAnnouncement>().SlideText("Confusión Clínica", Color.blue);
         if (_EnemySystems[0].gameObject.activeSelf)
@@ -616,7 +612,8 @@ public class EnemyHandEventManager : MonoBehaviour
         }
 
         if (FindFirstObjectByType<TurnManager>().currentTurn == 0)
-            plAc.EndTurn(); 
-    }
+            plAc.EndTurn();
 
+        StopCoroutine("SwapTheCards");
+    }
 }

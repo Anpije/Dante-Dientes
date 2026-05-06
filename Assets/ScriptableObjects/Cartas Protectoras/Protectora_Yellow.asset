@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Carta Protectora Amarillo
   cardType: 1
   cardColor: 3
-  cardSprite: {fileID: 1445963149, guid: d6372f17f0a62624b933f2ee77a07acc, type: 3}
+  cardSprite: {fileID: -467083200, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
   description: Protege Dientes de Color Amarillo

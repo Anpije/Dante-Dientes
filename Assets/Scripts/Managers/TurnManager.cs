@@ -61,8 +61,9 @@ public class TurnManager : MonoBehaviour
         if (currentTurn >= _Players.Count) currentTurn = 0;
         if (_Players[currentTurn] != null)
         {
-            _Players[currentTurn].StartTurn();
             news.SlideText(_Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+            yield return new WaitForSeconds(2);
+            _Players[currentTurn].StartTurn();
         }
         else
         {
@@ -77,6 +78,9 @@ public class TurnManager : MonoBehaviour
                 news.SplashText("Te han bloqueado el turno!", new Color(0.1202933f, 1, 0));
                 PlAc.skipTurn = false;
                 currentTurn++;
+                yield return new WaitForSeconds(2);
+                news.SlideText(_Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+                yield return new WaitForSeconds(2);
                 _Players[currentTurn].StartTurn();
             }
         }
@@ -99,7 +103,7 @@ public class TurnManager : MonoBehaviour
 
         // Go to whatever screen
     }
-    void CheckAllCardCounts()
+    public void CheckAllCardCounts()
     {
         Debug.Log("Checking Cards");
         for (int i = 1; i < _Players.Count; i++)
