@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: "Carta Da\xF1ina Arcoiris"
   cardType: 2
   cardColor: 4
+  cardSprite: {fileID: -1378994416, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
   description: "Da\xF1a un Diente de Cualquier Color"

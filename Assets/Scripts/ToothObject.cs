@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.Rendering;
 using DG.Tweening;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ public class ToothObject : MonoBehaviour
     public Vector3 inPlayPos = new Vector3();
     public Vector3 outPlayPos = new Vector3();
     public Transform target;
+    private LocalKeyword key;
 
     void Awake()
     {
@@ -75,11 +77,21 @@ public class ToothObject : MonoBehaviour
     public void fAlterEffect()
     {
         // Des/Activar partículas o shader
-        /*
+        
         if (effect > 0)
-            // efecto positivo
+        {
+
+        }
         else if (effect < 0)
-            // efecto negativo
-        */
+        {
+            key = new LocalKeyword(_Renderer.material.shader, "_PULSING");
+            _Renderer.material.SetKeyword(key, true);
+        }
+        else if (effect == 0)
+        {
+            key = new LocalKeyword(_Renderer.material.shader, "_PULSING");
+            _Renderer.material.SetKeyword(key, false);
+        }
+        
     }
 }

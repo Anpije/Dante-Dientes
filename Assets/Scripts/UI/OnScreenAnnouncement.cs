@@ -47,7 +47,7 @@ public class OnScreenAnnouncement : MonoBehaviour
 
         rectTransform.DOMove(defaultPos, 0.25f);
 
-        Invoke("SlideOutText", 0.75f);
+        Invoke("SlideOutText", 1f);
     }
 
     private void SlideOutText()

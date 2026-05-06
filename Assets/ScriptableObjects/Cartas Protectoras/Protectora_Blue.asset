@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Carta Protectora Azul
   cardType: 1
   cardColor: 0
-  cardSprite: {fileID: 1194893719, guid: d6372f17f0a62624b933f2ee77a07acc, type: 3}
+  cardSprite: {fileID: 926007910, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
   description: Protege Dientes de Color Azul

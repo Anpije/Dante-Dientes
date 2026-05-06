@@ -102,7 +102,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, _EnSy.hand[i].GetComponent<CardVisual>(), - 1); 
-                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); FindFirstObjectByType<OnScreenAnnouncement>().SplashText("Han dañado uno de tus dientes!", Color.red); return; }
+                    if (B) { _EnAc.Discard(_EnSy.hand[i]); Invoke("EndTurn", 0.25f); Debug.Log(gameObject.name + "damaged one of your teeth"); return; }
                 }
 
                 int en = UnityEngine.Random.Range(0, nPlayers - 3);
@@ -401,6 +401,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (NME.PlAc.blockSugarCard != null)
             {
                 Debug.Log("Tooth was protected by a sugar barrier");
+                FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Ataque Bloqueado!", Color.green);
                 NME.DiscardCard(NME.PlAc.blockSugarCard);
                 NME.PlAc.blockSugarCard = null;
                 return true;
@@ -419,6 +420,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 effectCard.cardData.cardColor == ToothColor.Rainbow) {
                                     NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                     Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                                     return true;
                             }
                         }
@@ -433,6 +435,7 @@ public class EnemyBehaviour : MonoBehaviour
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                                FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                                 return true;
                             }
                         }
@@ -463,6 +466,7 @@ public class EnemyBehaviour : MonoBehaviour
                 else
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                 return true;
             }
             else

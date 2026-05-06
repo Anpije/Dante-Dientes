@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Tratamiento Intensivo
   cardType: 3
   cardColor: 0
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: -291921335, guid: 31a5ada9b48197a48a6f11801248de00, type: 3}
   description: "Eliminar todo el da\xF1o en uno de tus dientes."
