@@ -54,7 +54,9 @@ public class EnemyActions : MonoBehaviour
         toothToSwap.transform.SetParent(otherEn.teethPositionUI);
         toothToSwap.transform.SetSiblingIndex(newIndex);
         _EnSystem.teethModels[oldIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        _EnSystem.teethModels[oldIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
         otherEn.teethModels[newIndex].fModifyTooth((int)toothToSwap.GetComponent<CardVisual>().cardData.cardColor);
+        otherEn.teethModels[newIndex].effect = toothToSwap.GetComponent<CardFunctionByHolder>().toothProtection;
     }
 
     public void SwapCard(GameObject newCard, EnemySystem otherEn)
@@ -103,6 +105,7 @@ public class EnemyActions : MonoBehaviour
             newTooth.transform.SetSiblingIndex(toothIndex);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+            _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
         }
         else
         {
@@ -119,6 +122,7 @@ public class EnemyActions : MonoBehaviour
             newTooth.transform.SetSiblingIndex(toothIndex);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+            _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
         }
     }
 

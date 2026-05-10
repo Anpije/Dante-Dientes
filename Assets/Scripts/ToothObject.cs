@@ -22,7 +22,7 @@ public class ToothObject : MonoBehaviour
         set
         {
             Effect = value;
-            fAlterEffect();
+            fAlterEffect(Effect);
         }
     }
 
@@ -30,7 +30,7 @@ public class ToothObject : MonoBehaviour
     public Vector3 inPlayPos = new Vector3();
     public Vector3 outPlayPos = new Vector3();
     public Transform target;
-    private LocalKeyword key;
+    private LocalKeyword keyPulsing;
 
     void Awake()
     {
@@ -74,24 +74,24 @@ public class ToothObject : MonoBehaviour
         StopCoroutine("SwapTooth");
     }
 
-    public void fAlterEffect()
+    public void fAlterEffect(int newEffect)
     {
         // Des/Activar partículas o shader
         
-        if (effect > 0)
+        if (newEffect < 0)
         {
-
+            keyPulsing = new LocalKeyword(_Renderer.material.shader, "_PULSING");
+            _Renderer.material.SetKeyword(keyPulsing, true);
         }
-        else if (effect < 0)
+        if (newEffect > 0)
         {
-            key = new LocalKeyword(_Renderer.material.shader, "_PULSING");
-            _Renderer.material.SetKeyword(key, true);
+            keyPulsing = new LocalKeyword(_Renderer.material.shader, "_PULSING");
+            _Renderer.material.SetKeyword(keyPulsing, false);
         }
-        else if (effect == 0)
+        if (newEffect == 0)
         {
-            key = new LocalKeyword(_Renderer.material.shader, "_PULSING");
-            _Renderer.material.SetKeyword(key, false);
+            keyPulsing = new LocalKeyword(_Renderer.material.shader, "_PULSING");
+            _Renderer.material.SetKeyword(keyPulsing, false);
         }
-        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class EnemyHandEventManager : MonoBehaviour
 {
@@ -288,8 +289,9 @@ public class EnemyHandEventManager : MonoBehaviour
                     _Panel.blocksRaycasts = false;
                     // Cambiar los dientes en el espacio del mundo
                     _EnemySystems[enemySystID].teethModels[enemysToothIndex].fModifyTooth((int)playersOldTooth.GetComponent<CardVisual>().cardData.cardColor);
+                    _EnemySystems[enemySystID].teethModels[enemysToothIndex].effect = playersOldTooth.GetComponent<CardFunctionByHolder>().toothProtection;
                     plAc.teethModels[playersToothIndex].fModifyTooth((int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
-                    plAc.teethModels[playersToothIndex].fModifyTooth((int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
+                    plAc.teethModels[playersToothIndex].effect = selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().toothProtection;
                 }
                 else
                 {
@@ -309,7 +311,9 @@ public class EnemyHandEventManager : MonoBehaviour
                         selectedCards[1].transform.SetSiblingIndex(en1index);
                         // Cambiar los dientes en el espacio del mundo
                         _EnemySystems[storedIDs[0]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[0]].teethModels[en1index].effect = selectedCards[1].GetComponent<CardFunctionByHolder>().toothProtection;
                         _EnemySystems[storedIDs[1]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[1]].teethModels[en2index].effect = selectedCards[0].GetComponent<CardFunctionByHolder>().toothProtection;
                     }
                     else
                     {
@@ -325,7 +329,9 @@ public class EnemyHandEventManager : MonoBehaviour
                         selectedCards[0].transform.SetSiblingIndex(en1index);
                         // Cambiar los dientes en el espacio del mundo
                         _EnemySystems[storedIDs[0]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[0]].teethModels[en2index].effect = selectedCards[0].GetComponent<CardFunctionByHolder>().toothProtection;
                         _EnemySystems[storedIDs[1]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
+                        _EnemySystems[storedIDs[1]].teethModels[en1index].effect = selectedCards[1].GetComponent<CardFunctionByHolder>().toothProtection;
                     }
                 }
 
@@ -367,6 +373,7 @@ public class EnemyHandEventManager : MonoBehaviour
         Destroy(selectedCards[0]);
 
         plAc.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        plAc.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
 
         player.hand.Remove(newTooth);
         player.teethInPlay.Add(newTooth);
