@@ -403,36 +403,81 @@ public class EnemyHandEventManager : MonoBehaviour
             case "selectEnemy":
                 storedIDs.Add(enemyID);
                 if (storedIDs.Count == idsToHold)
+                {
+                    for (int i = 0; i < _EnemyButtons.Length; i++)
+                    {
+                        if (_EnemyButtons[i].gameObject.activeSelf)
+                            _EnemyButtons[i].interactable = false;
+                    }
+                    _PlayerHandButton.interactable = false;
                     SkipEnemy();
+                }
                 break;
             case "swapCards":
                 storedIDs.Add(enemyID);
                 _EnemyButtons[enemyID].interactable = false;
-                if (storedIDs.Count == idsToHold) 
+                if (storedIDs.Count == idsToHold)
+                {
+                    for (int i = 0; i < _EnemyButtons.Length; i++)
+                    {
+                        if (_EnemyButtons[i].gameObject.activeSelf)
+                            _EnemyButtons[i].interactable = false;
+                    }
+                    _PlayerHandButton.interactable = false;
                     StartCoroutine(fExchangeCards());
+                }
                 break;
             case "stealCard":
                 storedIDs.Add(enemyID);
                 _EnemyButtons[enemyID].interactable = false;
                 if (storedIDs.Count == idsToHold)
+                {
+                    for (int i = 0; i < _EnemyButtons.Length; i++)
+                    {
+                        if (_EnemyButtons[i].gameObject.activeSelf)
+                            _EnemyButtons[i].interactable = false;
+                    }
+                    _PlayerHandButton.interactable = false;
                     StartCoroutine(fExchangeCards());
+                }
                 break;
             case "swapTeeth":
                 storedIDs.Add(enemyID);
                 _EnemyButtons[enemyID].interactable = false;
-                if (storedIDs.Count == idsToHold) 
+                if (storedIDs.Count == idsToHold)
+                {
+                    for (int i = 0; i < _EnemyButtons.Length; i++)
+                    {
+                        if (_EnemyButtons[i].gameObject.activeSelf)
+                            _EnemyButtons[i].interactable = false;
+                    }
+                    _PlayerHandButton.interactable = false;
                     fExchangeTeeth();
+                }
                 break;
             case "affectEnemyTooth":
                 storedIDs.Add(enemyID);
+                for (int i = 0; i < _EnemyButtons.Length; i++)
+                {
+                    if (_EnemyButtons[i].gameObject.activeSelf)
+                        _EnemyButtons[i].interactable = false;
+                }
+                _PlayerHandButton.interactable = false;
                 fExchangeTeeth();
                 break;
             case "forceDiscard":
                 storedIDs.Add(enemyID);
                 if (storedIDs.Count == idsToHold)
+                {
+                    for (int i = 0; i < _EnemyButtons.Length; i++)
+                    {
+                        if (_EnemyButtons[i].gameObject.activeSelf)
+                            _EnemyButtons[i].interactable = false;
+                    }
+                    _PlayerHandButton.interactable = false;
                     SelectDiscard();
+                }
                 break;
-
         }
     }
 
@@ -510,6 +555,11 @@ public class EnemyHandEventManager : MonoBehaviour
 
     public void fPlayerButton()
     {
+        if (storedIDs.Count != 0)
+        {
+            if (storedIDs[0] == 3)
+                return;
+        }
         storedIDs.Add(3);
         if (storedIDs.Count == idsToHold) 
             if (_Purpose == "stealOrSwapCards") StartCoroutine(fExchangeCards());

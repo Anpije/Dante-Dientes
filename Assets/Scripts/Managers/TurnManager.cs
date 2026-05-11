@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private List<EnemyBehaviour> _Players = new List<EnemyBehaviour>();
 
     [SerializeField] public int currentTurn = 0;
-
+    IEnumerator startTurnRoutine;
     public static Action PlayerStartTurn;
 
     OnScreenAnnouncement news;
@@ -50,7 +50,8 @@ public class TurnManager : MonoBehaviour
 
     public void fNextTurn()
     {
-        StartCoroutine(LoadNextTurn());
+        startTurnRoutine = LoadNextTurn();
+        StartCoroutine(startTurnRoutine);
     }
 
     IEnumerator LoadNextTurn()
@@ -84,7 +85,7 @@ public class TurnManager : MonoBehaviour
                 _Players[currentTurn].StartTurn();
             }
         }
-        StopCoroutine(LoadNextTurn());
+        StopCoroutine(startTurnRoutine);
     }
 
     void EndGame(bool victor)
@@ -125,9 +126,6 @@ public class TurnManager : MonoBehaviour
             }
         }
 
-        while (PlAc.CdSy.hand.Count < 4)
-            PlAc.CdSy.DrawCard();
-
         while (PlAc.CdSy.hand.Count > 4)
         {
             GameObject toRemove = PlAc.CdSy.hand[PlAc.CdSy.hand.Count - 1];
@@ -135,5 +133,8 @@ public class TurnManager : MonoBehaviour
             toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
             toRemove.SetActive(false);
         }
+
+        while (PlAc.CdSy.hand.Count < 4)
+            PlAc.CdSy.DrawCard();
     }
 }
