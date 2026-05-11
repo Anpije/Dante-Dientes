@@ -132,9 +132,13 @@ public class TurnManager : MonoBehaviour
             PlAc.CdSy.hand.Remove(toRemove);
             toRemove.transform.SetParent(FindFirstObjectByType<CardSystem>().deckPosition);
             toRemove.SetActive(false);
+            Debug.Log("Removing card from Player's deck");
         }
 
         while (PlAc.CdSy.hand.Count < 4)
+        {
             PlAc.CdSy.DrawCard();
+            Debug.Log("Adding card to Player's deck");
+        }
     }
 }

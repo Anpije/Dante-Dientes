@@ -224,6 +224,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     int enToSwapWith = UnityEngine.Random.Range(0, 2);
+                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡" + gameObject.name + " ha forzado que cambias cartas con " + _EnemySystems[enToSwapWith].gameObject.name + "!", Color.red);
                     _P1Sy.PlAc.SwapCards(_EnemySystems[enToSwapWith]);
                     return true;
                 }
@@ -247,6 +248,7 @@ public class EnemyBehaviour : MonoBehaviour
             case "Robar Carta":
                 if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
                 {
+                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡" + gameObject.name + " ha robado uno de tus cartas!", Color.red);
                     GameObject newCard = _P1Sy.FindMostValuable();
                     _P1Sy.hand.Remove(newCard);
                     _EnSy.hand.Add(newCard);
@@ -292,6 +294,7 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         if (mostTeeth != 0)
                         {
+                            FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡" + gameObject.name + " ha cambiado un diente para el tuyo!", Color.red);
                             GameObject newTooth = _P1Sy.PlAc.FindToothByDamage(false, null);
                             GameObject oldTooth = _EnAc.FindToothByDamage(true, newTooth.GetComponent<CardVisual>());
                             int newIndex = newTooth.transform.GetSiblingIndex();

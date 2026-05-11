@@ -495,8 +495,17 @@ public class EnemyHandEventManager : MonoBehaviour
             if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || 
                 plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
-                _EnemySystems[storedIDs[0]].teethModels[toothID].effect += effectToApply;
-                _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                if (_EnemySystems[storedIDs[0]].enBv.blockSugarCard != null)
+                {
+                    _EnemySystems[storedIDs[0]].teethModels[toothID].effect += effectToApply;
+                    _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                }
+                else
+                {
+                    _EnemySystems[storedIDs[0]].DiscardCard(_EnemySystems[storedIDs[0]].enBv.blockSugarCard);
+                    _EnemySystems[storedIDs[0]].enBv.blockSugarCard = null;
+                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡La carta fue protegida!", Color.yellow);
+                }
             }
             else
                 success = false;
