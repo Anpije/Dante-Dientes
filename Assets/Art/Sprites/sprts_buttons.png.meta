@@ -154,7 +154,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprts_buttons_1
+      name: sprt_button_P
       rect:
         serializedVersion: 2
         x: 29
@@ -481,6 +481,7 @@ TextureImporter:
       sprt_buttonR_P: 1729674967
       sprt_button_H: -1689901408
       sprt_button_N: 1649588922
+      sprt_button_P: 1010170247
       sprt_discard_H: 390877405
       sprt_discard_N: -252333242
       sprt_discard_P: -1515956221
@@ -490,7 +491,6 @@ TextureImporter:
       sprt_return_H: -857045021
       sprt_return_N: -969512107
       sprt_return_P: -902813848
-      sprts_buttons_1: 1010170247
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
