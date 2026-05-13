@@ -585,6 +585,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
+            FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡"+gameObject.name + " ha jugado tiempo extra!", Color.red);
             Debug.Log(gameObject.name + " played Extra Time, and can go again");
             _EnAc.Discard(extraTimeCard);
             extraTimeCard = null;

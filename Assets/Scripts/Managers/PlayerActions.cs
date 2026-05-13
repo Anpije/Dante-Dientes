@@ -28,6 +28,7 @@ public class PlayerActions : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] private GameObject discardButton;
+    [SerializeField] private GameObject drawButton;
 
     void Awake()
     { 
@@ -53,6 +54,7 @@ public class PlayerActions : MonoBehaviour
     {
         discardButton.SetActive(true);
         discardButton.GetComponent<Button>().interactable = true;
+        drawButton.SetActive(true);
 
         /*while (CdSy.hand.Count < 4)
             CdSy.DrawCard();*/
@@ -232,6 +234,7 @@ public class PlayerActions : MonoBehaviour
                 for (int i = 0; i < CdSy.hand.Count; i++)
                     CdSy.hand[i].GetComponentInChildren<Button>().interactable = false;
                 discardButton.SetActive(false);
+                drawButton.SetActive(false);
                 Debug.Log("YOU WON!");
                 OnPlayerWin?.Invoke(true);
                 return;
@@ -243,6 +246,7 @@ public class PlayerActions : MonoBehaviour
             Debug.Log("Player's turn has ended");
             if (CdSy.hand.Count < 4) CdSy.DrawCard();
             discardButton.SetActive(false);
+            drawButton.SetActive(false);
             OnEndTurn?.Invoke();
         }
         else
@@ -252,6 +256,7 @@ public class PlayerActions : MonoBehaviour
             CdSy.DiscardCard(extraTimeCard);
             CdSy.Invoke("DrawCard", 0.15f);
             discardButton.SetActive(true);
+            drawButton.SetActive(true);
             extraTimeCard = null;
         }
     }

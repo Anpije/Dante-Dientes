@@ -34,6 +34,8 @@ public class UIController : MonoBehaviour
             return;
         }
 
+        if (CardSystem.Instance.hand.Count >= 4) return;
+
         GameObject carta = CardSystem.Instance.DrawCard();
         if (carta != null)
         {
