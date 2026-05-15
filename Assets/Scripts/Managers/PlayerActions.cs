@@ -29,6 +29,7 @@ public class PlayerActions : MonoBehaviour
     [Header("Component References")]
     [SerializeField] private GameObject discardButton;
     [SerializeField] private GameObject drawButton;
+    [SerializeField] private GameObject returnButton;
 
     void Awake()
     { 
@@ -55,9 +56,7 @@ public class PlayerActions : MonoBehaviour
         discardButton.SetActive(true);
         discardButton.GetComponent<Button>().interactable = true;
         drawButton.SetActive(true);
-
-        /*while (CdSy.hand.Count < 4)
-            CdSy.DrawCard();*/
+        drawButton.GetComponent<Button>().interactable = true;
 
         if (totalImunityCard != null) totalImunityCard = null; 
 
@@ -136,8 +135,8 @@ public class PlayerActions : MonoBehaviour
         otherEn.hand.Remove(newCard);
         CdSy.hand.Add(newCard);
         otherEn.hand.Add(cardToSwap);
-        newCard.transform.SetParent(otherEn.handPositionUI);
-        cardToSwap.transform.SetParent(CdSy.handPosition);
+        newCard.transform.SetParent(CdSy.handPosition);
+        cardToSwap.transform.SetParent(otherEn.handPositionUI);
     }
 
     public GameObject FindToothByDamage(bool inverse, CardVisual otherTooth)
@@ -235,6 +234,7 @@ public class PlayerActions : MonoBehaviour
                     CdSy.hand[i].GetComponentInChildren<Button>().interactable = false;
                 discardButton.SetActive(false);
                 drawButton.SetActive(false);
+                returnButton.SetActive(false);
                 Debug.Log("YOU WON!");
                 OnPlayerWin?.Invoke(true);
                 return;
@@ -247,6 +247,7 @@ public class PlayerActions : MonoBehaviour
             if (CdSy.hand.Count < 4) CdSy.DrawCard();
             discardButton.SetActive(false);
             drawButton.SetActive(false);
+            returnButton.SetActive(false);
             OnEndTurn?.Invoke();
         }
         else
@@ -257,6 +258,7 @@ public class PlayerActions : MonoBehaviour
             CdSy.Invoke("DrawCard", 0.15f);
             discardButton.SetActive(true);
             drawButton.SetActive(true);
+            returnButton.SetActive(false);
             extraTimeCard = null;
         }
     }

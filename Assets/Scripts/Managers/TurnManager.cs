@@ -1,7 +1,8 @@
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.Events;
 using UnityEngine;
+using DG.Tweening;
 using System;
 
 public class TurnManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class TurnManager : MonoBehaviour
     public static Action PlayerStartTurn;
 
     OnScreenAnnouncement news;
+
+    [SerializeField] CanvasGroup endScreen;
 
     void OnEnable()
     {
@@ -102,7 +105,7 @@ public class TurnManager : MonoBehaviour
             Debug.LogWarning("FAilure");
         }
 
-        // Go to whatever screen
+        StartCoroutine("EndTheGame");
     }
     public void CheckAllCardCounts()
     {
@@ -140,5 +143,22 @@ public class TurnManager : MonoBehaviour
             PlAc.CdSy.DrawCard();
             Debug.Log("Adding card to Player's deck");
         }
+    }
+
+    IEnumerator EndTheGame()
+    {
+        endScreen.DOFade(0, 3);
+
+        yield return new WaitForSeconds(4);
+
+        /*if (victory.activeSelf)
+            victory.GetComponent<Image>().DOFade(0, 1);
+        else
+            failure.GetComponent<Image>().DOFade(0, 1);
+
+        yield return new WaitForSeconds(2);
+        */
+
+        SceneManager.LoadScene(0);
     }
 }

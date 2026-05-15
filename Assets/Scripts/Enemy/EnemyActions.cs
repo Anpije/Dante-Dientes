@@ -13,12 +13,6 @@ public class EnemyActions : MonoBehaviour
         _EnBehave = GetComponent<EnemyBehaviour>();
     }
 
-    public void PlayCard(GameObject card)
-    {
-        // Play card
-        _EnSystem.DiscardCard(card);
-    }
-
     [ContextMenu("Draw")]
     public void DrawCard()
     {
@@ -76,7 +70,7 @@ public class EnemyActions : MonoBehaviour
         _EnSystem.cardModels[oldIndex].fReturnFromPosition(otherEn.cardModels[newIndex].transform, 0.15f);
     }
 
-    public void ReplaceTooth(GameObject newTooth)
+    public GameObject ReplaceTooth(GameObject newTooth)
     {
         GameObject toothToSwap = null;
 
@@ -97,32 +91,42 @@ public class EnemyActions : MonoBehaviour
             int toothIndex = toothToSwap.transform.GetSiblingIndex();
 
             _EnSystem.teethInPlay.Remove(toothToSwap);
+            _EnSystem.teethInPlay.Add(newTooth);
+            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
+            toothToSwap.transform.SetAsLastSibling();
+            newTooth.transform.SetSiblingIndex(toothIndex);
             FindFirstObjectByType<CardSystem>().allCardObjects.Remove(toothToSwap);
             Destroy(toothToSwap);
 
-            _EnSystem.teethInPlay.Add(newTooth);
-            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
-            newTooth.transform.SetSiblingIndex(toothIndex);
-
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
             _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
+            return null;
         }
         else
         {
-            toothToSwap = FindToothByDamage(true, newTooth.GetComponent<CardVisual>());
+            for (int i = 0; i < _EnSystem.teethInPlay.Count; i++)
+            {
+                if (_EnSystem.teethInPlay[i].GetComponent<CardVisual>().cardData.cardColor == newTooth.GetComponent<CardVisual>().cardData.cardColor)
+                    toothToSwap = _EnSystem.teethInPlay[i];
+            }
+
+            if (toothToSwap.GetComponent<CardFunctionByHolder>().toothProtection >= 0)
+                return newTooth;
 
             int toothIndex = toothToSwap.transform.GetSiblingIndex();
 
             _EnSystem.teethInPlay.Remove(toothToSwap);
+            _EnSystem.teethInPlay.Add(newTooth);
+            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
+            toothToSwap.transform.SetAsLastSibling();
+            newTooth.transform.SetSiblingIndex(toothIndex);
             FindFirstObjectByType<CardSystem>().allCardObjects.Remove(toothToSwap);
             Destroy(toothToSwap);
 
-            _EnSystem.teethInPlay.Add(newTooth);
-            newTooth.transform.SetParent(_EnSystem.teethPositionUI);
-            newTooth.transform.SetSiblingIndex(toothIndex);
-
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
             _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
+
+            return null;
         }
     }
 
@@ -318,14 +322,14 @@ public class EnemyActions : MonoBehaviour
 
     public void DiscardMostValuable()
     {
-        Discard(FindMostValuable());
+        Discard(FindMostValuable(), null);
     }
 
     [ContextMenu("Discard")]
-    public void Discard(GameObject card)
+    public void Discard(GameObject card, Transform newPos)
     {
         string name = card.GetComponent<CardVisual>().cardData.cardName;
-        _EnSystem.DiscardCard(card);
+        _EnSystem.DiscardCard(card, newPos);
         Invoke("DrawCard", 1);
     }
 }
