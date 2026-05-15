@@ -13,12 +13,6 @@ public class EnemyActions : MonoBehaviour
         _EnBehave = GetComponent<EnemyBehaviour>();
     }
 
-    public void PlayCard(GameObject card)
-    {
-        // Play card
-        _EnSystem.DiscardCard(card);
-    }
-
     [ContextMenu("Draw")]
     public void DrawCard()
     {
@@ -328,14 +322,14 @@ public class EnemyActions : MonoBehaviour
 
     public void DiscardMostValuable()
     {
-        Discard(FindMostValuable());
+        Discard(FindMostValuable(), null);
     }
 
     [ContextMenu("Discard")]
-    public void Discard(GameObject card)
+    public void Discard(GameObject card, Transform newPos)
     {
         string name = card.GetComponent<CardVisual>().cardData.cardName;
-        _EnSystem.DiscardCard(card);
+        _EnSystem.DiscardCard(card, newPos);
         Invoke("DrawCard", 1);
     }
 }

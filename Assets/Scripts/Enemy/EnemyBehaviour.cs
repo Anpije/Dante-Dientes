@@ -28,6 +28,8 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject extraTimeCard;
     public bool skipTurn = false;
 
+    Transform affectedTooth;
+
     void Awake()
     {
         _EnSy = GetComponent<EnemySystem>();
@@ -99,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
                     var A = AffectTooth(_EnSy, card.GetComponent<CardVisual>(), 1); Debug.Log(gameObject.name + "protected a tooth");
                     if (A) 
                     { 
-                        _EnAc.Discard(card); 
+                        _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         return; 
                     }
@@ -119,7 +121,7 @@ public class EnemyBehaviour : MonoBehaviour
                     var B = AffectPlayerTooth(_P1Sy, card.GetComponent<CardVisual>(), - 1); 
                     if (B) 
                     { 
-                        _EnAc.Discard(card); 
+                        _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         Debug.Log(gameObject.name + "damaged one of your teeth"); 
                         return; 
@@ -131,7 +133,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Debug.Log("Index of card was " + i);
                 if (A) 
                 { 
-                    _EnAc.Discard(card); 
+                    _EnAc.Discard(card, affectedTooth); 
                     Invoke("EndTurn", 0.25f); 
                     Debug.Log(gameObject.name + "damaged an oponent's tooth"); 
                     return; 
@@ -142,7 +144,7 @@ public class EnemyBehaviour : MonoBehaviour
                     var B = AffectTooth(_EnemySystems[j], card.GetComponent<CardVisual>(), -1);
                     if (B) 
                     { 
-                        _EnAc.Discard(card); 
+                        _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         Debug.Log(gameObject.name + "damaged an oponent's tooth"); 
                         return; 
@@ -162,7 +164,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (checkFunction) 
                 { 
                     Debug.Log(gameObject.name + " played a " + card.GetComponent<CardVisual>().cardData.cardName); 
-                    _EnAc.Discard(card); 
+                    _EnAc.Discard(card, affectedTooth); 
                     Invoke("EndTurn", 0.25f); 
                     return; 
                 }
@@ -172,7 +174,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         // Si no ha podido jugar una carta se eligirá uno para descartar
-        _EnAc.Discard(_EnAc.FindLeastValuable());
+        _EnAc.Discard(_EnAc.FindLeastValuable(), null);
         Invoke("EndTurn", 0.25f);
     }
 
@@ -357,7 +359,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (NME.enBv.blockSugarCard != null && effectCard.cardData.cardType == CardType.Harmful)
             {
                 Debug.Log("Tooth was protected by a sugar barrier");
-                NME.enAc.Discard(NME.enBv.blockSugarCard);
+                NME.enAc.Discard(NME.enBv.blockSugarCard, null);
                 NME.enBv.blockSugarCard = null;
                 return true;
             }
@@ -382,6 +384,7 @@ public class EnemyBehaviour : MonoBehaviour
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                 NME.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                                affectedTooth = NME.teethModels[a].transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 return true;
                             }
@@ -397,6 +400,7 @@ public class EnemyBehaviour : MonoBehaviour
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                 NME.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
+                                affectedTooth = NME.teethModels[a].transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 return true;
                             }
@@ -426,11 +430,13 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                     NME.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
+                    affectedTooth = NME.teethModels[savedTooth].transform;
                 }
                 else
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
                     NME.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
+                    affectedTooth = NME.teethModels[savedTooth].transform;
                 }
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                 return true;
@@ -474,6 +480,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 effectCard.cardData.cardColor == ToothColor.Rainbow) {
                                     NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                     NME.PlAc.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
+                                    affectedTooth = NME.PlAc.teethModels[a].transform;
                                     Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                     FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                                     return true;
@@ -490,6 +497,7 @@ public class EnemyBehaviour : MonoBehaviour
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                 NME.PlAc.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
+                                affectedTooth = NME.PlAc.teethModels[a].transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                                 return true;
@@ -521,11 +529,13 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                     NME.PlAc.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
+                    affectedTooth = NME.PlAc.teethModels[savedTooth].transform;
                 }
                 else
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
                     NME.PlAc.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
+                    affectedTooth = NME.PlAc.teethModels[savedTooth].transform;
                 }
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                 FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
@@ -551,6 +561,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (_EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection == 0)
             { 
                 totalImnunityCard = _EnSy.teethInPlay[i];
+                affectedTooth = _EnSy.teethModels[i].transform;
                 return;
             }
         }
@@ -568,6 +579,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         totalImnunityCard = _EnSy.teethInPlay[savedTooth];
+        affectedTooth = _EnSy.teethModels[savedTooth].transform;
     }
 
     private void EndTurn()
@@ -593,7 +605,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡"+gameObject.name + " ha jugado tiempo extra!", Color.red);
             Debug.Log(gameObject.name + " played Extra Time, and can go again");
-            _EnAc.Discard(extraTimeCard);
+            _EnAc.Discard(extraTimeCard, null);
             extraTimeCard = null;
             Invoke("StartTurn", 1);
         }

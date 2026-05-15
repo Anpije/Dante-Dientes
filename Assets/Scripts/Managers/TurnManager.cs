@@ -105,7 +105,7 @@ public class TurnManager : MonoBehaviour
             Debug.LogWarning("FAilure");
         }
 
-        StartCoroutine("EndGame");
+        StartCoroutine("EndTheGame");
     }
     public void CheckAllCardCounts()
     {
@@ -145,7 +145,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    IEnumerator EndGame()
+    IEnumerator EndTheGame()
     {
         endScreen.DOFade(0, 3);
 

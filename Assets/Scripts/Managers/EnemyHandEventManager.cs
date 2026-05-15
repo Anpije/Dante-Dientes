@@ -109,6 +109,8 @@ public class EnemyHandEventManager : MonoBehaviour
 
     void fStealCard()
     {
+        player.DiscardCard(plAc.playedCard);
+        plAc.playedCard = null;
         idsToHold = 2;
         _PlayerHandButton.gameObject.SetActive(false);
         storedIDs.Add(3);
@@ -338,8 +340,11 @@ public class EnemyHandEventManager : MonoBehaviour
 
             }
             _Purpose = "";
-            player.DiscardCard(plAc.playedCard); 
-            plAc.playedCard = null;
+            if (plAc.playedCard != null)
+            {
+                player.DiscardCard(plAc.playedCard); 
+                plAc.playedCard = null;
+            }
             plAc.EndTurn();
         }
     }
@@ -354,7 +359,7 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         _Panel.DOFade(0, 0.15f);
         _Panel.blocksRaycasts = false;
-        _EnemySystems[storedIDs[0]].enAc.Discard(selectedCards[0]);
+        _EnemySystems[storedIDs[0]].enAc.Discard(selectedCards[0], null);
         _Purpose = "";
         player.DiscardCard(plAc.playedCard);
         plAc.playedCard = null;
@@ -503,7 +508,7 @@ public class EnemyHandEventManager : MonoBehaviour
                 }
                 else
                 {
-                    _EnemySystems[storedIDs[0]].DiscardCard(_EnemySystems[storedIDs[0]].enBv.blockSugarCard);
+                    _EnemySystems[storedIDs[0]].DiscardCard(_EnemySystems[storedIDs[0]].enBv.blockSugarCard, null);
                     _EnemySystems[storedIDs[0]].enBv.blockSugarCard = null;
                     FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡La carta fue protegida!", Color.yellow);
                 }
@@ -605,7 +610,7 @@ public class EnemyHandEventManager : MonoBehaviour
             player.DrawCard();
         }
         else
-            NME.Discard(card);
+            NME.Discard(card, null);
 
         FindFirstObjectByType<TurnManager>().CheckAllCardCounts();
         yield return new WaitForEndOfFrame();

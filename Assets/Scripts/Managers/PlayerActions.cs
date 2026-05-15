@@ -135,8 +135,8 @@ public class PlayerActions : MonoBehaviour
         otherEn.hand.Remove(newCard);
         CdSy.hand.Add(newCard);
         otherEn.hand.Add(cardToSwap);
-        newCard.transform.SetParent(otherEn.handPositionUI);
-        cardToSwap.transform.SetParent(CdSy.handPosition);
+        newCard.transform.SetParent(CdSy.handPosition);
+        cardToSwap.transform.SetParent(otherEn.handPositionUI);
     }
 
     public GameObject FindToothByDamage(bool inverse, CardVisual otherTooth)
@@ -258,6 +258,7 @@ public class PlayerActions : MonoBehaviour
             CdSy.Invoke("DrawCard", 0.15f);
             discardButton.SetActive(true);
             drawButton.SetActive(true);
+            returnButton.SetActive(false);
             extraTimeCard = null;
         }
     }

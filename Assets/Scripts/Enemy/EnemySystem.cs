@@ -112,6 +112,7 @@ public class EnemySystem : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        if (index > 3) index = 3;
         Debug.Log("sibling index of card was " + index);
         Debug.Log("Appropriate tooth is " + (teethInPlay.Count - 1));
         Debug.Log("Tooth model returns " + teethModels[teethInPlay.Count - 1]);
@@ -167,14 +168,17 @@ public class EnemySystem : MonoBehaviour
         return card;
     }
 
-    public void DiscardCard(GameObject card)
+    public void DiscardCard(GameObject card, Transform newPos)
     {
         if (hand.Contains(card))
         {
             hand.Remove(card);
             cardSystem.allCardObjects.Remove(card);
             Destroy(card);
-            cardModels[Random.Range(0, cardModels.Length)].fGoToPosition(discardPosition, 1);
+            if (newPos == null)
+                cardModels[Random.Range(0, cardModels.Length)].fGoToPosition(discardPosition, 1);
+            else
+                cardModels[Random.Range(0, cardModels.Length)].fGoToPosition(newPos, 1);
             UpdateHandVisual();
             Debug.Log($"Descartada: {card.GetComponent<CardVisual>().cardData.cardName}");
         }
