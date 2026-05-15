@@ -20,25 +20,25 @@ public class CreateDamageTextTexture : EditorWindow
         for (int i = 0; i < colors.Length; i++)
             colors[i] = Color.clear;
 
-        // Color rojo para el daño con borde más oscuro
+        // De color rojo para el daño con borde más oscuro
         Color textColor = new Color(1f, 0.15f, 0.15f, 1f);
         Color borderColor = new Color(0.6f, 0f, 0f, 1f);
 
-        // Dibujar texto con borde para mejor legibilidad
+        // Se dibuja el texto con borde para mejor legibilidad
         string text = "DAÑADO";
         int startX = 30;
         int startY = 40;
         int letterSpacing = 55; // Más espacio entre letras
         int thickness = 5; // Grosor del texto
 
-        // Primero dibujar el borde (más grueso)
+        // Primero dibujamos el borde (más grueso)
         for (int i = 0; i < text.Length; i++)
         {
             int xPos = startX + i * letterSpacing;
             DrawLetterBlock(text[i], xPos, startY, thickness + 2, borderColor, colors, width, height);
         }
 
-        // Luego dibujar el texto encima
+        // Luego dibujamos el texto encima
         for (int i = 0; i < text.Length; i++)
         {
             int xPos = startX + i * letterSpacing;

@@ -7,26 +7,25 @@ public class CreateProtectedTextTexture : EditorWindow
     [MenuItem("Tools/Create Protected Text Texture")]
     static void CreateTexture()
     {
-        // Asegurar que existe la carpeta Textures
         if (!Directory.Exists("Assets/Textures"))
         {
             Directory.CreateDirectory("Assets/Textures");
         }
 
-        // Crear textura
+        // Creamos la textura
         int width = 512;
         int height = 128;
         Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-        // Fondo transparente
+        // Con un fondo transparente
         Color[] colors = new Color[width * height];
         for (int i = 0; i < colors.Length; i++)
             colors[i] = Color.clear;
 
-        // Color azul para el texto
+        // De color azul para el texto
         Color textColor = new Color(0.3f, 0.8f, 1f, 1f);
 
-        // Dibujar texto simple
+        // Dibujando un texto simple
         DrawTextSimple("PROTEGIDO", 40, 50, 6, textColor, colors, width);
 
         texture.SetPixels(colors);
@@ -39,7 +38,6 @@ public class CreateProtectedTextTexture : EditorWindow
 
         AssetDatabase.Refresh();
 
-        // Configurar importación
         string assetPath = "Assets/Textures/ProtectedText.png";
         TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
         if (importer != null)
@@ -54,7 +52,7 @@ public class CreateProtectedTextTexture : EditorWindow
         Debug.Log("Textura 'PROTEGIDO' creada en: " + assetPath);
         EditorUtility.DisplayDialog("Éxito", "Textura creada en Assets/Textures/ProtectedText.png", "OK");
 
-        // Seleccionar la textura en el Project
+        // Seleccionaremos la textura en el Project
         Texture2D createdTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
         if (createdTexture != null)
         {
@@ -65,7 +63,7 @@ public class CreateProtectedTextTexture : EditorWindow
 
     static void DrawTextSimple(string text, int x, int y, int pixelSize, Color color, Color[] colors, int width)
     {
-        // Dibujar rectángulos simulando texto
+        // Dibujaremos rectángulos simulando texto
         for (int i = 0; i < text.Length; i++)
         {
             int xPos = x + i * 45;
