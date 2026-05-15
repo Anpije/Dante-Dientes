@@ -36,6 +36,9 @@ public class ToothObject : MonoBehaviour
     [SerializeField] private float _decalHeight = 0.3f;
     [SerializeField] private float _decalSize = 1f;
 
+    [Header("Force Field")]
+    [SerializeField] private GameObject _forceField;
+
     private LocalKeyword _keyPulsing;
     private LocalKeyword _keyProtected;
     private Coroutine _decalCoroutine;
@@ -54,6 +57,8 @@ public class ToothObject : MonoBehaviour
         transform.position = outPlayPos;
 
         CreateDecalProjector();
+
+        if (_forceField) _forceField.SetActive(false);
     }
 
     void CreateDecalProjector()
@@ -98,6 +103,8 @@ public class ToothObject : MonoBehaviour
             _decalProjector.fadeFactor = 0f;
             _decalObject.SetActive(false);
         }
+
+        if (_forceField) _forceField.SetActive(false);
     }
 
     public void fAddTooth(int newType)
@@ -161,6 +168,8 @@ public class ToothObject : MonoBehaviour
             if (_Renderer?.material != null)
                 _Renderer.material.SetKeyword(_keyProtected, true);
 
+            if (_forceField) _forceField.SetActive(true);  
+
             _decalCoroutine = StartCoroutine(ShowDecal(_protectedDecalMaterial));
         }
     }
@@ -191,7 +200,7 @@ public class ToothObject : MonoBehaviour
 
         _decalProjector.fadeFactor = 1f;
 
-        // Mantener visible
+        // Mantenenos visible
         yield return new WaitForSeconds(visibleDuration);
 
         // Fade out
