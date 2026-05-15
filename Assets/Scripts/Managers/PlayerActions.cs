@@ -56,9 +56,7 @@ public class PlayerActions : MonoBehaviour
         discardButton.SetActive(true);
         discardButton.GetComponent<Button>().interactable = true;
         drawButton.SetActive(true);
-
-        /*while (CdSy.hand.Count < 4)
-            CdSy.DrawCard();*/
+        drawButton.GetComponent<Button>().interactable = true;
 
         if (totalImunityCard != null) totalImunityCard = null; 
 
@@ -236,6 +234,7 @@ public class PlayerActions : MonoBehaviour
                     CdSy.hand[i].GetComponentInChildren<Button>().interactable = false;
                 discardButton.SetActive(false);
                 drawButton.SetActive(false);
+                returnButton.SetActive(false);
                 Debug.Log("YOU WON!");
                 OnPlayerWin?.Invoke(true);
                 return;
@@ -248,6 +247,7 @@ public class PlayerActions : MonoBehaviour
             if (CdSy.hand.Count < 4) CdSy.DrawCard();
             discardButton.SetActive(false);
             drawButton.SetActive(false);
+            returnButton.SetActive(false);
             OnEndTurn?.Invoke();
         }
         else

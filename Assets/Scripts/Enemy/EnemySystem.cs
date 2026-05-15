@@ -99,11 +99,23 @@ public class EnemySystem : MonoBehaviour
 
     public void PlaceTooth(GameObject card)
     {
+        StartCoroutine(PlaceToothRoutine(card));
+    }
+
+    IEnumerator PlaceToothRoutine(GameObject card)
+    {
         int index = card.transform.GetSiblingIndex();
         teethInPlay.Add(card);
         hand.Remove(card);
 
         card.transform.SetParent(teethPositionUI);
+
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("sibling index of card was " + index);
+        Debug.Log("Appropriate tooth is " + (teethInPlay.Count - 1));
+        Debug.Log("Tooth model returns " + teethModels[teethInPlay.Count - 1]);
+        Debug.Log("Card mdel returns " + cardModels[index]);
 
         // Activate corresponding tooth
         switch (card.GetComponent<CardVisual>().cardData.cardColor)
@@ -114,7 +126,7 @@ public class EnemySystem : MonoBehaviour
                 break;
             case ToothColor.Red:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
-                teethModels[teethInPlay.Count -1 ].fAddTooth(1);
+                teethModels[teethInPlay.Count - 1].fAddTooth(1);
                 break;
             case ToothColor.Green:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
@@ -131,6 +143,7 @@ public class EnemySystem : MonoBehaviour
         }
 
         Invoke("DrawCard", 0.5f);
+        StopCoroutine("PlaceToothRoutine");
     }
 
     public GameObject DrawCard()

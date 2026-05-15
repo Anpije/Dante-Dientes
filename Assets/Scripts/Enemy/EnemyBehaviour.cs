@@ -19,7 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemySystem _EnSy;
     public EnemyActions _EnAc;
     CardSystem _P1Sy;
-    List<EnemySystem> _EnemySystems = new List<EnemySystem>();
+    public List<EnemySystem> _EnemySystems = new List<EnemySystem>();
 
     List<GameObject> _UselessCards = new List<GameObject>();
 
@@ -36,7 +36,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         EnemySystem[] _EnSys = FindObjectsByType<EnemySystem>(FindObjectsSortMode.None);
         for (int i = 0; i < _EnSys.Length; i++)
-            if (_EnSys[i] != this) _EnemySystems.Add(_EnSys[i]);
+            if (_EnSys[i] != _EnSy) _EnemySystems.Add(_EnSys[i]);
+
         nPlayers = _EnemySystems.Count + 1;
     }
 
@@ -75,9 +76,14 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    _EnAc.ReplaceTooth(card);
-                    Invoke("EndTurn", 0.25f);
-                    return;
+                    var uselessCard = _EnAc.ReplaceTooth(card);
+                    if (uselessCard == null)
+                    {
+                        Invoke("EndTurn", 0.25f);
+                        return;
+                    }
+                    else
+                        _UselessCards.Add(uselessCard);
                 }
             }
         }

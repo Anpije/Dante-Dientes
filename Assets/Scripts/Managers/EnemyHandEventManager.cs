@@ -43,6 +43,7 @@ public class EnemyHandEventManager : MonoBehaviour
         _HandPanel.SetActive(false);
         _TeethPanel.SetActive(false);
         _PlayerHandButton.gameObject.SetActive(true);
+        _PlayerHandButton.interactable = true;
         for (int i = 0; i < 3; i++)
         {
             if (_EnemySystems[i].gameObject.activeSelf)
