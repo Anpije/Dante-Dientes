@@ -507,135 +507,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78128777}
   m_Mesh: {fileID: 7153915937943598391, guid: 70589fea8439e1a4d95b07f39bef22d8, type: 3}
---- !u!1 &99530313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 99530316}
-  - component: {fileID: 99530315}
-  - component: {fileID: 99530314}
-  m_Layer: 0
-  m_Name: ShieldVFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!73398921 &99530314
-VFXRenderer:
-  serializedVersion: 1
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99530313}
-  m_Enabled: 0
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!2083052967 &99530315
-VisualEffect:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99530313}
-  m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: da8cd805a2e5cd1468e4898cac972dba, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
-  m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
-  m_AllowInstancing: 1
-  m_ResourceVersion: 1
-  m_PropertySheet:
-    m_Float:
-      m_Array:
-      - m_Value: 0.812
-        m_Name: ShieldIntensity
-        m_Overridden: 1
-      - m_Value: 0.2
-        m_Name: ShieldRadius
-        m_Overridden: 1
-    m_Vector2f:
-      m_Array: []
-    m_Vector3f:
-      m_Array: []
-    m_Vector4f:
-      m_Array:
-      - m_Value: {x: 0.0043609855, y: 0.051176682, z: 0.13207549, w: 1}
-        m_Name: ShieldColor
-        m_Overridden: 1
-    m_Uint:
-      m_Array: []
-    m_Int:
-      m_Array: []
-    m_Matrix4x4f:
-      m_Array: []
-    m_AnimationCurve:
-      m_Array: []
-    m_Gradient:
-      m_Array: []
-    m_NamedObject:
-      m_Array: []
-    m_Bool:
-      m_Array:
-      - m_Value: 1
-        m_Name: ShieldActive
-        m_Overridden: 1
---- !u!4 &99530316
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99530313}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06375, y: 0, z: -0.31289}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &107076640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1246,6 +1117,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1644484861}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1690,6 +1605,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1975284210}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1855,6 +1814,117 @@ RectTransform:
   m_AnchoredPosition: {x: -362, y: 129}
   m_SizeDelta: {x: 158, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &389585030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389585034}
+  - component: {fileID: 389585033}
+  - component: {fileID: 389585032}
+  - component: {fileID: 389585031}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &389585031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389585030}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &389585032
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389585030}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &389585033
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389585030}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &389585034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389585030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 922.6068, y: 846.25616, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &402514466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1870,7 +1940,11 @@ PrefabInstance:
     - target: {fileID: 83774784809168319, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+      objectReference: {fileID: 2100000, guid: b996790f2e087444a8dc0cf254b44dfb, type: 2}
+    - target: {fileID: 83774784809168319, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b996790f2e087444a8dc0cf254b44dfb, type: 2}
     - target: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1485
@@ -1919,6 +1993,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2053562296}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2349,117 +2467,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &523463584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 523463585}
-  - component: {fileID: 523463588}
-  - component: {fileID: 523463587}
-  - component: {fileID: 523463586}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &523463585
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523463584}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0013, y: 0.0581, z: 0.0001}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1549589014}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &523463586
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523463584}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &523463587
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523463584}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 47a0e86e673799b41b21e365b566ec3b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &523463588
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523463584}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &564472489
 GameObject:
   m_ObjectHideFlags: 0
@@ -3939,6 +3946,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1752121357}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5663,6 +5714,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 753450582}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5989,6 +6084,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 849175553}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6226,6 +6365,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1107840292}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6569,10 +6752,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldToothObject (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 2039340386}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7217,7 +7448,7 @@ PrefabInstance:
     - target: {fileID: 83774784809168319, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+      objectReference: {fileID: 2100000, guid: 3af91435c10f3b84da2a28f31b09e899, type: 2}
     - target: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.054
@@ -7262,16 +7493,61 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldToothObject (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 896296585}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1463018430701879851, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 523463585}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
 --- !u!4 &1549589014 stripped
@@ -7342,10 +7618,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldToothObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5033310060300203433, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 984603561}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8163,6 +8487,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1674256054}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8329,6 +8697,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1542352401}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8647,6 +9059,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1234381378}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8724,6 +9180,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1035680612}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9010,6 +9510,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 303672324}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9586,6 +10130,50 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2127202058}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ShieldQuad
+      value: 
+      objectReference: {fileID: 5825203123251342025, guid: 3c6acfb4172460b42a39b48ef12a6b11, type: 3}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 975756435}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalHeight
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _labelOffsetY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _decalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedLabel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _ProtectedCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 37839ea80cbff39498d6008f12a3f2dc, type: 2}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedLabelPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _protectedDecalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 22e12f8af479cbf4ba20c2fcda29df89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9658,8 +10246,8 @@ SceneRoots:
   - {fileID: 1377580422}
   - {fileID: 1673965395}
   - {fileID: 1798134452}
-  - {fileID: 99530316}
   - {fileID: 975756432}
   - {fileID: 638582088}
   - {fileID: 1053954163}
   - {fileID: 1529328204}
+  - {fileID: 389585034}
