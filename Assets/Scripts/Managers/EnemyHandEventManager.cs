@@ -682,4 +682,11 @@ public class EnemyHandEventManager : MonoBehaviour
 
         StopCoroutine("SwapTheCards");
     }
+
+    public void ClosePanel()
+    {
+        panelBackground.DOFade(0, 0.15f);
+        _Purpose = "";
+        _Panel.blocksRaycasts = false;
+    }
 }

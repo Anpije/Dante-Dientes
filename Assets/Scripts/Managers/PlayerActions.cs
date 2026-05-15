@@ -29,6 +29,7 @@ public class PlayerActions : MonoBehaviour
     [Header("Component References")]
     [SerializeField] private GameObject discardButton;
     [SerializeField] private GameObject drawButton;
+    [SerializeField] private GameObject returnButton;
 
     void Awake()
     { 
