@@ -1,10 +1,15 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public class MainMenuManager : MonoBehaviour
 {
     public int playerCount = 0;
+    
+    [SerializeField] Image blackScreen;
+
 
     public void SetPlayerCount(int newCount)
     {
@@ -18,9 +23,11 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator LoadGameWithSettings(int difficulty)
     {
+        blackScreen.DOFade(1, 1.5f);
+        
         EnemyDifficulty.Instance.Difficulty = (EnemyDifficulty.Difficulties)difficulty;
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(2);
 
         SceneManager.LoadScene(playerCount);
     }
