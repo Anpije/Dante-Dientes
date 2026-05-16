@@ -334,8 +334,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\t\t\t\t\t\t<size=150>Cr\xE9ditos</size>\nArte:\n\t\tJoan Martin Bernabe\n\t\tMaria
-    de los Angeles Crespo S\xE1nchez-Ca\xF1amares\n\t\tHugo Zaragoza\nProgramaci\xF3n:\n\t\tAngeleau
-    Pierre\n\t\tTim de Frias"
+    Jos\xE9 Velez Riviera\n\t\tHugo Zaragoza\nProgramaci\xF3n:\n\t\tAngeleau Pierre\n\t\tTim
+    de Frias"
 --- !u!222 &64256054
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3509,7 +3509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9634685, g: 0.9386792, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
