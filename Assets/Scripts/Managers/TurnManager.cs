@@ -7,10 +7,12 @@ using System;
 
 public class TurnManager : MonoBehaviour
 {
+    [Header("Active Players")]
     [SerializeField] private PlayerActions PlAc;
     [SerializeField] private EnemyBehaviour[] _Enemies;
     [SerializeField] private List<EnemyBehaviour> _Players = new List<EnemyBehaviour>();
 
+    [Header("Turn Information")]
     [SerializeField] public int currentTurn = 0;
     IEnumerator startTurnRoutine;
     public static Action PlayerStartTurn;
@@ -18,6 +20,11 @@ public class TurnManager : MonoBehaviour
     OnScreenAnnouncement news;
 
     [SerializeField] CanvasGroup endScreen;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxVictory;
+    [SerializeField] private AudioClip sfxFail;
 
     void OnEnable()
     {
@@ -65,7 +72,7 @@ public class TurnManager : MonoBehaviour
         if (currentTurn >= _Players.Count) currentTurn = 0;
         if (_Players[currentTurn] != null)
         {
-            news.SlideText(_Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+            news.SlideText("Turno de " + _Players[currentTurn].name, new Color(1, 0.491087f, 0f));
             yield return new WaitForSeconds(2);
             _Players[currentTurn].StartTurn();
         }
@@ -75,7 +82,7 @@ public class TurnManager : MonoBehaviour
             if (!PlAc.skipTurn)
             {
                 PlayerStartTurn?.Invoke();
-                news.SlideText("Tu Turno", new Color(0.7294118f, 0.3333333f, 0.8679245f));
+                news.SlideText("Tu Turno", Color.purple);
             }
             else
             {
@@ -83,7 +90,7 @@ public class TurnManager : MonoBehaviour
                 PlAc.skipTurn = false;
                 currentTurn++;
                 yield return new WaitForSeconds(2);
-                news.SlideText(_Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+                news.SlideText("Turno de " + _Players[currentTurn].name, new Color(1, 0.491087f, 0f));
                 yield return new WaitForSeconds(2);
                 _Players[currentTurn].StartTurn();
             }
@@ -97,16 +104,21 @@ public class TurnManager : MonoBehaviour
         if (victor)
         {
             news.SplashText("¡HAS GANADO!", Color.gold);
+            audioSource.clip = sfxVictory;
+            audioSource.Play();
             Debug.LogWarning(" Victory");
         }
         else
         {
             news.SplashText("¡HAS PERDIDO!", Color.red);
+            audioSource.clip = sfxFail;
+            audioSource.Play();
             Debug.LogWarning("FAilure");
         }
 
         StartCoroutine("EndTheGame");
     }
+
     public void CheckAllCardCounts()
     {
         Debug.Log("Checking Cards");
@@ -147,7 +159,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EndTheGame()
     {
-        endScreen.DOFade(0, 3);
+        endScreen.DOFade(1, 3);
 
         yield return new WaitForSeconds(4);
 
@@ -158,6 +170,20 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
         */
+
+        SceneManager.LoadScene(0);
+    }
+
+    public void ExitGame()
+    {
+        StartCoroutine("ExitTheGame");
+    }
+
+    IEnumerator ExitTheGame()
+    {
+        endScreen.DOFade(1, 3);
+
+        yield return new WaitForSeconds(4);
 
         SceneManager.LoadScene(0);
     }

@@ -11,6 +11,10 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Image blackScreen;
 
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxButton;
+    [SerializeField] private AudioClip sfxStartGame;
+
     public void SetPlayerCount(int newCount)
     {
         playerCount = newCount;
@@ -23,6 +27,8 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator LoadGameWithSettings(int difficulty)
     {
+        audioSource.clip = sfxStartGame;
+        audioSource.Play();
         blackScreen.DOFade(1, 1.5f);
         
         EnemyDifficulty.Instance.Difficulty = (EnemyDifficulty.Difficulties)difficulty;
@@ -35,5 +41,11 @@ public class MainMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayButtonSound()
+    {
+        audioSource.clip = sfxButton;
+        audioSource.Play();
     }
 }

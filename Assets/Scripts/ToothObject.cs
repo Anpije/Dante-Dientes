@@ -22,7 +22,7 @@ public class ToothObject : MonoBehaviour
     public int effect
     {
         get { return Effect; }
-        set { Effect = value; fAlterEffect(Effect); }
+        set { PlaySound(value); Effect = value; fAlterEffect(Effect); }
     }
 
     [Header("Stored Transforms")]
@@ -45,10 +45,16 @@ public class ToothObject : MonoBehaviour
     private DecalProjector _decalProjector;
     private GameObject _decalObject;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxShield;
+    [SerializeField] private AudioClip sfxDamage;
+
     void Awake()
     {
         _MeshFilter = GetComponent<MeshFilter>();
         _Renderer = GetComponent<Renderer>();
+        audioSource = GetComponent<AudioSource>();
 
         InitKeywords();
 
@@ -148,6 +154,20 @@ public class ToothObject : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         transform.DOMove(inPlayPos, 0.15f);
+    }
+
+    private void PlaySound(int value)
+    {
+        if (value < Effect)
+        {
+            audioSource.clip = sfxDamage;
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.clip = sfxShield;
+            audioSource.Play();
+        }
     }
 
     public void fAlterEffect(int newEffect)

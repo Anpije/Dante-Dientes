@@ -56,7 +56,7 @@ Material:
     - _DmgSpeed: 3
     - _PROTECTED: 0
     - _PULSING: 0
-    - _Power: 1.49
+    - _Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ShieldRim: 3

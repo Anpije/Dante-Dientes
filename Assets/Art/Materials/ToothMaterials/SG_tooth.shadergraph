@@ -1610,7 +1610,7 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 1.0,
+    "m_Value": 4.949999809265137,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2262,7 +2262,7 @@
     "m_ObjectId": "41e7d34643304dbaa3b44817a47f0322",
     "m_Title": "Protection",
     "m_Position": {
-        "x": -1703.0,
+        "x": -1703.0001220703125,
         "y": 597.0
     }
 }
@@ -3690,8 +3690,8 @@
     "m_ObjectId": "7a8ffa65289f4a05997233201858b312",
     "m_Title": "Damage",
     "m_Position": {
-        "x": -3491.0,
-        "y": -4293.0
+        "x": -3491.000244140625,
+        "y": -4293.00048828125
     }
 }
 
@@ -5342,8 +5342,8 @@
     "m_ObjectId": "cf465f3eaab1499a9fb4460eb0989a5b",
     "m_Title": "Base color tooth + Damage",
     "m_Position": {
-        "x": -1267.0,
-        "y": -523.0
+        "x": -1267.0001220703125,
+        "y": -523.0000610351563
     }
 }
 

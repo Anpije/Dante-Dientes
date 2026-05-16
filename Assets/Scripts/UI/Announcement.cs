@@ -30,7 +30,7 @@ public class Announcement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         announcement.DOFade(1, 0.25f);
 
-        Invoke("VanishText", 3);
+        Invoke("VanishText", 1.5f);
         StopCoroutine("SplashTheText");
     }
 
@@ -48,7 +48,7 @@ public class Announcement : MonoBehaviour
 
         rectTransform.DOMove(defaultPos, 0.25f);
 
-        Invoke("SlideOutText", 2);
+        Invoke("SlideOutText", 1.5f);
     }
 
     private void SlideOutText()
