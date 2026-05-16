@@ -110,6 +110,9 @@ public class EnemyActions : MonoBehaviour
                     toothToSwap = _EnSystem.teethInPlay[i];
             }
 
+            if (toothToSwap == null)
+                return newTooth;
+
             if (toothToSwap.GetComponent<CardFunctionByHolder>().toothProtection >= 0)
                 return newTooth;
 

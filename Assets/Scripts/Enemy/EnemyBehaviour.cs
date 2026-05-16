@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine.Events;
 using UnityEngine;
 using System;
 
@@ -38,7 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         EnemySystem[] _EnSys = FindObjectsByType<EnemySystem>(FindObjectsSortMode.None);
         for (int i = 0; i < _EnSys.Length; i++)
-            if (_EnSys[i] != _EnSy) _EnemySystems.Add(_EnSys[i]);
+            if (_EnSys[i] != _EnSy && _EnSy.gameObject.activeSelf) _EnemySystems.Add(_EnSys[i]);
 
         nPlayers = _EnemySystems.Count + 1;
     }
@@ -116,7 +115,7 @@ public class EnemyBehaviour : MonoBehaviour
             GameObject card = _EnSy.hand[i];
             if (_EnSy.hand[i].GetComponent<CardVisual>().cardData.cardType == CardType.Harmful)
             {
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 2][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     var B = AffectPlayerTooth(_P1Sy, card.GetComponent<CardVisual>(), - 1); 
                     if (B) 

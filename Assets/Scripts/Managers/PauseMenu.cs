@@ -1,11 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CanvasGroup group;
     [SerializeField] private RectTransform panel;
+    [SerializeField] private Button[] buttons;
 
     private bool IsPaused = false;
     public bool isPaused
@@ -27,7 +29,9 @@ public class PauseMenu : MonoBehaviour
         group.interactable = true;
         group.DOFade(1, 0.15f);
         panel.DOAnchorPosX(0, 0.45f);
-        Invoke("StopTime", 1);
+        usable = true;
+        Invoke("SetButtons", 0.45f);
+        Invoke("StopTime", 0.45f);
     }
 
     private void StopTime()
@@ -37,21 +41,25 @@ public class PauseMenu : MonoBehaviour
 
     private void ClosePauseMenu()
     {
-        StartTime();
+        Time.timeScale = 1;
         panel.DOAnchorPosX(-658, 0.15f);
         group.DOFade(0, 0.45f);
         group.blocksRaycasts = false;
         group.interactable = false;
+        usable = false;
+        Invoke("SetButtons", 0.45f);
     }
 
-    private void StartTime()
+    bool usable = false;
+    private void SetButtons()
     {
-        Time.timeScale = 1;
+        buttons[0].interactable = usable;
+        buttons[1].interactable = usable;
     }
 
     public void ExitGame()
     {
-        ClosePauseMenu();
+        Time.timeScale = 1;
         FindFirstObjectByType<TurnManager>().ExitGame();
     }
 }
