@@ -16,4 +16,5 @@ MonoBehaviour:
   cardType: 0
   cardColor: 4
   cardSprite: {fileID: -746708561, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
-  description: Coloca 4 Dientes de color distinto para ganar
+  description: "Coloca 4 Dientes de color distinto para ganar. Este cuenta c\xF3mo
+    un diente de cualquier color que quieres."

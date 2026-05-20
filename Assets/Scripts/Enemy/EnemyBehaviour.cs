@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public static Action OnEndTurn;
     public static Action<bool> OnEnemyWin;
+    public static Action<CardData> OnPlayCard;
 
     public EnemySystem _EnSy;
     public EnemyActions _EnAc;
@@ -70,7 +71,8 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (_EnSy.teethInPlay.Count < 4)
                 {
-                    _EnSy.PlaceTooth(card); 
+                    _EnSy.PlaceTooth(card);
+                    OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                     Debug.Log(gameObject.name + "placed a tooth");
                     Invoke("EndTurn", 0.25f);
                     return;
@@ -80,6 +82,7 @@ public class EnemyBehaviour : MonoBehaviour
                     var uselessCard = _EnAc.ReplaceTooth(card);
                     if (uselessCard == null)
                     {
+                        OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                         Invoke("EndTurn", 0.25f);
                         return;
                     }
@@ -99,7 +102,8 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     var A = AffectTooth(_EnSy, card.GetComponent<CardVisual>(), 1); Debug.Log(gameObject.name + "protected a tooth");
                     if (A) 
-                    { 
+                    {
+                        OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                         _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         return; 
@@ -119,7 +123,8 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     var B = AffectPlayerTooth(_P1Sy, card.GetComponent<CardVisual>(), - 1); 
                     if (B) 
-                    { 
+                    {
+                        OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                         _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         Debug.Log(gameObject.name + "damaged one of your teeth"); 
@@ -131,7 +136,8 @@ public class EnemyBehaviour : MonoBehaviour
                 var A = AffectTooth(_EnemySystems[en], card.GetComponent<CardVisual>(), -1);
                 Debug.Log("Index of card was " + i);
                 if (A) 
-                { 
+                {
+                    OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                     _EnAc.Discard(card, affectedTooth); 
                     Invoke("EndTurn", 0.25f); 
                     Debug.Log(gameObject.name + "damaged an oponent's tooth"); 
@@ -142,7 +148,8 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     var B = AffectTooth(_EnemySystems[j], card.GetComponent<CardVisual>(), -1);
                     if (B) 
-                    { 
+                    {
+                        OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                         _EnAc.Discard(card, affectedTooth); 
                         Invoke("EndTurn", 0.25f); 
                         Debug.Log(gameObject.name + "damaged an oponent's tooth"); 
@@ -162,7 +169,8 @@ public class EnemyBehaviour : MonoBehaviour
                 var checkFunction = ActionByCardDescription(card.GetComponent<CardVisual>());
                 if (checkFunction) 
                 { 
-                    Debug.Log(gameObject.name + " played a " + card.GetComponent<CardVisual>().cardData.cardName); 
+                    Debug.Log(gameObject.name + " played a " + card.GetComponent<CardVisual>().cardData.cardName);
+                    OnPlayCard?.Invoke(card.GetComponent<CardVisual>().cardData);
                     _EnAc.Discard(card, affectedTooth); 
                     Invoke("EndTurn", 0.25f); 
                     return; 
@@ -259,6 +267,7 @@ public class EnemyBehaviour : MonoBehaviour
                     GameObject newCard = _P1Sy.FindMostValuable();
                     _P1Sy.hand.Remove(newCard);
                     _EnSy.hand.Add(newCard);
+                    newCard.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                     newCard.transform.SetParent(_EnSy.handPositionUI);
                     return true;
                 }
@@ -310,6 +319,8 @@ public class EnemyBehaviour : MonoBehaviour
                             _P1Sy.teethInPlay.Remove(newTooth);
                             _EnSy.teethInPlay.Add(newTooth);
                             _P1Sy.teethInPlay.Add(oldTooth);
+                            oldTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
+                            newTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                             newTooth.transform.SetParent(_EnSy.teethPositionUI);
                             newTooth.transform.SetSiblingIndex(oldIndex);
                             oldTooth.transform.SetParent(_P1Sy.teethAreaPosition);

@@ -40,7 +40,7 @@ public class CardFunctionByHolder : MonoBehaviour
 
     void EnablePlayerCards()
     {
-        if (currentHolder == Holders.Player)
+        if (currentHolder == Holders.Player || GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
         {
             GetComponentInChildren<Button>().interactable = true;
         }
@@ -52,6 +52,11 @@ public class CardFunctionByHolder : MonoBehaviour
         {
             GetComponentInChildren<Button>().interactable = false;
         }
+    }
+
+    public void DisableButton()
+    {
+        GetComponentInChildren<Button>().interactable = false;
     }
 
     public void OnCardSelected()
@@ -98,6 +103,7 @@ public class CardFunctionByHolder : MonoBehaviour
             }
         }
 
+        if (FindFirstObjectByType<TurnManager>().currentTurn != 0) return;
         CardVisual card = GetComponent<CardVisual>();
         switch (card.cardData.cardType)
         {

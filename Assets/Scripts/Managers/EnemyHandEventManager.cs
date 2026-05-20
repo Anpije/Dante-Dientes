@@ -347,6 +347,40 @@ public class EnemyHandEventManager : MonoBehaviour
             }
             plAc.EndTurn();
         }
+        else
+        {
+            if (cardsToHold == 2)
+            {
+                if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[0]))
+                {
+                    for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                    {
+                        _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                    }
+                }
+                else if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[0]))
+                {
+                    for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
+                    {
+                        _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                    }
+                }
+                else if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[1]))
+                {
+                    for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                    {
+                        _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                    }
+                }
+                else if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[1]))
+                {
+                    for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
+                    {
+                        _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                    }
+                }
+            }
+        }
     }
 
     void SelectDiscard()
@@ -692,6 +726,7 @@ public class EnemyHandEventManager : MonoBehaviour
     public void ClosePanel()
     {
         panelBackground.DOFade(0, 0.15f);
+        _Panel.DOFade(0, 0.15f);
         _Purpose = "";
         _Panel.blocksRaycasts = false;
     }

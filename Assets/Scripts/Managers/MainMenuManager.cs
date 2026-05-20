@@ -29,6 +29,7 @@ public class MainMenuManager : MonoBehaviour
     {
         audioSource.clip = sfxStartGame;
         audioSource.Play();
+        blackScreen.raycastTarget = true;
         blackScreen.DOFade(1, 1.5f);
         
         EnemyDifficulty.Instance.Difficulty = (EnemyDifficulty.Difficulties)difficulty;

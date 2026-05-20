@@ -137,6 +137,9 @@ public class PlayerActions : MonoBehaviour
         otherEn.hand.Add(cardToSwap);
         newCard.transform.SetParent(CdSy.handPosition);
         cardToSwap.transform.SetParent(otherEn.handPositionUI);
+
+        cardToSwap.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
+        newCard.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
     }
 
     public GameObject FindToothByDamage(bool inverse, CardVisual otherTooth)
