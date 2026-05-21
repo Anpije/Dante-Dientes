@@ -486,6 +486,11 @@ public class EnemyHandEventManager : MonoBehaviour
     public void DiscardSelected(GameObject card)
     {
         _Purpose = "";
+        if (player.PlAc.blockSugarCard == card)
+            player.PlAc.blockSugarCard = null;
+        if (player.PlAc.extraTimeCard == card)
+            player.PlAc.extraTimeCard = null;
+
         player.DiscardCard(card);
         player.DrawCard();
 
@@ -583,28 +588,36 @@ public class EnemyHandEventManager : MonoBehaviour
     {
         // apply effect to tooth card
         bool success = true;
-        if (effectToApply == 0)
+        if (tooth == _EnemySystems[storedIDs[0]].enBv.totalImnunityCard)
         {
-            tooth.GetComponent<CardFunctionByHolder>().toothProtection = 0;
+            success = false;
+            FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡La carta fue imune!", Color.yellow);
         }
         else
         {
-            if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || 
-                plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+            if (effectToApply == 0)
             {
-                if (_EnemySystems[storedIDs[0]].enBv.blockSugarCard == null)
-                {
-                    tooth.GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                }
-                else
-                {
-                    _EnemySystems[storedIDs[0]].DiscardCard(_EnemySystems[storedIDs[0]].enBv.blockSugarCard, null);
-                    _EnemySystems[storedIDs[0]].enBv.blockSugarCard = null;
-                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡La carta fue protegida!", Color.yellow);
-                }
+                tooth.GetComponent<CardFunctionByHolder>().toothProtection = 0;
             }
             else
-                success = false;
+            {
+                if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow ||
+                    plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
+                {
+                    if (_EnemySystems[storedIDs[0]].enBv.blockSugarCard == null)
+                    {
+                        tooth.GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                    }
+                    else
+                    {
+                        _EnemySystems[storedIDs[0]].DiscardCard(_EnemySystems[storedIDs[0]].enBv.blockSugarCard, null);
+                        _EnemySystems[storedIDs[0]].enBv.blockSugarCard = null;
+                        FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡La carta fue protegida!", Color.yellow);
+                    }
+                }
+                else
+                    success = false;
+            }
         }
         _Purpose = "";
         _Panel.DOFade(0, 0.15f);
@@ -680,7 +693,6 @@ public class EnemyHandEventManager : MonoBehaviour
         plAc.EndTurn();
     }
 
-
     public void fEchangeAllCards(EnemyActions NME, GameObject card)
     {
         StartCoroutine(SwapTheCards(NME, card));
@@ -714,7 +726,8 @@ public class EnemyHandEventManager : MonoBehaviour
                 Debug.Log(_EnemySystems[i]);
                 Debug.Log(_EnemySystems[i].hand[cardToAdd]);
                 cards.Add(_EnemySystems[i].hand[cardToAdd]);
-                cardIndexes.Add(cards[i].transform.GetSiblingIndex());
+                yield return new WaitForEndOfFrame();
+                cardIndexes.Add(_EnemySystems[i].hand[cardToAdd].transform.GetSiblingIndex());
             }
         }
 
@@ -763,9 +776,9 @@ public class EnemyHandEventManager : MonoBehaviour
             cards[1].transform.SetParent(_EnemySystems[1].handPosition);
             cards[2].transform.SetParent(_EnemySystems[2].handPosition);
 
-            _EnemySystems[0].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[1]].transform, 0.25f);
-            _EnemySystems[1].cardModels[cardIndexes[1]].fReturnFromPosition(plAc.cardModels[cardIndexes[2]].transform, 0.25f);
-            plAc.cardModels[cardIndexes[2]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.25f);
+            _EnemySystems[1].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[1]].transform, 0.25f);
+            _EnemySystems[2].cardModels[cardIndexes[1]].fReturnFromPosition(plAc.cardModels[cardIndexes[2]].transform, 0.25f);
+            plAc.cardModels[cardIndexes[2]].fReturnFromPosition(_EnemySystems[1].cardModels[cardIndexes[0]].transform, 0.25f);
 
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[2].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;

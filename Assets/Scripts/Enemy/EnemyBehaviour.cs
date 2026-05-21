@@ -1,15 +1,21 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 using System;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     // Script para crear las probabilidades de que la IA realiza cierto acción
+    [SerializeField] public Outline profileBox;
     [Range(3, 4)]
     public int nPlayers = 3;
 
-    Vector3[] targetPlayerChance = 
-        { new Vector3(25, 50, 75),       // Probabilidades según la dificultad si hay 3 jugadores en total
+    Vector3[] targetPlayerChance =
+        { new Vector3(0, 0, 0),
+          new Vector3(0, 0, 0),
+          new Vector3(0, 0, 0),
+          new Vector3(25, 50, 75),       // Probabilidades según la dificultad si hay 3 jugadores en total
           new Vector3 (16.5f, 33, 66) }; // Probabilidades según la dificultad si hay 4 jugadores en total
 
     public static Action OnEndTurn;
@@ -40,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
         for (int i = 0; i < _EnSys.Length; i++)
             if (_EnSys[i] != _EnSy && _EnSy.gameObject.activeSelf) _EnemySystems.Add(_EnSys[i]);
 
-        nPlayers = _EnemySystems.Count + 1;
+        nPlayers = _EnemySystems.Count + 2;
     }
 
     [ContextMenu("StartTurn")]
@@ -199,11 +205,11 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else { return false; }
             case "Cambio de Turno":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers][(int)EnemyDifficulty.Instance.Difficulty])
                     _P1Sy.PlAc.skipTurn = true;
                 else
                 {
-                    int en = UnityEngine.Random.Range(0, nPlayers - 3);
+                    int en = UnityEngine.Random.Range(0, _EnemySystems.Count);
                     _EnemySystems[en].enBv.skipTurn = true;
                 }
                 return true;
@@ -211,14 +217,14 @@ public class EnemyBehaviour : MonoBehaviour
                 var checkForTeeth = AffectTooth(_EnSy, card, 1);
                 if (checkForTeeth) { return true; } else return false;
             case "Revisión Sorpresa":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     _P1Sy.DiscardMostValuable();
                     return true;
                 }
                 else
                 {
-                    int en = UnityEngine.Random.Range(0, nPlayers - 3);
+                    int en = UnityEngine.Random.Range(0, _EnemySystems.Count);
                     _EnemySystems[en].enAc.DiscardMostValuable();
                     return true;
                 }
@@ -237,15 +243,16 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 return false;
             case "Intercambiar Cartas":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers][(int)EnemyDifficulty.Instance.Difficulty])
                 {
-                    int enToSwapWith = UnityEngine.Random.Range(0, 2);
+                    int enToSwapWith = UnityEngine.Random.Range(0, _EnemySystems.Count);
                     FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡" + gameObject.name + " ha forzado que cambias cartas con " + _EnemySystems[enToSwapWith].gameObject.name + "!", Color.red);
                     _P1Sy.PlAc.SwapCards(_EnemySystems[enToSwapWith]);
                     return true;
                 }
                 else
                 {
+                    Debug.Log("nPlayers = " + nPlayers);
                     if (nPlayers == 3)
                     {
                         int cardToSwap = UnityEngine.Random.Range(0, 4);
@@ -253,16 +260,18 @@ public class EnemyBehaviour : MonoBehaviour
                         _EnAc.SwapCard(_EnemySystems[0].hand[cardToSwap], _EnemySystems[0]);
                         return true;
                     }
-                    else
+                    if (nPlayers == 4)
                     {
                         int cardToSwap = UnityEngine.Random.Range(0, 4);
                         Debug.Log("Idex was " + cardToSwap);
                         _EnemySystems[0].enAc.SwapCard(_EnemySystems[1].hand[cardToSwap], _EnemySystems[1]);
                         return true;
                     }
+                    Debug.LogError("Incorrect number of players");
+                    return false;
                 }
             case "Robar Carta":
-                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                if (UnityEngine.Random.Range(0f, 100f) < targetPlayerChance[nPlayers][(int)EnemyDifficulty.Instance.Difficulty])
                 {
                     FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡" + gameObject.name + " ha robado uno de tus cartas!", Color.red);
                     GameObject newCard = _P1Sy.FindMostValuable();
@@ -274,6 +283,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("nPlayers = " + nPlayers);
                     if (nPlayers == 3)
                     {
                         EnemySystem otherEn = _EnemySystems[0];
@@ -283,9 +293,9 @@ public class EnemyBehaviour : MonoBehaviour
                         newCard.transform.SetParent(_EnSy.handPositionUI);
                         return true;
                     }
-                    else
+                    if (nPlayers == 4)
                     {
-                        int enToStealFrom = UnityEngine.Random.Range(0, 2);
+                        int enToStealFrom = UnityEngine.Random.Range(0, _EnemySystems.Count);
                         EnemySystem otherEn = _EnemySystems[enToStealFrom];
                         GameObject newCard = otherEn.enAc.FindMostValuable();
                         otherEn.hand.Remove(newCard);
@@ -293,6 +303,8 @@ public class EnemyBehaviour : MonoBehaviour
                         newCard.transform.SetParent(_EnSy.handPositionUI);
                         return true;
                     }
+                    Debug.LogError("Incorrect number of players");
+                    return false;
                 }
             case "Intercambiar Dientes":
                 int mostTeeth = 0;
@@ -307,7 +319,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 if (_P1Sy.teethInPlay.Count >= mostTeeth)
                 {
-                    if (UnityEngine.Random.Range(1, 100f) < targetPlayerChance[nPlayers - 3][(int)EnemyDifficulty.Instance.Difficulty])
+                    if (UnityEngine.Random.Range(1, 100f) < targetPlayerChance[nPlayers][(int)EnemyDifficulty.Instance.Difficulty])
                     {
                         if (mostTeeth != 0)
                         {
@@ -374,12 +386,6 @@ public class EnemyBehaviour : MonoBehaviour
                 Debug.Log("Tooth was protected by a sugar barrier");
                 NME.enAc.Discard(NME.enBv.blockSugarCard, null);
                 NME.enBv.blockSugarCard = null;
-                return true;
-            }
-
-            if (NME.enBv.totalImnunityCard != null && effectCard.cardData.cardType == CardType.Harmful)
-            {
-                Debug.Log("Tooth has total immunity for this round");
                 return true;
             }
 
@@ -604,6 +610,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (extraTimeCard == null)
         {
+            profileBox.DOFade(0, 0.15f);
             OnEndTurn?.Invoke();
             Debug.Log(gameObject.name + "'s turn has ended");
         }

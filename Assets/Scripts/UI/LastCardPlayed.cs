@@ -5,6 +5,7 @@ using DG.Tweening;
 public class LastCardPlayed : MonoBehaviour
 {
     [SerializeField] private Image image;
+    [SerializeField] private Text text;
     [SerializeField] private RectTransform rectTransform;
 
     void OnEnable()
@@ -24,6 +25,7 @@ public class LastCardPlayed : MonoBehaviour
         rectTransform.anchoredPosition = new Vector3(960, 1285, 0);
         rectTransform.rotation = Quaternion.identity;
         image.sprite = card.cardSprite;
+        text.text = card.cardName;
 
         rectTransform.DOAnchorPos(new Vector2(960, 540), 0.15f);
         rectTransform.DOLocalRotate(new Vector3(0, 0, -22.5f), 0.15f);
@@ -33,7 +35,7 @@ public class LastCardPlayed : MonoBehaviour
 
     void EndDisplayCard()
     {
-        rectTransform.DOAnchorPos(new Vector2(960, -192), 0.15f);
-        rectTransform.DOLocalRotate(new Vector3(0, 0, -180), 0.15f);
+        rectTransform.DOAnchorPos(new Vector2(960, -200), 0.15f);
+        rectTransform.DOLocalRotate(new Vector3(0, 0, -90), 0.15f);
     }
 }

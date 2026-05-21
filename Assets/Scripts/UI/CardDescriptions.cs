@@ -1,14 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class CardDescriptions : MonoBehaviour
 {
     [SerializeField] private Text[] textBoxes;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Image background;
+    [SerializeField] private GraphicRaycaster raycaster1;
+    [SerializeField] private GraphicRaycaster raycaster2;
+    [SerializeField] private EventSystem eventSystem;
 
     void OnEnable()
     {
@@ -22,9 +27,38 @@ public class CardDescriptions : MonoBehaviour
         CardVisual.OnCursorExitCard -= RemoveDescription;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
+
+        if (!IsPointerOverSpecificElement())
+            RemoveDescription();
+    }
+
+    private bool IsPointerOverSpecificElement()
+    {
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster1.Raycast(pointerData, results);
+        foreach (RaycastResult raycastResult in results)
+        {
+            if (raycastResult.gameObject.GetComponent<CardVisual>() != null)
+            {
+                return true;
+            }
+        }
+        raycaster2.Raycast(pointerData, results);
+        foreach (RaycastResult raycastResult in results)
+        {
+            if (raycastResult.gameObject.GetComponent<CardVisual>() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void DisplayDescription(CardVisual data)

@@ -74,6 +74,7 @@ public class TurnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             news.SlideText("Turno de " + _Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+            _Players[currentTurn].profileBox.DOFade(1, 0.15f);
             yield return new WaitForSeconds(2);
             _Players[currentTurn].StartTurn();
         }
@@ -92,6 +93,7 @@ public class TurnManager : MonoBehaviour
                 currentTurn++;
                 yield return new WaitForSeconds(1);
                 news.SlideText("Turno de " + _Players[currentTurn].name, new Color(1, 0.491087f, 0f));
+                _Players[currentTurn].profileBox.DOFade(1, 0.15f);
                 yield return new WaitForSeconds(2);
                 _Players[currentTurn].StartTurn();
             }
