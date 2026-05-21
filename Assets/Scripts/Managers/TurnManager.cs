@@ -158,23 +158,6 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    IEnumerator EndTheGame()
-    {
-        endScreen.DOFade(1, 3);
-
-        yield return new WaitForSeconds(4);
-
-        /*if (victory.activeSelf)
-            victory.GetComponent<Image>().DOFade(0, 1);
-        else
-            failure.GetComponent<Image>().DOFade(0, 1);
-
-        yield return new WaitForSeconds(2);
-        */
-
-        SceneManager.LoadScene(0);
-    }
-
     public void ExitGame()
     {
         StopAllCoroutines();
@@ -183,6 +166,8 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator ExitTheGame()
     {
+        yield return new WaitForSeconds(1);
+
         endScreen.DOFade(1, 3);
 
         yield return new WaitForSeconds(4);

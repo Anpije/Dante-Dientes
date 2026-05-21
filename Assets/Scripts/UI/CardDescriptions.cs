@@ -30,6 +30,7 @@ public class CardDescriptions : MonoBehaviour
     private void DisplayDescription(CardVisual data)
     {
         string desc = "";
+        string descA = "";
         if (data.cardData.cardType != CardType.Treatment)
             desc = "<b><color=" + data.cardData.cardColor.ToString() + ">" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
         else
@@ -38,7 +39,9 @@ public class CardDescriptions : MonoBehaviour
         if (data.cardData.cardColor == ToothColor.Rainbow)
             desc = "<b><color=magenta>" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
 
-        textBoxes[0].text = desc;
+        descA = data.cardData.cardName + "</b>\n" + data.cardData.description;
+
+        textBoxes[0].text = descA;
         textBoxes[1].text = desc;
         textBoxes[1].DOFade(1, 0.15f);
         background.DOFade(0.75f, 0.15f);

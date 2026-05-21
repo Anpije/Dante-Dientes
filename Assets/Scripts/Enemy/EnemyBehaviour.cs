@@ -187,6 +187,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool ActionByCardDescription(CardVisual card)
     {
+        affectedTooth = _EnSy.discardPosition;
         switch (card.cardData.cardName)
         {
             case "Immunización Total":
@@ -228,8 +229,8 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         if (_EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection > 0)
                         {
+                            affectedTooth = _EnSy.teethInPlay[i].transform;
                             _EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection++;
-                            _EnSy.teethModels[i].effect = _EnSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().toothProtection;
                             return true;
                         }
                     }
@@ -326,8 +327,10 @@ public class EnemyBehaviour : MonoBehaviour
                             oldTooth.transform.SetParent(_P1Sy.teethAreaPosition);
                             oldTooth.transform.SetSiblingIndex(newIndex);
                             _P1Sy.PlAc.teethModels[newIndex].fModifyTooth((int)oldTooth.GetComponent<CardVisual>().cardData.cardColor);
+                            oldTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _P1Sy.PlAc.teethModels[newIndex];
                             _P1Sy.PlAc.teethModels[newIndex].effect = oldTooth.GetComponent<CardFunctionByHolder>().toothProtection;
                             _EnSy.teethModels[oldIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+                            newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnSy.teethModels[oldIndex];
                             _EnSy.teethModels[oldIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
                             return true;
                         }
@@ -393,7 +396,6 @@ public class EnemyBehaviour : MonoBehaviour
                                 effectCard.cardData.cardColor == ToothColor.Rainbow)
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                                NME.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                                 affectedTooth = NME.teethModels[a].transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 return true;
@@ -409,7 +411,6 @@ public class EnemyBehaviour : MonoBehaviour
                                 effectCard.cardData.cardColor == ToothColor.Rainbow)
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                                NME.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
                                 affectedTooth = NME.teethModels[a].transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 return true;
@@ -439,14 +440,12 @@ public class EnemyBehaviour : MonoBehaviour
                 if (effectToApply == 1 || effectToApply == -1)
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                    NME.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
-                    affectedTooth = NME.teethModels[savedTooth].transform;
+                    affectedTooth = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
                 }
                 else
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
-                    NME.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
-                    affectedTooth = NME.teethModels[savedTooth].transform;
+                    affectedTooth = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
                 }
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                 return true;
@@ -487,13 +486,13 @@ public class EnemyBehaviour : MonoBehaviour
                         {
                             if (NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == effectCard.cardData.cardColor ||
                                 NME.teethInPlay[a].GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || effectCard.cardData.cardType == CardType.Treatment ||
-                                effectCard.cardData.cardColor == ToothColor.Rainbow) {
-                                    NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                                    NME.PlAc.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
-                                    affectedTooth = NME.PlAc.teethModels[a].transform;
-                                    Debug.Log(gameObject.name + "'s card has found and affected player's card");
-                                    FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
-                                    return true;
+                                effectCard.cardData.cardColor == ToothColor.Rainbow) 
+                            {
+                                NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                                affectedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
+                                Debug.LogWarning(gameObject.name + "'s card has found and affected player's card");
+                                FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
+                                return true;
                             }
                         }
                     }
@@ -506,8 +505,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 effectCard.cardData.cardColor == ToothColor.Rainbow)
                             {
                                 NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                                NME.PlAc.teethModels[a].effect = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().toothProtection;
-                                affectedTooth = NME.PlAc.teethModels[a].transform;
+                                affectedTooth = NME.teethInPlay[a].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
                                 Debug.Log(gameObject.name + "'s card has found and affected player's card");
                                 FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡Han afectado a tu diente!", Color.red);
                                 return true;
@@ -538,13 +536,11 @@ public class EnemyBehaviour : MonoBehaviour
                 if (effectToApply == 1 || effectToApply == -1)
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
-                    NME.PlAc.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
                     affectedTooth = NME.PlAc.teethModels[savedTooth].transform;
                 }
                 else
                 {
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
-                    NME.PlAc.teethModels[savedTooth].effect = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection;
                     affectedTooth = NME.PlAc.teethModels[savedTooth].transform;
                 }
                 Debug.Log(gameObject.name + "'s card has found and affected player's card");

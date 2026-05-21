@@ -25,7 +25,7 @@ public class LastCardPlayed : MonoBehaviour
         rectTransform.rotation = Quaternion.identity;
         image.sprite = card.cardSprite;
 
-        rectTransform.DOAnchorPos(new Vector2(960, 773), 0.15f);
+        rectTransform.DOAnchorPos(new Vector2(960, 540), 0.15f);
         rectTransform.DOLocalRotate(new Vector3(0, 0, -22.5f), 0.15f);
 
         Invoke("EndDisplayCard", 1.5f);

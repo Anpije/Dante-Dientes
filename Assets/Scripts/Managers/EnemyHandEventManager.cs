@@ -31,7 +31,10 @@ public class EnemyHandEventManager : MonoBehaviour
     [ContextMenu("Try")]
     public void LetsTry()
     {
-        OpenPanelAs(debugMode);
+        if (debugMode == "confusionClinica")
+            fEchangeAllCards(null, null);
+        else
+            OpenPanelAs(debugMode);
     }
 
     public void OpenPanelAs(string purpose)
@@ -287,13 +290,19 @@ public class EnemyHandEventManager : MonoBehaviour
                     _EnemySystems[enemySystID].teethInPlay.Remove(selectedCards[enemysToothID]);
                     selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
                     selectedCards[enemysToothID].transform.SetParent(teethPanels[3].transform);
+                    selectedCards[enemysToothID].transform.SetSiblingIndex(playersToothIndex);
+                    playersOldTooth.transform.SetSiblingIndex(enemysToothIndex);
                     player.teethInPlay.Add(selectedCards[enemysToothID]);
                     _Panel.DOFade(0, 0.15f);
                     _Panel.blocksRaycasts = false;
                     // Cambiar los dientes en el espacio del mundo
                     _EnemySystems[enemySystID].teethModels[enemysToothIndex].fModifyTooth((int)playersOldTooth.GetComponent<CardVisual>().cardData.cardColor);
+                    playersOldTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnemySystems[enemySystID].teethModels[enemysToothIndex];
+                    playersOldTooth.GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
                     _EnemySystems[enemySystID].teethModels[enemysToothIndex].effect = playersOldTooth.GetComponent<CardFunctionByHolder>().toothProtection;
                     plAc.teethModels[playersToothIndex].fModifyTooth((int)selectedCards[enemysToothID].GetComponent<CardVisual>().cardData.cardColor);
+                    selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().connectedTooth = plAc.teethModels[playersToothIndex];
+                    selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
                     plAc.teethModels[playersToothIndex].effect = selectedCards[enemysToothID].GetComponent<CardFunctionByHolder>().toothProtection;
                 }
                 else
@@ -314,9 +323,11 @@ public class EnemyHandEventManager : MonoBehaviour
                         selectedCards[1].transform.SetSiblingIndex(en1index);
                         // Cambiar los dientes en el espacio del mundo
                         _EnemySystems[storedIDs[0]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
+                        selectedCards[1].GetComponent<CardFunctionByHolder>().connectedTooth = _EnemySystems[storedIDs[0]].teethModels[en1index];
                         _EnemySystems[storedIDs[0]].teethModels[en1index].effect = selectedCards[1].GetComponent<CardFunctionByHolder>().toothProtection;
                         _EnemySystems[storedIDs[1]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
                         _EnemySystems[storedIDs[1]].teethModels[en2index].effect = selectedCards[0].GetComponent<CardFunctionByHolder>().toothProtection;
+                        selectedCards[0].GetComponent<CardFunctionByHolder>().connectedTooth = _EnemySystems[storedIDs[1]].teethModels[en2index];
                     }
                     else
                     {
@@ -332,9 +343,11 @@ public class EnemyHandEventManager : MonoBehaviour
                         selectedCards[0].transform.SetSiblingIndex(en1index);
                         // Cambiar los dientes en el espacio del mundo
                         _EnemySystems[storedIDs[0]].teethModels[en2index].fModifyTooth((int)selectedCards[0].GetComponent<CardVisual>().cardData.cardColor);
+                        selectedCards[0].GetComponent<CardFunctionByHolder>().connectedTooth = _EnemySystems[storedIDs[0]].teethModels[en2index];
                         _EnemySystems[storedIDs[0]].teethModels[en2index].effect = selectedCards[0].GetComponent<CardFunctionByHolder>().toothProtection;
                         _EnemySystems[storedIDs[1]].teethModels[en1index].fModifyTooth((int)selectedCards[1].GetComponent<CardVisual>().cardData.cardColor);
                         _EnemySystems[storedIDs[1]].teethModels[en1index].effect = selectedCards[1].GetComponent<CardFunctionByHolder>().toothProtection;
+                        selectedCards[1].GetComponent<CardFunctionByHolder>().connectedTooth = _EnemySystems[storedIDs[1]].teethModels[en1index];
                     }
                 }
 
@@ -351,32 +364,76 @@ public class EnemyHandEventManager : MonoBehaviour
         {
             if (cardsToHold == 2)
             {
-                if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[0]))
+                if (selectedCards.Count == 1)
                 {
-                    for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                    if (storedIDs[0] == 3)
                     {
-                        _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        if (plAc.CdSy.teethInPlay.Contains(selectedCards[0]))
+                        {
+                            for (int i = 0; i < plAc.CdSy.teethInPlay.Count; i++)
+                                plAc.CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        }
+
+                        if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[0]))
+                        {
+                            for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
+                            {
+                                _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                            }
+                        }
+                    }
+                    
+                    if (storedIDs[1] == 3)
+                    {
+                        if (plAc.CdSy.teethInPlay.Contains(selectedCards[0]))
+                        {
+                            for (int i = 0; i < plAc.CdSy.teethInPlay.Count; i++)
+                                plAc.CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        }
+
+                        if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[0]))
+                        {
+                            for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                            {
+                                _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                            }
+                        }
                     }
                 }
-                else if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[0]))
+
+                if (selectedCards.Count == 2)
                 {
-                    for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
+                    if (storedIDs[0] == 3)
                     {
-                        _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        if (plAc.CdSy.teethInPlay.Contains(selectedCards[1]))
+                        {
+                            for (int i = 0; i < plAc.CdSy.teethInPlay.Count; i++)
+                                plAc.CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        }
+
+                        if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[1]))
+                        {
+                            for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
+                            {
+                                _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                            }
+                        }
                     }
-                }
-                else if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[1]))
-                {
-                    for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                    if (storedIDs[1] == 3)
                     {
-                        _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
-                    }
-                }
-                else if (_EnemySystems[storedIDs[1]].teethInPlay.Contains(selectedCards[1]))
-                {
-                    for (int i = 0; i < _EnemySystems[storedIDs[1]].teethInPlay.Count; i++)
-                    {
-                        _EnemySystems[storedIDs[1]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        if (plAc.CdSy.teethInPlay.Contains(selectedCards[1]))
+                        {
+                            for (int i = 0; i < plAc.CdSy.teethInPlay.Count; i++)
+                                plAc.CdSy.teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                        }
+
+                        if (_EnemySystems[storedIDs[0]].teethInPlay.Contains(selectedCards[1]))
+                        {
+                            for (int i = 0; i < _EnemySystems[storedIDs[0]].teethInPlay.Count; i++)
+                            {
+                                _EnemySystems[storedIDs[0]].teethInPlay[i].GetComponent<CardFunctionByHolder>().DisableButton();
+                            }
+                        }
                     }
                 }
             }
@@ -413,6 +470,7 @@ public class EnemyHandEventManager : MonoBehaviour
         Destroy(selectedCards[0]);
 
         plAc.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = plAc.teethModels[toothIndex];
         plAc.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
 
         player.hand.Remove(newTooth);
@@ -521,14 +579,13 @@ public class EnemyHandEventManager : MonoBehaviour
         }
     }
 
-    public void fApplyEffectToTooth(CardVisual tooth, int toothID)
+    public void fApplyEffectToTooth(CardVisual tooth)
     {
         // apply effect to tooth card
         bool success = true;
         if (effectToApply == 0)
         {
-            _EnemySystems[storedIDs[0]].teethModels[toothID].effect = 0;
-            _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection = 0;
+            tooth.GetComponent<CardFunctionByHolder>().toothProtection = 0;
         }
         else
         {
@@ -537,8 +594,7 @@ public class EnemyHandEventManager : MonoBehaviour
             {
                 if (_EnemySystems[storedIDs[0]].enBv.blockSugarCard == null)
                 {
-                    _EnemySystems[storedIDs[0]].teethModels[toothID].effect += effectToApply;
-                    _EnemySystems[storedIDs[0]].teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                    tooth.GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
                 }
                 else
                 {
@@ -561,21 +617,19 @@ public class EnemyHandEventManager : MonoBehaviour
         plAc.playedCard = null;
     }
 
-    public void fApplyEffectToPlayer(CardVisual tooth, int toothID)
+    public void fApplyEffectToPlayer(CardVisual tooth)
     {
         bool success = true;
         if (effectToApply == 0)
         {
-            plAc.teethModels[toothID].effect = 0;
-            player.teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection = 0;
+            tooth.GetComponent<CardFunctionByHolder>().toothProtection = 0;
         }
         else
         {
             if (tooth.cardData.cardColor == plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor || tooth.cardData.cardColor == ToothColor.Rainbow || 
                 plAc.playedCard.GetComponent<CardVisual>().cardData.cardColor == ToothColor.Rainbow || plAc.playedCard.GetComponent<CardVisual>().cardData.cardType == CardType.Treatment)
             {
-                plAc.teethModels[toothID].effect += effectToApply;
-                player.teethInPlay[toothID].GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
+                tooth.GetComponent<CardFunctionByHolder>().toothProtection += effectToApply;
             }
             else
                 success = false;
@@ -689,7 +743,7 @@ public class EnemyHandEventManager : MonoBehaviour
             _EnemySystems[0].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[1].cardModels[cardIndexes[1]].transform, 0.25f);
             _EnemySystems[1].cardModels[cardIndexes[1]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[2]].transform, 0.25f);
             _EnemySystems[2].cardModels[cardIndexes[2]].fReturnFromPosition(plAc.cardModels[cardIndexes[3]].transform, 0.25f);
-            plAc.cardModels[cardIndexes[3]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.15f);
+            plAc.cardModels[cardIndexes[3]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.25f);
 
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[3].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;
@@ -711,7 +765,7 @@ public class EnemyHandEventManager : MonoBehaviour
 
             _EnemySystems[0].cardModels[cardIndexes[0]].fReturnFromPosition(_EnemySystems[2].cardModels[cardIndexes[1]].transform, 0.25f);
             _EnemySystems[1].cardModels[cardIndexes[1]].fReturnFromPosition(plAc.cardModels[cardIndexes[2]].transform, 0.25f);
-            plAc.cardModels[cardIndexes[2]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.15f);
+            plAc.cardModels[cardIndexes[2]].fReturnFromPosition(_EnemySystems[0].cardModels[cardIndexes[0]].transform, 0.25f);
 
             cards[0].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Player;
             cards[2].GetComponent<CardFunctionByHolder>().currentHolder = CardFunctionByHolder.Holders.Enemy;

@@ -123,22 +123,27 @@ public class EnemySystem : MonoBehaviour
         {
             case ToothColor.Blue:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                card.GetComponent<CardFunctionByHolder>().connectedTooth = teethModels[teethInPlay.Count - 1];
                 teethModels[teethInPlay.Count - 1].fAddTooth(0);
                 break;
             case ToothColor.Red:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                card.GetComponent<CardFunctionByHolder>().connectedTooth = teethModels[teethInPlay.Count - 1];
                 teethModels[teethInPlay.Count - 1].fAddTooth(1);
                 break;
             case ToothColor.Green:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                card.GetComponent<CardFunctionByHolder>().connectedTooth = teethModels[teethInPlay.Count - 1];
                 teethModels[teethInPlay.Count - 1].fAddTooth(2);
                 break;
             case ToothColor.Yellow:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                card.GetComponent<CardFunctionByHolder>().connectedTooth = teethModels[teethInPlay.Count - 1];
                 teethModels[teethInPlay.Count - 1].fAddTooth(3);
                 break;
             case ToothColor.Rainbow:
                 cardModels[index].fGoToPosition(teethModels[teethInPlay.Count - 1].target, 0.25f);
+                card.GetComponent<CardFunctionByHolder>().connectedTooth = teethModels[teethInPlay.Count - 1];
                 teethModels[teethInPlay.Count - 1].fAddTooth(4);
                 break;
         }

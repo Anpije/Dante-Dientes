@@ -8,12 +8,16 @@ public class CardFunctionByHolder : MonoBehaviour
 
     [SerializeField] Text protectionDisplay;
     [SerializeField] private int ToothProtection;
+
+    public ToothObject connectedTooth;
+
     public int toothProtection
     {
         get { return ToothProtection; }
         set
         {
             ToothProtection = value;
+            connectedTooth.effect = ToothProtection;
             OnProtectionChanged();
         }
     }
@@ -40,7 +44,7 @@ public class CardFunctionByHolder : MonoBehaviour
 
     void EnablePlayerCards()
     {
-        if (currentHolder == Holders.Player || GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
+        if (currentHolder == Holders.Enemy || currentHolder == Holders.Player || GetComponent<CardVisual>().cardData.cardType == CardType.HealthyTooth)
         {
             GetComponentInChildren<Button>().interactable = true;
         }
@@ -80,10 +84,10 @@ public class CardFunctionByHolder : MonoBehaviour
                     FindFirstObjectByType<EnemyHandEventManager>().stealTheCard(gameObject);
                     return;
                 case "affectEnemyTooth":
-                    FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToTooth(gameObject.GetComponent<CardVisual>(), transform.GetSiblingIndex());
+                    FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToTooth(gameObject.GetComponent<CardVisual>());
                     return;
                 case "affectPlayerTooth":
-                    FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToPlayer(gameObject.GetComponent<CardVisual>(), transform.GetSiblingIndex());
+                    FindFirstObjectByType<EnemyHandEventManager>().fApplyEffectToPlayer(gameObject.GetComponent<CardVisual>());
                     return;
                 case "forceDiscard":
                     FindFirstObjectByType<EnemyHandEventManager>().selectedCards.Add(gameObject);
@@ -168,7 +172,7 @@ public class CardFunctionByHolder : MonoBehaviour
                 FindFirstObjectByType<EnemyHandEventManager>().OpenPanelAs("affectPlayerTooth");
                 break;
             case "Confusión Clínica":
-                FindFirstObjectByType<EnemyHandEventManager>().fEchangeAllCards(null, null);
+                FindFirstObjectByType<EnemyHandEventManager>().fEchangeAllCards(null, gameObject);
                 break;
             default:
                 Debug.LogError(gameObject.name + "'s Description is not a valid treatment");

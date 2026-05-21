@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine.UI;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyActions : MonoBehaviour
 {
@@ -48,8 +49,10 @@ public class EnemyActions : MonoBehaviour
         toothToSwap.transform.SetParent(otherEn.teethPositionUI);
         toothToSwap.transform.SetSiblingIndex(newIndex);
         _EnSystem.teethModels[oldIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+        newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnSystem.teethModels[oldIndex];
         _EnSystem.teethModels[oldIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
         otherEn.teethModels[newIndex].fModifyTooth((int)toothToSwap.GetComponent<CardVisual>().cardData.cardColor);
+        toothToSwap.GetComponent<CardFunctionByHolder>().connectedTooth = otherEn.teethModels[newIndex];
         otherEn.teethModels[newIndex].effect = toothToSwap.GetComponent<CardFunctionByHolder>().toothProtection;
     }
 
@@ -99,6 +102,7 @@ public class EnemyActions : MonoBehaviour
             Destroy(toothToSwap);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+            newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnSystem.teethModels[toothIndex];
             _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
             return null;
         }
@@ -127,6 +131,7 @@ public class EnemyActions : MonoBehaviour
             Destroy(toothToSwap);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
+            newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnSystem.teethModels[toothIndex];
             _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
 
             return null;
@@ -213,7 +218,10 @@ public class EnemyActions : MonoBehaviour
                 }
             }
         }
-        return potentialTooth;
+        if (potentialTooth == null)
+            return _EnSystem.teethInPlay[Random.Range(0, _EnSystem.teethInPlay.Count)];
+        else
+            return potentialTooth;
     }
 
     public GameObject FindMostValuable()
