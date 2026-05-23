@@ -54,7 +54,13 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (totalImnunityCard != null) totalImnunityCard = null;
         
-        if (skipTurn) { skipTurn = false; Invoke("EndTurn", 0.25f); return; }
+        if (skipTurn) 
+        {
+            FindFirstObjectByType<OnScreenAnnouncement>().SplashText("¡El turno de " + gameObject.name + " fué bloqueado!", Color.orange);
+            skipTurn = false; 
+            Invoke("EndTurn", 0.25f); 
+            return; 
+        }
 
         for (int i = 0; i < _EnSy.hand.Count; i++)
         {

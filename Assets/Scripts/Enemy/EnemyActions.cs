@@ -122,16 +122,17 @@ public class EnemyActions : MonoBehaviour
 
             int toothIndex = toothToSwap.transform.GetSiblingIndex();
 
+            ToothObject toothRef = toothToSwap.GetComponent<CardFunctionByHolder>().connectedTooth;
+
             _EnSystem.teethInPlay.Remove(toothToSwap);
             _EnSystem.teethInPlay.Add(newTooth);
             newTooth.transform.SetParent(_EnSystem.teethPositionUI);
-            toothToSwap.transform.SetAsLastSibling();
-            newTooth.transform.SetSiblingIndex(toothIndex);
             FindFirstObjectByType<CardSystem>().allCardObjects.Remove(toothToSwap);
             Destroy(toothToSwap);
+            newTooth.transform.SetSiblingIndex(toothIndex);
 
             _EnSystem.teethModels[toothIndex].fModifyTooth((int)newTooth.GetComponent<CardVisual>().cardData.cardColor);
-            newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = _EnSystem.teethModels[toothIndex];
+            newTooth.GetComponent<CardFunctionByHolder>().connectedTooth = toothRef;
             _EnSystem.teethModels[toothIndex].effect = newTooth.GetComponent<CardFunctionByHolder>().toothProtection;
 
             return null;
