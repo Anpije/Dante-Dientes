@@ -1956,6 +1956,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -1970,6 +1974,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -2581,6 +2589,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -2595,6 +2607,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -3151,6 +3167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -3165,6 +3185,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -6646,6 +6670,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -6660,6 +6688,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -7711,7 +7743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8165,7 +8197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9285,6 +9317,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -9299,6 +9335,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -10503,6 +10543,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -10517,6 +10561,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -12859,6 +12907,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -12873,6 +12925,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -13010,6 +13066,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -13024,6 +13084,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -13785,7 +13849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15290,6 +15354,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -15304,6 +15372,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -15605,6 +15677,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -15619,6 +15695,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -15820,7 +15900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3168047415391871446, guid: b59df2586998cf54bbdcf8138ba2b2e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16309,6 +16389,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -16323,6 +16407,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -17983,6 +18071,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -17997,6 +18089,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture

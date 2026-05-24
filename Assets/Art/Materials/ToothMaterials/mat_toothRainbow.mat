@@ -38,11 +38,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DAMAGE: 0
+    - _DmgRimPower: 4
+    - _DmgSpeed: 3
     - _Intensity: 11.37
+    - _PROTECTED: 0
+    - _PULSING: 0
     - _Power: 4.8
+    - _PulseSpeed: 0
+    - _PulseStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _ShieldRim: 3
+    - _ShieldSpeed: 1.5
+    m_Colors:
+    - _DamageColor: {r: 3, g: 0, b: 0, a: 1}
+    - _ShieldColor: {r: 0, g: 3.997396, b: 11.98431, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7702808628257880589

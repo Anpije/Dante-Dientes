@@ -57,6 +57,8 @@ Material:
     - _PROTECTED: 0
     - _PULSING: 0
     - _Power: 51.18
+    - _PulseSpeed: 0
+    - _PulseStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ShieldRim: 3

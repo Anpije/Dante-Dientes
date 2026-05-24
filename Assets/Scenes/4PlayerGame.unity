@@ -2191,6 +2191,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -2205,6 +2209,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -2816,6 +2824,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -2830,6 +2842,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -3307,6 +3323,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -3321,6 +3341,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -7073,6 +7097,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -7087,6 +7115,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -9511,6 +9543,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -9525,6 +9561,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -10723,6 +10763,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -10737,6 +10781,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -11365,6 +11413,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -11379,6 +11431,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -11784,6 +11840,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -11798,6 +11858,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -13216,6 +13280,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -13230,6 +13298,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -13367,6 +13439,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -13381,6 +13457,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -15645,6 +15725,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -15659,6 +15743,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -15960,6 +16048,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -15974,6 +16066,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -16581,6 +16677,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -16595,6 +16695,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -16895,6 +16999,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -16909,6 +17017,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -17326,6 +17438,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -17340,6 +17456,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture
@@ -18437,6 +18557,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975756435}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _decalHeight
       value: 0.1
       objectReference: {fileID: 0}
@@ -18451,6 +18575,10 @@ PrefabInstance:
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _ProtectedLabel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
+      propertyPath: _damageStrength
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 8052437254125751272, guid: 986d5bba4ac3bb14fa65de53376fd714, type: 3}
       propertyPath: _damagedTexture

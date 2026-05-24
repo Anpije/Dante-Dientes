@@ -42,6 +42,10 @@ public class ToothObject : MonoBehaviour
     [SerializeField] private float _labelVisibleDuration = 1.2f;
     [SerializeField] private float _labelFadeOutDuration = 0.4f;
 
+    [Header("Damage Pulse Settings")]
+    [SerializeField] private float _damageSpeed = 5f;  // velocidad del parpadeo y palpitación
+    [SerializeField] private float _damageStrength = 0.04f; // cuánto crece el diente al palpidar
+
     // Posición local inicial del Quad que se guarda en el Awake para resetear siempre al mismo punto
     private Vector3 _labelStartLocalPos;
     private Material _labelMaterial;   
@@ -90,6 +94,9 @@ public class ToothObject : MonoBehaviour
         {
             _Renderer.material.SetKeyword(_keyPulsing, false);
             _Renderer.material.SetKeyword(_keyProtected, false);
+
+            _Renderer.material.SetFloat("_PulseSpeed", 0f);
+            _Renderer.material.SetFloat("_PulseStrength", 0f);
         }
 
         // Force Field
@@ -159,6 +166,8 @@ public class ToothObject : MonoBehaviour
             // DAÑO
             if (_Renderer?.material != null)
                 _Renderer.material.SetKeyword(_keyPulsing, true);
+            _Renderer.material.SetFloat("_PulseSpeed", _damageSpeed);
+            _Renderer.material.SetFloat("_PulseStrength", _damageStrength);
 
             _labelCoroutine = StartCoroutine(ShowLabel(_damagedTexture));
         }
