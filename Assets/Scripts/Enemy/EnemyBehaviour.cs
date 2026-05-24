@@ -456,6 +456,18 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else
                 {
+                    if (effectCard.cardData.cardName == "Emergencia Dental")
+                    {
+                        if (NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection != 0)
+                        {
+                            NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
+                            affectedTooth = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
+                            Debug.Log(gameObject.name + "'s card has found and affected player's card");
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
                     NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().toothProtection *= effectToApply;
                     affectedTooth = NME.teethInPlay[savedTooth].GetComponent<CardFunctionByHolder>().connectedTooth.transform;
                 }
