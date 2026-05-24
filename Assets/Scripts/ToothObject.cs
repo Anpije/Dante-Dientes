@@ -2,10 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
-using UnityEngine.Rendering.Universal;
 
 public class ToothObject : MonoBehaviour
 {
+
     [Header("Appearance")]
     MeshFilter _MeshFilter;
     Renderer _Renderer;
@@ -22,7 +22,7 @@ public class ToothObject : MonoBehaviour
     public int effect
     {
         get { return Effect; }
-        set { PlaySound(value); Effect = value; fAlterEffect(Effect); }
+        set { Effect = value; fAlterEffect(Effect); }
     }
 
     [Header("Stored Transforms")]
@@ -30,31 +30,31 @@ public class ToothObject : MonoBehaviour
     public Vector3 outPlayPos = new Vector3();
     public Transform target;
 
-    [Header("Decal Settings")]
-    [SerializeField] private Material _protectedDecalMaterial;
-    [SerializeField] private Material _damageDecalMaterial;
-    [SerializeField] private float _decalHeight = 0.3f;
-    [SerializeField] private float _decalSize = 1f;
-
     [Header("Force Field")]
-    [SerializeField] private GameObject _forceField;
+    [SerializeField] private GameObject _forceField; 
+
+    [Header("Label Settings")]
+    [SerializeField] private GameObject _labelQuad;           
+    [SerializeField] private Texture2D _protectedTexture;    
+    [SerializeField] private Texture2D _damagedTexture;      
+    [SerializeField] private float _labelRiseAmount = 0.15f;  // cuánto sube el Quad hasta desaparecer depende que tan comorto de tiempo
+    [SerializeField] private float _labelFadeInDuration = 0.25f;
+    [SerializeField] private float _labelVisibleDuration = 1.2f;
+    [SerializeField] private float _labelFadeOutDuration = 0.4f;
+
+    // Posición local inicial del Quad que se guarda en el Awake para resetear siempre al mismo punto
+    private Vector3 _labelStartLocalPos;
+    private Material _labelMaterial;   
+    private Renderer _labelRenderer;
+    private Coroutine _labelCoroutine;
 
     private LocalKeyword _keyPulsing;
     private LocalKeyword _keyProtected;
-    private Coroutine _decalCoroutine;
-    private DecalProjector _decalProjector;
-    private GameObject _decalObject;
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip sfxShield;
-    [SerializeField] private AudioClip sfxDamage;
 
     void Awake()
     {
         _MeshFilter = GetComponent<MeshFilter>();
         _Renderer = GetComponent<Renderer>();
-        audioSource = GetComponent<AudioSource>();
 
         InitKeywords();
 
@@ -62,25 +62,18 @@ public class ToothObject : MonoBehaviour
         outPlayPos = new Vector3(transform.position.x, -0.1f, transform.position.z);
         transform.position = outPlayPos;
 
-        CreateDecalProjector();
-
+        // Force Field
         if (_forceField) _forceField.SetActive(false);
-    }
 
-    void CreateDecalProjector()
-    {
-        _decalObject = new GameObject("EffectDecal");
-        _decalObject.transform.SetParent(transform);
-        _decalObject.transform.localPosition = new Vector3(0f, _decalHeight, 0f);
-        _decalObject.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-        _decalObject.transform.localScale = Vector3.one;
-
-        _decalProjector = _decalObject.AddComponent<DecalProjector>();
-        _decalProjector.size = new Vector3(_decalSize, _decalSize, 1f);
-        _decalProjector.fadeFactor = 0f;
-        _decalProjector.drawDistance = 100f;
-
-        _decalObject.SetActive(false);
+        if (_labelQuad)
+        {
+            _labelRenderer = _labelQuad.GetComponent<Renderer>();
+            _labelMaterial = new Material(_labelRenderer.sharedMaterial);
+            _labelRenderer.material = _labelMaterial;
+            _labelStartLocalPos = _labelQuad.transform.localPosition;
+            _labelMaterial.SetFloat("_Opacity", 0f);
+            _labelQuad.SetActive(false);
+        }
     }
 
     void InitKeywords()
@@ -92,25 +85,28 @@ public class ToothObject : MonoBehaviour
 
     void ClearAllEffects()
     {
+        // Keywords del diente
         if (_Renderer?.material != null)
         {
             _Renderer.material.SetKeyword(_keyPulsing, false);
             _Renderer.material.SetKeyword(_keyProtected, false);
         }
 
-        if (_decalCoroutine != null)
-        {
-            StopCoroutine(_decalCoroutine);
-            _decalCoroutine = null;
-        }
-
-        if (_decalProjector != null)
-        {
-            _decalProjector.fadeFactor = 0f;
-            _decalObject.SetActive(false);
-        }
-
+        // Force Field
         if (_forceField) _forceField.SetActive(false);
+
+        // Label animado
+        if (_labelCoroutine != null)
+        {
+            StopCoroutine(_labelCoroutine);
+            _labelCoroutine = null;
+        }
+        if (_labelQuad)
+        {
+            _labelQuad.transform.DOKill();
+            _labelMaterial?.SetFloat("_Opacity", 0f);
+            _labelQuad.SetActive(false);
+        }
     }
 
     public void fAddTooth(int newType)
@@ -147,27 +143,11 @@ public class ToothObject : MonoBehaviour
         _Renderer.material = _Materials[toothID];
         InitKeywords();
 
-        if (Effect < 0)
-            _Renderer.material.SetKeyword(_keyPulsing, true);
-        else if (Effect > 0)
-            _Renderer.material.SetKeyword(_keyProtected, true);
+        if (Effect < 0) _Renderer.material.SetKeyword(_keyPulsing, true);
+        else if (Effect > 0) _Renderer.material.SetKeyword(_keyProtected, true);
 
         yield return new WaitForSeconds(0.05f);
         transform.DOMove(inPlayPos, 0.15f);
-    }
-
-    private void PlaySound(int value)
-    {
-        if (value < Effect)
-        {
-            audioSource.clip = sfxDamage;
-            audioSource.Play();
-        }
-        else
-        {
-            audioSource.clip = sfxShield;
-            audioSource.Play();
-        }
     }
 
     public void fAlterEffect(int newEffect)
@@ -180,7 +160,7 @@ public class ToothObject : MonoBehaviour
             if (_Renderer?.material != null)
                 _Renderer.material.SetKeyword(_keyPulsing, true);
 
-            _decalCoroutine = StartCoroutine(ShowDecal(_damageDecalMaterial));
+            _labelCoroutine = StartCoroutine(ShowLabel(_damagedTexture));
         }
         else if (newEffect > 0)
         {
@@ -188,58 +168,63 @@ public class ToothObject : MonoBehaviour
             if (_Renderer?.material != null)
                 _Renderer.material.SetKeyword(_keyProtected, true);
 
-            if (_forceField) _forceField.SetActive(true);  
+            if (_forceField) _forceField.SetActive(true);
 
-            _decalCoroutine = StartCoroutine(ShowDecal(_protectedDecalMaterial));
+            _labelCoroutine = StartCoroutine(ShowLabel(_protectedTexture));
         }
     }
 
-    IEnumerator ShowDecal(Material decalMaterial)
+    IEnumerator ShowLabel(Texture2D texture)
     {
-        if (decalMaterial == null)
-        {
-            Debug.LogWarning("Material de Decal no asignado");
+        if (_labelQuad == null || _labelMaterial == null || texture == null)
             yield break;
-        }
 
-        _decalProjector.material = decalMaterial;
-        _decalObject.SetActive(true);
+        _labelMaterial.SetTexture("_LabelTex", texture);
+        _labelMaterial.SetFloat("_Opacity", 0f);
+        _labelQuad.transform.localPosition = _labelStartLocalPos;
+        _labelQuad.SetActive(true);
 
         // Fade in
         float elapsed = 0f;
-        float fadeInDuration = 0.3f;
-        float visibleDuration = 1.5f;
-        float fadeOutDuration = 0.5f;
-
-        while (elapsed < fadeInDuration)
+        while (elapsed < _labelFadeInDuration)
         {
             elapsed += Time.deltaTime;
-            _decalProjector.fadeFactor = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
+            float t = Mathf.Clamp01(elapsed / _labelFadeInDuration);
+            _labelMaterial.SetFloat("_Opacity", t);
             yield return null;
         }
+        _labelMaterial.SetFloat("_Opacity", 1f);
 
-        _decalProjector.fadeFactor = 1f;
+        Vector3 riseTarget = _labelStartLocalPos + new Vector3(0f, _labelRiseAmount, 0f);
+        _labelQuad.transform.DOLocalMove(riseTarget, _labelVisibleDuration + _labelFadeOutDuration)
+                             .SetEase(Ease.OutQuad);
 
-        // Mantenenos visible
-        yield return new WaitForSeconds(visibleDuration);
+        yield return new WaitForSeconds(_labelVisibleDuration);
 
         // Fade out
         elapsed = 0f;
-        while (elapsed < fadeOutDuration)
+        float startOpacity = _labelMaterial.GetFloat("_Opacity");
+        while (elapsed < _labelFadeOutDuration)
         {
             elapsed += Time.deltaTime;
-            _decalProjector.fadeFactor = Mathf.Lerp(1f, 0f, elapsed / fadeOutDuration);
+            float t = Mathf.Clamp01(elapsed / _labelFadeOutDuration);
+            _labelMaterial.SetFloat("_Opacity", Mathf.Lerp(startOpacity, 0f, t));
             yield return null;
         }
 
-        _decalProjector.fadeFactor = 0f;
-        _decalObject.SetActive(false);
-        _decalCoroutine = null;
+        _labelMaterial.SetFloat("_Opacity", 0f);
+        _labelQuad.transform.DOKill();
+        _labelQuad.SetActive(false);
+        _labelCoroutine = null;
     }
 
     void OnDestroy()
     {
         ClearAllEffects();
         transform.DOKill();
+
+        // Limpiamos las instancias del material
+        if (_labelMaterial != null)
+            Destroy(_labelMaterial);
     }
 }
