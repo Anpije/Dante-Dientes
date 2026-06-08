@@ -49,4 +49,9 @@ public class MainMenuManager : MonoBehaviour
         audioSource.clip = sfxButton;
         audioSource.Play();
     }
+
+    public void OpenLink(string link)
+    {
+        Application.OpenURL(link);
+    }
 }
