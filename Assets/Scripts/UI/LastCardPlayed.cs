@@ -8,6 +8,9 @@ public class LastCardPlayed : MonoBehaviour
     [SerializeField] private Text text;
     [SerializeField] private RectTransform rectTransform;
 
+    private float scrnWdth;
+    private float scrnHght;
+
     void OnEnable()
     {
         EnemyBehaviour.OnPlayCard += DisplayCard;
@@ -22,12 +25,12 @@ public class LastCardPlayed : MonoBehaviour
     {
         DOTween.Kill(this);
 
-        rectTransform.anchoredPosition = new Vector3(960, 1285, 0);
+        rectTransform.anchoredPosition = new Vector3(scrnWdth / 2, scrnHght + (scrnHght / 3), 0);
         rectTransform.rotation = Quaternion.identity;
         image.sprite = card.cardSprite;
         text.text = card.cardName;
 
-        rectTransform.DOAnchorPos(new Vector2(960, 540), 0.15f);
+        rectTransform.DOAnchorPos(new Vector2(scrnWdth / 2, scrnHght/ 2), 0.15f);
         rectTransform.DOLocalRotate(new Vector3(0, 0, -22.5f), 0.15f);
 
         Invoke("EndDisplayCard", 1.5f);
@@ -35,7 +38,13 @@ public class LastCardPlayed : MonoBehaviour
 
     void EndDisplayCard()
     {
-        rectTransform.DOAnchorPos(new Vector2(960, -200), 0.15f);
+        rectTransform.DOAnchorPos(new Vector2(scrnWdth / 2, scrnHght / -3), 0.15f);
         rectTransform.DOLocalRotate(new Vector3(0, 0, -90), 0.15f);
+    }
+
+    void FixedUpdate()
+    {
+        scrnHght = Screen.height;
+        scrnWdth = Screen.width;
     }
 }
