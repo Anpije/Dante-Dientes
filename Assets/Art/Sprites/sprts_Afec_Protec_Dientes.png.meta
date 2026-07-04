@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,10 +113,10 @@ TextureImporter:
       name: sprt_harm_R
       rect:
         serializedVersion: 2
-        x: 59
-        y: 1070
-        width: 234
-        height: 325
+        x: 58
+        y: 1069
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,10 +135,10 @@ TextureImporter:
       name: sprt_harm_Y
       rect:
         serializedVersion: 2
-        x: 306
-        y: 1070
-        width: 234
-        height: 325
+        x: 304
+        y: 1069
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: sprt_harm_G
       rect:
         serializedVersion: 2
-        x: 553
-        y: 1070
-        width: 234
-        height: 325
+        x: 549
+        y: 1069
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,10 +179,10 @@ TextureImporter:
       name: sprt_harm_B
       rect:
         serializedVersion: 2
-        x: 800
-        y: 1071
-        width: 234
-        height: 325
+        x: 795
+        y: 1069
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,10 +201,10 @@ TextureImporter:
       name: sprt_harm_A
       rect:
         serializedVersion: 2
-        x: 1047
-        y: 1070
-        width: 234
-        height: 325
+        x: 1041
+        y: 1069
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,10 +223,10 @@ TextureImporter:
       name: sprt_prot_R
       rect:
         serializedVersion: 2
-        x: 59
-        y: 701
-        width: 234
-        height: 325
+        x: 58
+        y: 700
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,8 +247,8 @@ TextureImporter:
         serializedVersion: 2
         x: 304
         y: 700
-        width: 234
-        height: 325
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: sprt_prot_G
       rect:
         serializedVersion: 2
-        x: 551
+        x: 550
         y: 700
-        width: 234
-        height: 325
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,10 +289,10 @@ TextureImporter:
       name: sprt_prot_B
       rect:
         serializedVersion: 2
-        x: 797
-        y: 700
-        width: 234
-        height: 325
+        x: 796
+        y: 699
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,9 +312,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1042
-        y: 701
-        width: 234
-        height: 325
+        y: 700
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -333,10 +333,10 @@ TextureImporter:
       name: sprt_tuth_R
       rect:
         serializedVersion: 2
-        x: 59
-        y: 333
-        width: 234
-        height: 325
+        x: 58
+        y: 332
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,9 +356,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 304
-        y: 333
-        width: 234
-        height: 325
+        y: 332
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -377,10 +377,10 @@ TextureImporter:
       name: sprt_tuth_G
       rect:
         serializedVersion: 2
-        x: 550
+        x: 549
         y: 332
-        width: 234
-        height: 325
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,9 +400,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 796
-        y: 333
-        width: 234
-        height: 325
+        y: 332
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -421,10 +421,10 @@ TextureImporter:
       name: sprt_tuth_A
       rect:
         serializedVersion: 2
-        x: 1043
+        x: 1042
         y: 332
-        width: 234
-        height: 325
+        width: 235
+        height: 327
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
