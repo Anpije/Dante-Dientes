@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: "Da\xF1ina_Blue"
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: "Carta Da\xF1ina Azul"
+  cardName: Carta Comida Basura
   cardType: 2
   cardColor: 0
   cardSprite: {fileID: 1596696475, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
-  description: "Da\xF1a un Diente de Color Azul"
+  description: "Da\xF1a un Diente de Color Azul.\nTomar a menudo papas fritas/chips/snaks
+    salados debilita los dientes porque quedan pegados a los dientes y pueden producir
+    caries."

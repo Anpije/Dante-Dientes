@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: Protectora_Red
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Carta Protectora Rojo
+  cardName: Carta Cepillado Dental
   cardType: 1
   cardColor: 1
   cardSprite: {fileID: -685995724, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
-  description: Protege Dientes de Color Rojo
+  description: "Protege Dientes de Color Rojo.\nCepillar los dientes 2 veces al d\xEDa
+    los protege porque los mantiene limpios y evita la caries dental."

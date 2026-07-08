@@ -268,13 +268,7 @@ public class CardSystem : MonoBehaviour
         float startX = -totalWidth / 2f;
 
         for (int i = 0; i < hand.Count; i++)
-        {
             hand[i].transform.SetParent(handPosition);
-            /*GameObject card = hand[i];
-            Vector3 newPos = handPosition.position + new Vector3(startX + i * cardSpacing, 0, 0);
-            card.transform.position = newPos;*/
-
-        }
     }
 
     public int GetDeckCount()

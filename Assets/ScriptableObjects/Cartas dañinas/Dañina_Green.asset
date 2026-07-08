@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: "Da\xF1ina_Green"
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: "Carta Da\xF1ina Verde"
+  cardName: Carta Refrescos
   cardType: 2
   cardColor: 2
   cardSprite: {fileID: -1198916162, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
-  description: "Da\xF1a un Diente de Color Verde"
+  description: "Da\xF1a un Diente de Color Verde.\nTomar a menudo refrescos y zumos
+    debilita los dientes porque estas bebidas son \xE1cidas y desgastan/erosionan
+    los dientes."

@@ -13,11 +13,17 @@ public class Announcement : MonoBehaviour
     [ContextMenu("Try Splash")]
     public void DoSplash()
     {
+        float scnWdth = Screen.width;
+        float scnHeight = Screen.height;
+        defaultPos = new Vector3(scnWdth / 2, scnHeight / 2, 0);
         SplashText("Test", Color.gold);
     }
 
     public void SplashText(string newText, Color newColor)
     {
+        float scnWdth = Screen.width;
+        float scnHeight = Screen.height;
+        defaultPos = new Vector3(scnWdth / 2, scnHeight / 2, 0);
         rectTransform.position = defaultPos;
         announcement.color = new Color(newColor.r, newColor.g, newColor.b, 0);
         announcement.text = newText;
@@ -60,13 +66,5 @@ public class Announcement : MonoBehaviour
     private void DeleteThis()
     {
         Destroy(gameObject);
-    }
-
-    private void Update()
-    {
-        float scnWdth = Screen.width;
-        float scnHeight = Screen.height;
-        defaultPos = new Vector3(scnWdth / 2, scnHeight / 2, 0);
-        Debug.LogWarning("Screen Width from announcement = " + scnWdth);
     }
 }

@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f962cebc39c134a4c9712734ca527f84, type: 3}
   m_Name: Protectora_Yellow
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Carta Protectora Amarillo
+  cardName: Carta Seda Dental
   cardType: 1
   cardColor: 3
   cardSprite: {fileID: -467083200, guid: d75271d23f5494f4aa3c646f8b4945b4, type: 3}
-  description: Protege Dientes de Color Amarillo
+  description: 'Protege Dientes de Color Amarillo.
+
+    Pasar el hilo dental entre
+    los dientes los protege porque elimina restos de comida y bacterias donde el
+    cepillo no llega (y evita la caries dental).'
