@@ -5,15 +5,22 @@ using DG.Tweening;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class CardDescriptions : MonoBehaviour
 {
-    [SerializeField] private Text[] textBoxes;
+    [SerializeField] private Text textBox;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Image background;
     [SerializeField] private GraphicRaycaster raycaster1;
     [SerializeField] private GraphicRaycaster raycaster2;
     [SerializeField] private EventSystem eventSystem;
+
+    private string desc;
+    private IEnumerator currentRoutine;
+
+    [SerializeField] CardData testCardData;
+    private bool testing = true;
 
     void OnEnable()
     {
@@ -27,10 +34,16 @@ public class CardDescriptions : MonoBehaviour
         CardVisual.OnCursorExitCard -= RemoveDescription;
     }
 
+    void Start()
+    {
+        DisplayDescription(testCardData);
+    }
+
     void FixedUpdate()
     {
         rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
 
+        if (testing) return;
         if (!IsPointerOverSpecificElement())
             RemoveDescription();
     }
@@ -61,31 +74,42 @@ public class CardDescriptions : MonoBehaviour
         return false;
     }
 
-    private void DisplayDescription(CardVisual data)
+    private void DisplayDescription(CardData data)
     {
-        string desc = "";
-        string descA = "";
-        if (data.cardData.cardType != CardType.Treatment)
-            desc = "<b><color=" + data.cardData.cardColor.ToString() + ">" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
+        desc = "";
+        if (data.cardType != CardType.Treatment)
+            desc = "<b><color=" + data.cardColor.ToString() + ">" + data.cardName + "</color></b>\n" + data.description;
         else
-            desc = "<b><color=cyan>" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
+            desc = "<b><color=cyan>" + data.cardName + "</color></b>\n" + data.description;
 
-        if (data.cardData.cardColor == ToothColor.Rainbow)
-            desc = "<b><color=magenta>" + data.cardData.cardName + "</color></b>\n" + data.cardData.description;
+        if (data.cardColor == ToothColor.Rainbow)
+            desc = "<b><color=magenta>" + data.cardName + "</color></b>\n" + data.description;
 
-        descA = data.cardData.cardName + "</b>\n" + data.cardData.description;
-
-        textBoxes[0].text = descA;
-        textBoxes[1].text = desc;
-        textBoxes[1].DOFade(1, 0.15f);
+        if (textBox.text == desc) return; 
+        textBox.text = desc;
+        textBox.DOFade(1, 0.15f);
         background.DOFade(0.75f, 0.15f);
+        currentRoutine = WriteDescription();
+        StartCoroutine(currentRoutine);
+    }
+
+    IEnumerator WriteDescription()
+    {
+        textBox.text = "";
+        yield return new WaitForEndOfFrame();
+        textBox.text = desc;
+        if (testing)
+        {
+            yield return new WaitForSeconds(0.15f);
+            testing = false;
+        }
+        StopCoroutine(currentRoutine);
     }
 
     private void RemoveDescription()
     {
-        textBoxes[0].text = "";
-        textBoxes[1].text = "";
-        textBoxes[1].DOFade(0, 0.15f);
+        textBox.text = "";
+        textBox.DOFade(0, 0.15f);
         background.DOFade(0, 0.15f);
     }
 }

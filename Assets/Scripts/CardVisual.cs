@@ -12,7 +12,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     [Header("UI References")]
     private Image _Image;
 
-    public static System.Action<CardVisual> OnCursorOverCard;
+    public static System.Action<CardData> OnCursorOverCard;
     public static System.Action OnCursorExitCard;
 
     // Colores para las cartas (Más adelante se puede quitar para el arte)
@@ -55,7 +55,7 @@ public class CardVisual : MonoBehaviour, IPointerClickHandler
     {
         Transform parentCanvas = GetComponentInParent<Canvas>().gameObject.transform;
         if (visible)
-            OnCursorOverCard?.Invoke(this);
+            OnCursorOverCard?.Invoke(this.cardData);
         else
             OnCursorExitCard?.Invoke();
     }
