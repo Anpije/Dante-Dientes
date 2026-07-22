@@ -78,7 +78,20 @@ public class CardDescriptions : MonoBehaviour
     {
         desc = "";
         if (data.cardType != CardType.Treatment)
-            desc = "<b><color=" + data.cardColor.ToString() + ">" + data.cardName + "</color></b>\n" + data.description;
+        {
+            switch (data.cardColor.ToString())
+            {
+                case "Red":
+                    desc = "<b><color=#FF6753>" + data.cardName + "</color></b>\n" + data.description;
+                    break;
+                case "Green":
+                    desc = "<b><color=#00FF00>" + data.cardName + "</color></b>\n" + data.description;
+                    break;
+                default:
+                    desc = "<b><color=" + data.cardColor.ToString() + ">" + data.cardName + "</color></b>\n" + data.description;
+                    break;
+            }
+        }
         else
             desc = "<b><color=cyan>" + data.cardName + "</color></b>\n" + data.description;
 
